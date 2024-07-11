@@ -1,0 +1,17 @@
+<div class="event-header-container">
+  <mat-tab-group [selectedIndex]="selectedIndex" animationDuration="0ms" (selectedTabChange)="goToEvents($event.index)">
+    <mat-tab label="Events">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab_icon">event</mat-icon>
+        {{ 'EVENTS_VIEW.EVENTS_TOOLBAR.EVENTS_TAB' | translate }}
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab disabled label="Event Details">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab_icon">list_alt</mat-icon>
+        {{ 'EVENTS_VIEW.EVENTS_TOOLBAR.EVENTS_DETAILS_TAB' | translate }}
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

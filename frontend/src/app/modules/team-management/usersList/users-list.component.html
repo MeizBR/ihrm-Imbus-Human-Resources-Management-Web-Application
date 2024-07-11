@@ -1,0 +1,15 @@
+<div class="team-container">
+  <div>
+    <app-add-user *ngIf="addPermitted" [error]="error$ | async" [isUsersLoading]="isUsersLoading$ | async" (onAdd)="onCreate($event)"></app-add-user>
+  </div>
+  <app-list-items
+    [list]="teamList"
+    [pageSize]="(usersPageSize$ | async).size"
+    [columns]="columns"
+    [displayEditButton]="false"
+    [displayProfileButton]="true"
+    [displayedColumns]="displayedColumns"
+    (deleteAction)="onDelete($event)"
+    (pageSizeChanged)="onChangePageSize($event)"
+  ></app-list-items>
+</div>

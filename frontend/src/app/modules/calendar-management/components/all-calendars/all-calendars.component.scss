@@ -1,0 +1,96 @@
+@import '../../../../sass/mixins';
+@import '../../../../../theme/breakpoint-theme.scss';
+@import '../../../../sass/mixins';
+
+:host {
+  display: block;
+  height: 100%;
+
+  .all-calendars-card {
+    padding: 0;
+    height: 100%;
+    border-radius: 5px;
+
+    .all-calendars-card-header-text {
+      height: 4rem;
+      align-items: center;
+      background-color: #d3dddf;
+      border-radius: 5px 5px 0 0;
+
+      .all-calendars-card-title {
+        font: 20px sans-serif;
+        align-self: center;
+        color: #3a7575;
+        text-transform: capitalize;
+      }
+    }
+
+    .all-calendars-card-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
+      height: calc(100% - 4rem);
+
+      .calendars-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .calendar-details-content {
+          display: flex;
+          flex-direction: row;
+          padding: 0.75rem;
+          @extend %text-overflow;
+
+          .calendar-details {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            mat-icon {
+              margin-right: 0.5rem;
+            }
+
+            .calendar-name {
+              max-width: 7rem;
+              @extend %text-overflow;
+            }
+
+            .calendar-time-zone {
+              max-width: 8rem;
+              color: #26a69a;
+              @extend %text-overflow;
+            }
+          }
+
+          &.selected {
+            background-color: #e0f2f1;
+            outline: none !important;
+            border-radius: 4px;
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      ::ng-deep.mat-paginator-range-actions {
+        .mat-paginator-range-label {
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-xs-max-width) {
+    .all-calendars-card {
+      .all-calendars-card-content {
+        .calendar-details-content {
+          padding: 0.75rem 0.5rem !important;
+        }
+      }
+    }
+  }
+}

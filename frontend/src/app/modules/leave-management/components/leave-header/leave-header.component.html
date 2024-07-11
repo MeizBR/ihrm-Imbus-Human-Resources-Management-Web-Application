@@ -1,0 +1,17 @@
+<div class="leave-header-container">
+  <mat-tab-group [selectedIndex]="selectedIndex" animationDuration="0ms" (selectedTabChange)="goToLeaves($event.index)">
+    <mat-tab label="Leaves"
+      ><ng-template mat-tab-label>
+        <mat-icon class="tab_icon">today</mat-icon>
+        {{ 'LEAVES_VIEW.LEAVES_TOOLBAR.LEAVES_TAB' | translate }}
+      </ng-template></mat-tab
+    >
+
+    <mat-tab disabled label="Leave Details">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab_icon">list_alt</mat-icon>
+        {{ 'LEAVES_VIEW.LEAVES_TOOLBAR.LEAVES_DETAILS_TAB' | translate }}
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

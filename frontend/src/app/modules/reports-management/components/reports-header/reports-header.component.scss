@@ -1,0 +1,46 @@
+:host {
+  height: 3rem;
+  display: block;
+
+  .reports-header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    mat-tab-group {
+      width: 100%;
+
+      ::ng-deep .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+        display: none !important;
+      }
+
+      .tab_icon {
+        margin-right: 0.5rem;
+      }
+    }
+
+    .header-action {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 599px) {
+      mat-tab-group {
+        ::ng-deep .mat-tab-header {
+          display: block;
+          .mat-tab-header-pagination-chevron {
+            display: none;
+          }
+
+          .mat-tab-label {
+            padding: 0 20px;
+          }
+
+          .mat-tab-label {
+            padding: 0px 13px 0 4px;
+          }
+        }
+      }
+    }
+  }
+}

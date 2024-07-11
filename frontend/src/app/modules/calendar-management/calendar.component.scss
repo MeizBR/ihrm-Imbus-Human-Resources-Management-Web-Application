@@ -1,0 +1,23 @@
+@import '../../sass/mixins';
+
+:host {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+
+  .calendar-container {
+    height: 100%;
+
+    .calendars-wrapper {
+      overflow-y: auto;
+      @extend %set-scrollbar;
+      height: calc(100% - 3rem);
+
+      &.margin-on-top {
+        margin-top: 1rem;
+        height: calc(100% - 4.5rem) !important;
+      }
+    }
+  }
+}

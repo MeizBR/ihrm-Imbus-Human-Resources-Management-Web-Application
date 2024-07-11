@@ -1,0 +1,9 @@
+.fc-direction-ltr .fc-button-group > .fc-button {
+  background-color: #cdd0d3;
+  border-color: #cdd0d3;
+  color: black;
+}
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  margin-left: 1px !important;
+}

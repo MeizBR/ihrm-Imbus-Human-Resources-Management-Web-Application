@@ -1,0 +1,146 @@
+@import '../../../../../theme/breakpoint-theme.scss';
+@import '../../../../sass/mixins';
+
+:host {
+  height: 100%;
+  display: block;
+
+  .all-users-card {
+    padding: 0;
+    height: 100%;
+    border-radius: 5px;
+
+    .all-users-card-header-text {
+      height: 4rem;
+      align-items: center;
+      border-radius: 5px 5px 0 0;
+      background-color: #d3dddf;
+
+      .all-users-card-title {
+        font: 23px serif;
+        color: #0697a6ed;
+        text-transform: capitalize;
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .all-users-card-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
+      height: calc(100% - 4rem);
+      overflow: auto;
+      @extend %set-scrollbar;
+
+      .users-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .user-details-content {
+          display: flex;
+          flex-direction: row;
+          text-align: center;
+          padding: 0.75rem;
+          outline: none !important;
+          justify-content: space-between;
+
+          .user-avatar {
+            flex: 1;
+            width: 50% !important;
+            height: 50% !important;
+            min-width: 50px !important;
+            max-width: 50px !important;
+            min-height: 50px !important;
+            max-height: 50px !important;
+            position: relative !important;
+            background-size: cover !important;
+            background-image: url('src/assets/img/profile_img.jpg');
+          }
+
+          .user-details {
+            flex: 5;
+            display: flex;
+            align-items: center !important;
+
+            .user-information {
+              text-align: start;
+              @extend %text-overflow;
+            }
+
+            .global-role-icons {
+              display: flex;
+              justify-content: flex-end;
+
+              :last-child {
+                margin-left: 1rem;
+              }
+            }
+
+            .is-active {
+              flex: 1;
+              display: flex;
+              justify-content: flex-end;
+            }
+          }
+
+          &.selected {
+            color: #0697a6ed;
+            border-radius: 4px;
+            outline: none !important;
+            background-color: #dedede;
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &.not-active-status {
+            color: gray;
+
+            &.selected {
+              color: gray;
+              border-radius: 4px;
+              outline: none !important;
+              background-color: #e0e0e0a3;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /** 599px */
+  @media (max-width: $breakpoint-xs-max-width) {
+    ::ng-deep.mat-card-header-text {
+      margin: 0 0.5rem !important;
+    }
+
+    /** 375px*/
+    @media (max-width: $breakpoint-xs-min-width) {
+      .all-users-card {
+        .all-users-card-content {
+          padding: 0.5rem;
+
+          .user-details-content .user-details .user-information {
+            max-width: 5rem;
+          }
+        }
+      }
+    }
+  }
+
+  /** 960px 1279px*/
+  @media (min-width: $breakpoint-md-min-width) and (max-width: $breakpoint-md-max-width) {
+    .all-users-card {
+      .all-users-card-content {
+        padding: 0.5rem;
+
+        .user-details-content .user-details .user-information {
+          max-width: 5rem;
+        }
+      }
+    }
+  }
+}

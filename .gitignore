@@ -1,0 +1,70 @@
+# Ignore files specific to Scala SBT projects
+# SBT project directories
+**/target
+**/.bsp
+**/project/target/
+backend/project/project/
+
+# Generated files
+backend/*.class
+backend/*.log
+backend/*.lock
+backend/*.jar
+backend/*.war
+backend/*.ear
+backend/*.zip
+backend/*.tar.gz
+backend/*.tar.bz2
+backend/*.tar.xz
+backend/*.swp
+backend/*.bak
+backend/*.tmp
+backend/*.cache
+# Ignore IntelliJ IDEA files
+backend/.idea/
+backend/.vscode/
+backend/.metals
+backend/.bloop
+backend/target
+# backend/src/main/resources/databases.conf
+
+frontend/.idea/
+frontend/.vscode/
+frontend/.metals
+frontend/.angular
+frontend/.cspell
+frontend/.angular/
+frontend/.angular/*
+frontend/allure-results/
+frontend/allure-results/*
+
+# Ignore Eclipse files
+backend/.classpath
+backend/.project
+backend/.settings/
+
+# Ignore files specific to Angular projects
+# Node modules
+frontend/node_modules/
+# Compiled output
+frontend/dist/
+frontend/.angular/*
+frontend/*.js
+frontend/*.js.map
+# Dependency directories
+frontend/bower_components/
+
+.idea
+.vscode
+.metals
+**/.bloop
+
+database/*
+project/*
+swagger-ui/*
+scripts/*
+secrets/*
+terraform/*.tfvars
+Jenkinsfile
+*.Jenkinsfile
+*.bak

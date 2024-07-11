@@ -1,0 +1,43 @@
+<div class="add-customer-container">
+  <div *ngIf="!formVisibility" class="button-container">
+    <button class="add-customer-button" mat-raised-button data-test="create-customer" (click)="createCustomer()"><mat-icon>add</mat-icon>{{ 'CREATE' | translate }}</button>
+  </div>
+
+  <div *ngIf="formVisibility" class="add-customer mat-elevation-z1">
+    <form [formGroup]="form" fxLayout.xs="column" (submit)="onSubmit()">
+      <div class="section-container">
+        <div class="name-container">
+          <mat-form-field appearance="outline">
+            <mat-label data-test="name-label">{{ 'CUSTOMERS_VIEW.NAME' | translate }}</mat-label>
+            <input matInput required placeholder="{{ 'CUSTOMERS_VIEW.NAME' | translate }}" type="text" formControlName="name" />
+
+            <mat-hint [id]="'add-customer-name-input-error-message'" *ngIf="form.controls['name'].touched && form.controls['name'].invalid" data-test="error-msg">
+              {{ ErrorType.getErrorMessage(form.controls['name'].errors, 'Name') }}
+            </mat-hint>
+
+            <mat-hint align="end" [id]="'add-customer-name-input-counter'" class="counter" [class.error]="form.controls['name'].hasError('maxlength')">
+              {{ form.controls['name'].value.length }} / 255
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="is-active-section">
+          <mat-label data-test="is-active-label">{{ 'CUSTOMERS_VIEW.ACTIVE' | translate }}</mat-label>
+          <mat-slide-toggle color="primary" formControlName="isActive"></mat-slide-toggle>
+        </div>
+      </div>
+      <div class="description-section" fxLayout="column">
+        <mat-label class="description-label" data-test="description-label">{{ 'CUSTOMERS_VIEW.DESCRIPTION' | translate }}:</mat-label>
+        <quill-editor class="description-editor" formControlName="description" (onContentChanged)="contentChanged($event)"></quill-editor>
+        <mat-error *ngIf="form.controls['description'].invalid && ErrorType.getErrorMessage(form.controls['description'].errors, 'Description')">
+          {{ ErrorType.getErrorMessage(form.controls['description'].errors, 'Description') }}
+        </mat-error>
+      </div>
+    </form>
+    <div class="buttons-container">
+      <button class="submit-button" mat-raised-button [disabled]="form.invalid" color="primary" type="submit" data-test="add-button" (click)="onSubmit()">
+        {{ 'ADD' | translate }}
+      </button>
+      <button class="cancel-button" mat-raised-button color="warn" (click)="onClear()" data-test="cancel_button">{{ 'CANCEL' | translate }}</button>
+    </div>
+  </div>
+</div>

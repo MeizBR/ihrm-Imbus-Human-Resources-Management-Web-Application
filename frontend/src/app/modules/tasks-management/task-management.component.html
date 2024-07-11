@@ -1,0 +1,59 @@
+<!-- <div class="control-section">
+  <mat-toolbar class="toolBar">
+    <button ejs-button mat-raised-button id="addNew" class="e-dialog-add" (click)="onAddCard()">{{ 'TASKS_VIEW.ADD_NEW_CARD' | translate }}</button>
+    <button ejs-button mat-raised-button id="addNewList" class="e-dialog-add" (click)="onAddColumn()">{{ 'TASKS_VIEW.ADD_NEW_LIST' | translate }}</button>
+  </mat-toolbar>
+
+  <div class="content-wrapper">
+    <ejs-kanban
+      #kanbanObj
+      cssClass="kanban-overview"
+      keyField="Status"
+      [dataSource]="dataManager"
+      [cardSettings]="cardSettings"
+      [dialogSettings]="dialogSettings"
+      [swimlaneSettings]="swimlaneSettings"
+      enableTooltip="true"
+      (actionBegin)="onActionBegin($event)"
+    >
+      <e-columns>
+        <e-column *ngFor="let column of columns$ | async" headerText="{{ column?.headerText }}" keyField="{{ column?.keyField }}" allowToggle="{{ column?.allowToggle }}">
+          <ng-template #template let-data>
+            <div class="header-template-wrap">
+              <div class="header-icon e-icons {{ data?.keyField }}"></div>
+              <div class="header-text">{{ data?.headerText }}</div>
+            </div>
+            <div class="action-menu">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onDeleteColumn(data?.keyField)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete list</span>
+                </button>
+              </mat-menu>
+            </div>
+          </ng-template>
+        </e-column>
+      </e-columns>
+
+      <ng-template #cardSettingsTemplate let-data>
+        <app-card-task-summary [cardData]="data"></app-card-task-summary>
+      </ng-template>
+
+      <ng-template cssClass="kanban-dialog-template" #dialogSettingsTemplate let-data>
+        <app-add-task-card
+          [cardData]="data"
+          [kanban]="kanbanObj"
+          [buttons]="kanbanObj.dialogModule.dialogObj?.getButtons()"
+          [statusData]="statusData"
+          [priorityData]="PrioritySpace.getCardPriorityValues()"
+          [typeData]="CardTypeSpace.getCardTypeValues()"
+          [assigneeData]="assigneeData"
+          [projectData]="projectData"
+        ></app-add-task-card>
+      </ng-template>
+    </ejs-kanban>
+  </div>
+</div> -->

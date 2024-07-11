@@ -1,0 +1,163 @@
+// FIXME: variable to be moved to `ihrm-measurements.scss`
+$attention: red;
+$disabled: gray;
+@import '../../../../../theme/breakpoint-theme.scss';
+
+:host {
+  display: block;
+  padding: 0.5rem 1rem;
+
+  .add-customer-container {
+    display: flex;
+
+    .button-container {
+      width: 100%;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+
+    .add-customer {
+      width: 100%;
+      display: flex;
+      font-size: 1rem;
+      border-radius: 5px;
+      flex-flow: column;
+
+      form {
+        display: flex;
+        flex-flow: row wrap;
+
+        .section-container {
+          display: flex;
+          flex: 1 1 auto;
+          flex-flow: column wrap;
+          height: fit-content;
+          margin: 1.5rem 0.5rem 0 0;
+
+          .is-active-section {
+            display: flex;
+            padding: 1rem 0.5rem;
+            align-items: center;
+
+            .mat-slide-toggle {
+              margin-left: 1rem;
+            }
+          }
+
+          mat-form-field {
+            flex: 1;
+            width: 97%;
+            margin: 0.25rem 0.5rem 0 0.5rem;
+
+            ::ng-deep .mat-form-field-wrapper {
+              padding-bottom: 1.2rem !important;
+            }
+
+            ::ng-deep .mat-form-field-ripple {
+              background: blue;
+            }
+
+            &.ng-invalid.ng-touched {
+              ::ng-deep .mat-form-field-ripple {
+                background: $attention;
+              }
+            }
+
+            mat-hint {
+              &:not(.mat-right) {
+                color: $attention;
+              }
+
+              &.counter {
+                display: none;
+
+                &.error {
+                  color: $attention;
+                }
+              }
+            }
+
+            &.mat-focused {
+              .counter {
+                flex: 0 0 auto;
+                display: inline-block;
+              }
+            }
+
+            ::ng-deep .mat-placeholder-required {
+              color: $attention !important;
+            }
+          }
+        }
+
+        .description-section {
+          flex: 4;
+          display: flex;
+
+          .description-label {
+            color: black;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 18px;
+            padding: 0 0 0.25rem 0.5rem;
+          }
+
+          .description-editor {
+            padding: 0.5rem 0.5rem 0;
+            border-radius: 5% !important;
+
+            ::ng-deep .ql-container {
+              height: auto !important;
+            }
+          }
+        }
+
+        /* 599px */
+        @media (max-width: $breakpoint-xs-max-width) {
+          display: flex;
+          flex-flow: column wrap !important;
+        }
+
+        /* 600px  959px*/
+        @media (min-width: $breakpoint-sm-min-width) and (max-width: $breakpoint-sm-max-width) {
+          display: flex;
+          flex-flow: column wrap !important;
+
+          .section-container {
+            flex-flow: row wrap;
+
+            .name-container {
+              flex: inherit;
+            }
+          }
+        }
+
+        /* 960px  1279px*/
+        @media (min-width: $breakpoint-md-min-width) and (max-width: $breakpoint-md-max-width) {
+          display: flex;
+          flex-flow: column wrap !important;
+
+          .section-container {
+            flex-flow: row wrap;
+
+            .name-container {
+              flex: inherit;
+            }
+          }
+        }
+      }
+
+      .buttons-container {
+        width: 100%;
+        display: flex;
+        flex: 0 0 auto;
+        padding: 0 0 0 1rem;
+        justify-content: flex-end;
+
+        .mat-raised-button {
+          margin: 0.5rem;
+        }
+      }
+    }
+  }
+}

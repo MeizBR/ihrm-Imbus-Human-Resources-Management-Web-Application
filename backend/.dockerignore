@@ -1,0 +1,35 @@
+Dockerfile
+.git
+
+# SBT project directories
+**/target
+**/.bsp
+**/project/target/
+backend/project/project/
+
+# Generated files
+backend/*.class
+backend/*.log
+backend/*.lock
+backend/*.jar
+backend/*.war
+backend/*.ear
+backend/*.zip
+backend/*.tar.gz
+backend/*.tar.bz2
+backend/*.tar.xz
+backend/*.swp
+backend/*.bak
+backend/*.tmp
+backend/*.cache
+# Ignore IntelliJ IDEA files
+backend/.idea/
+backend/.vscode/
+backend/.metals
+./backend/target
+backend/src/main/resources/databases.conf
+
+# Ignore Eclipse files
+backend/.classpath
+backend/.project
+backend/.settings/

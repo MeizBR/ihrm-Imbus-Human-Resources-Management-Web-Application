@@ -1,0 +1,27 @@
+<div class="role-field-container">
+  <mat-form-field appearance="none">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let role of selectedValue$ | async" ngDefaultControl #matChipElement (removed)="removeRole(role)">
+        {{ role }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        *ngIf="(filteredRoles$ | async).length"
+        #roleInput
+        class="role-Input"
+        [placeholder]="'PROJECTS_VIEW.ROLES.SELECT_ROLE_PLACEHOLDER' | translate"
+        [formControl]="roleCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      />
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectedRole($event)">
+      <div *ngFor="let role of filteredRoles$ | async">
+        <mat-option [value]="role">
+          {{ role }}
+        </mat-option>
+      </div>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

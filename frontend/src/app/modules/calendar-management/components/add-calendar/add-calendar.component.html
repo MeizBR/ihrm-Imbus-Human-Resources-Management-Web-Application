@@ -1,0 +1,62 @@
+<div class="add-calendar-container">
+  <div *ngIf="!formVisibility" class="button-container">
+    <button mat-raised-button (click)="formVisibility = true"><mat-icon>add</mat-icon>Create</button>
+  </div>
+
+  <div *ngIf="formVisibility" class="add-calendar mat-elevation-z1">
+    <form [formGroup]="addCalendarForm" (submit)="onSubmit()">
+      <div class="section-container">
+        <mat-form-field appearance="outline">
+          <mat-label data-test="project_label">{{
+            projectsList && projectsList.length ? ('CALENDAR_VIEW.ADD_CALENDAR_FORM.PROJECT_NAME' | translate) : ('CALENDAR_VIEW.NO_AVAILABLE_PROJECTS' | translate)
+          }}</mat-label>
+          <mat-select disableOptionCentering formControlName="projectId">
+            <mat-option *ngFor="let project of projectsList" [value]="project.id">{{ project.name }}</mat-option>
+          </mat-select>
+          <mat-hint *ngIf="addCalendarForm.controls['projectId'].touched && addCalendarForm.controls['projectId'].invalid">
+            {{ ErrorType.getErrorMessage(addCalendarForm.controls['projectId'].errors, 'Project Name') }}
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label data-test="name_label">{{ 'CALENDAR_VIEW.ADD_CALENDAR_FORM.NAME' | translate }}</mat-label>
+          <input matInput required placeholder="{{ 'CALENDAR_VIEW.ADD_CALENDAR_FORM.NAME' | translate }}" type="text" formControlName="name" />
+
+          <mat-hint [id]="'add-calendar-name-input-error-message'" *ngIf="addCalendarForm.controls['name'].touched && addCalendarForm.controls['name'].invalid">
+            {{ ErrorType.getErrorMessage(addCalendarForm.controls['name'].errors, 'Calendar Name') }}
+          </mat-hint>
+
+          <mat-hint align="end" [id]="'add-calendar-name-input-counter'" class="counter" [class.error]="addCalendarForm.controls['name'].hasError('maxlength')">
+            {{ addCalendarForm.controls['name'].value.length }} / 255
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label data-test="time_zone_label">{{ 'CALENDAR_VIEW.ADD_CALENDAR_FORM.TIME_ZONE' | translate }}</mat-label>
+          <mat-select disableOptionCentering formControlName="timeZone">
+            <mat-option *ngFor="let timeZone of TIMEZONES" [value]="timeZone.timezone">{{ timeZone.timezone }}</mat-option>
+          </mat-select>
+          <mat-hint *ngIf="addCalendarForm.controls['timeZone'].touched && addCalendarForm.controls['timeZone'].invalid">
+            {{ ErrorType.getErrorMessage(addCalendarForm.controls['timeZone'].errors, 'timeZone') }}
+          </mat-hint>
+        </mat-form-field>
+
+        <div class="is-public-section">
+          <mat-label class="label description-label" data-test="public_label">{{ 'CALENDAR_VIEW.ADD_CALENDAR_FORM.IS_PUBLIC' | translate }}</mat-label>
+          <mat-slide-toggle color="primary" formControlName="isPublic"></mat-slide-toggle>
+        </div>
+      </div>
+      <div class="description-section" fxLayout="column">
+        <mat-label class="label description-label" data-test="description-label">{{ 'CALENDAR_VIEW.ADD_CALENDAR_FORM.DESCRIPTION' | translate }}:</mat-label>
+        <quill-editor class="description-editor" formControlName="description" (onContentChanged)="contentChanged($event)"></quill-editor>
+        <mat-error *ngIf="addCalendarForm.controls['description'].invalid && ErrorType.getErrorMessage(addCalendarForm.controls['description'].errors, 'Description')">
+          {{ ErrorType.getErrorMessage(addCalendarForm.controls['description'].errors, 'Description') }}
+        </mat-error>
+      </div>
+    </form>
+    <div class="buttons-container">
+      <button mat-raised-button class="submit-button" [disabled]="addCalendarForm.invalid" color="primary" type="submit" (click)="onSubmit()">{{ 'ADD' | translate }}</button>
+      <button mat-raised-button class="cancel-button" color="warn" (click)="close()">{{ 'CANCEL' | translate }}</button>
+    </div>
+  </div>
+</div>

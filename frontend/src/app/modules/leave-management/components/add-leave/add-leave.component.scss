@@ -1,0 +1,162 @@
+@import '../../../../../theme/breakpoint-theme.scss';
+
+$attention: red;
+
+:host {
+  display: block;
+  padding: 0.5rem 1rem;
+
+  .add-leave-container {
+    display: flex;
+
+    .button-container {
+      width: 100%;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+
+    .add-leave {
+      width: 100%;
+      display: flex;
+      font-size: 1rem;
+      flex-flow: column;
+      border-radius: 5px;
+
+      form {
+        display: flex;
+        flex-flow: row wrap;
+
+        .fields-content {
+          .section-container {
+            display: flex;
+            flex: 1 1 auto;
+            flex-wrap: wrap;
+
+            input {
+              color: black;
+            }
+
+            .start-date-field,
+            .end-date-field {
+              display: flex;
+              flex: 1;
+
+              ::ng-deep.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+                padding: 0.4em 0 0.4em 0 !important;
+              }
+
+              .start-input,
+              .end-input {
+                color: black;
+              }
+
+              :not(:last-child) {
+                margin-right: 10px;
+              }
+
+              ::ng-deep.mat-form-field-label {
+                mat-label {
+                  margin-right: 0.1rem !important;
+                }
+                .mat-placeholder-required {
+                  color: $attention !important;
+                }
+              }
+            }
+
+            mat-form-field {
+              margin: 0.25rem 0.5rem 0 0.5rem;
+              flex: 1;
+
+              ::ng-deep.mat-form-field-wrapper {
+                margin: 0.25em 0 0 0 !important;
+              }
+
+              ::ng-deep .mat-form-field-subscript-wrapper {
+                padding: 0 0.5rem !important;
+                margin: 0.5rem 0 !important;
+              }
+
+              ::ng-deep .mat-select-required {
+                ::ng-deep .mat-select-placeholder {
+                  &:after {
+                    content: ' *';
+                    color: $attention;
+                  }
+                }
+              }
+
+              mat-hint {
+                &:not(.mat-right) {
+                  color: $attention;
+                }
+
+                &.counter {
+                  display: none;
+
+                  &.error {
+                    color: $attention;
+                  }
+                }
+              }
+            }
+
+            ::ng-deep .mat-select-required[aria-invalid='true'] {
+              .mat-select-placeholder {
+                color: $attention !important;
+              }
+            }
+          }
+
+          .description-container {
+            flex: 4;
+            display: flex;
+            padding-top: 1rem;
+            flex-direction: column;
+
+            .description-label {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 18px;
+              padding: 0 0 0.25rem 0.5rem;
+
+              span {
+                opacity: 0.6;
+              }
+
+              &:after {
+                content: ' *';
+                color: red;
+              }
+            }
+
+            .description-richText-editor {
+              padding: 0.5rem 0.5rem 0;
+              border-radius: 5% !important;
+            }
+
+            mat-error {
+              margin: 0 0.5rem 0 0.5rem !important;
+            }
+          }
+        }
+
+        .buttons-content {
+          width: 100%;
+          display: flex;
+          flex: 0 0 auto;
+          padding: 0 0 0 1rem;
+          justify-content: flex-end;
+
+          .mat-raised-button {
+            margin: 0.5rem;
+          }
+        }
+      }
+
+      ::ng-deep input[aria-invalid='true']::-webkit-input-placeholder {
+        color: $attention;
+      }
+    }
+  }
+}

@@ -1,0 +1,151 @@
+:host {
+  height: 100%;
+  width: 100%;
+  display: block;
+
+  .data-container {
+    width: 60%;
+    padding: 0.5rem;
+
+    .description-field {
+      height: 2.5rem;
+      border: 1px solid transparent;
+      padding: 0.2rem;
+      width: 60%;
+
+      input {
+        padding: 0 0.5rem;
+        word-break: break-word;
+        text-overflow: ellipsis;
+      }
+
+      &:hover {
+        border-radius: 3px;
+        border: 1px solid rgb(211, 209, 209);
+      }
+    }
+
+    .current-description-field {
+      height: 2.5rem;
+      border: 1px solid transparent;
+      padding: 0.2rem;
+      flex: 3;
+    }
+
+    .project-field {
+      margin: 0 1rem;
+      width: 30%;
+
+      a {
+        display: flex;
+        cursor: pointer;
+        color: #26a69a;
+
+        &:hover {
+          color: purple;
+          text-decoration: underline purple;
+        }
+
+        .mat-icon-lens {
+          font-size: 0.8rem;
+          width: auto !important;
+          height: auto !important;
+          margin-right: 0.5rem !important;
+        }
+
+        span {
+          max-width: 5rem;
+          margin-top: 0.15rem;
+          overflow: hidden !important;
+          white-space: nowrap !important;
+          text-overflow: ellipsis !important;
+        }
+      }
+
+      .add-project {
+        display: flex;
+        color: #26a69a;
+
+        &:hover {
+          color: #26a69a;
+          text-decoration: none;
+        }
+      }
+
+      .add-circle-icon {
+        border: none;
+        margin: 0 10px;
+        color: #26a69a;
+        text-decoration: none;
+        margin-left: -5px;
+      }
+    }
+  }
+
+  .current-lens-style {
+    font-size: 0.8rem;
+    width: auto !important;
+    height: auto !important;
+    margin-right: 0.5rem !important;
+    padding-top: 6px;
+  }
+
+  .timing-container {
+    padding: 0.5rem;
+
+    .label {
+      padding: 0.5rem;
+    }
+
+    .timing-actions {
+      .delete-button {
+        min-width: 0;
+      }
+
+      .stop-button,
+      .start-button {
+        margin-left: 1rem;
+      }
+
+      .timer-button {
+        min-width: 0;
+        pointer-events: none;
+
+        .timer {
+          color: #26a69a;
+          align-self: center;
+          margin-left: 0 !important;
+        }
+      }
+    }
+
+    .timing-labels {
+      color: rgb(109, 106, 106);
+
+      .timer {
+        text-align: right;
+      }
+
+      .timer-icon {
+        margin: 0 2rem;
+        color: rgb(182, 175, 175);
+      }
+    }
+
+    .activity-buttons {
+      &.mat-raised-button {
+        border-top: 0.5px solid lightgrey;
+        border-left: 0.5px solid lightgrey;
+        border-right: 0.5px solid lightgrey;
+      }
+
+      .delete-activity-button {
+        margin: 0 !important;
+      }
+    }
+
+    ::ng-deep .mat-button-focus-overlay {
+      opacity: 0 !important;
+    }
+  }
+}

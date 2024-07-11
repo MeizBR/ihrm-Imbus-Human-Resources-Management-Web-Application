@@ -1,0 +1,71 @@
+<mat-card class="project-roles mat-elevation-z3">
+  <div class="header-text">
+    <div class="title">{{ 'PROJECTS_VIEW.ROLES.PROJECT_ROLES' | translate }}</div>
+    <div *ngIf="!projectDetails.userPermissions.canEditRole" class="lock-div">
+      <mat-icon>lock</mat-icon>
+    </div>
+  </div>
+  <mat-card-content class="card-content">
+    <div class="project-roles-container">
+      <div class="header">
+        <span class="project-name">{{ projectDetails?.name }}</span>
+      </div>
+      <div class="user-roles-list" *ngIf="list.data?.length">
+        <mat-table matSort [dataSource]="list" matSortActive="user">
+          <ng-container matColumnDef="user">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'PROJECTS_VIEW.ROLES.USER' | translate }}</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element?.user?.name }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="roles">
+            <mat-header-cell *matHeaderCellDef>{{ 'PROJECTS_VIEW.ROLES.ROLE' | translate }}</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <mat-form-field class="roles-list">
+                <mat-chip-list #chipList aria-label="List selection">
+                  <mat-chip
+                    *ngFor="let role of element?.roles"
+                    ngDefaultControl
+                    #matChipElement
+                    [selectable]="canEditRole"
+                    [removable]="isAdministrator || (role !== 'Lead' && canEditRole)"
+                    (removed)="removeRole(element, role)"
+                    >{{ role }}<mat-icon matChipRemove *ngIf="isAdministrator || (role !== 'Lead' && canEditRole)">cancel</mat-icon>
+                  </mat-chip>
+                  <input
+                    *ngIf="canEditRole && RoleSegment.getValues().length !== (element?.roles).length"
+                    #roleInput
+                    [placeholder]="'PROJECTS_VIEW.ROLES.SELECT_ROLE_PLACEHOLDER' | translate"
+                    [formControl]="roleCtrl"
+                    [matAutocomplete]="auto"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (mousedown)="opened(element?.roles)"
+                  />
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedRole($event, element)">
+                  <mat-option *ngFor="let role of filteredRoles$ | async" [value]="role">
+                    {{ role }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button *ngIf="canEditRole" mat-flat-button (click)="removeUserRole(row)">
+                <mat-icon>clear icon</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{ 'inactive-user': !row?.user?.isActive, 'inactive-project': !canEditRole }"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSize]="7" hidePageSize="true"></mat-paginator>
+      </div>
+      <app-no-items *ngIf="!list.data?.length" [message]="'PROJECTS_VIEW.ROLES.NO_ROLES'"> </app-no-items>
+    </div>
+  </mat-card-content>
+</mat-card>

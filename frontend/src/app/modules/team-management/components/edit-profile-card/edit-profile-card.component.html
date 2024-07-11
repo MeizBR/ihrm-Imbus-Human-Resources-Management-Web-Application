@@ -1,0 +1,247 @@
+<mat-card class="profile-card mat-elevation-z3">
+  <app-profile-header
+    [cardDetails]="editCardDetails"
+    [isOwnProfile]="isOwnProfile"
+    [isAdministratorConnectedUser]="isAdministratorConnectedUser"
+    (onSetRole)="setGlobalRole($event)"
+    (onDeleteUser)="deleteUser()"
+  ></app-profile-header>
+  <mat-card-content class="card-content">
+    <div class="create-user-form">
+      <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()">
+        <div class="details-input-div" fxLayout="column">
+          <div class="section-container" fxLayout.sm="column" fxLayout.xs="column">
+            <div class="first-name-div">
+              <mat-label data-test="first-name">{{ 'TEAM_VIEW.EDIT_PROFILE.FIRST_NAME' | translate }} :</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput type="text" autocomplete="off" formControlName="firstName" data-test="first-name-input" />
+                <mat-hint
+                  *ngIf="form.controls['firstName'].touched && form.controls['firstName'].invalid && ErrorType.getErrorMessage(form.controls['firstName'].errors, 'First name')"
+                  class="first-name-error-hint"
+                >
+                  {{ ErrorType.getErrorMessage(form.controls['firstName'].errors, 'First name') }}
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="last-name-div">
+              <mat-label data-test="last-name">{{ 'TEAM_VIEW.EDIT_PROFILE.LAST_NAME' | translate }} :</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput type="text" autocomplete="off" formControlName="lastName" data-test="last-name-input" />
+                <mat-hint
+                  *ngIf="form.controls['lastName'].touched && form.controls['lastName'].invalid && ErrorType.getErrorMessage(form.controls['lastName'].errors, 'Last name')"
+                  class="last-name-error-hint"
+                >
+                  {{ ErrorType.getErrorMessage(form.controls['lastName'].errors, 'Last name') }}
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <mat-slide-toggle
+              class="checkbox-input"
+              color="primary"
+              [disabled]="!isAdministratorConnectedUser"
+              formControlName="isActive"
+              data-test="is-active-toggle"
+            ></mat-slide-toggle>
+          </div>
+
+          <div class="section-container" fxLayout.sm="column" fxLayout.xs="column">
+            <div class="login-div">
+              <mat-label data-test="login">{{ 'TEAM_VIEW.EDIT_PROFILE.LOGIN' | translate }} :</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput type="text" autocomplete="off" formControlName="login" data-test="login-input" />
+                <mat-hint
+                  *ngIf="form.controls['login'].touched && form.controls['login'].invalid && ErrorType.getErrorMessage(form.controls['login'].errors, 'Login')"
+                  class="login-error-hint"
+                >
+                  {{ ErrorType.getErrorMessage(form.controls['login'].errors, 'Login') }}
+                </mat-hint>
+
+                <mat-hint *ngIf="form.controls['login'].dirty" align="end" [class.error]="form.controls['login'].hasError('maxlength')">
+                  {{ form.controls['login'].value.length }} / 255
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="email-div">
+              <mat-label data-test="email">{{ 'TEAM_VIEW.EDIT_PROFILE.EMAIL' | translate }} :</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput type="email" autocomplete="off" formControlName="email" data-test="email-input" />
+                <mat-hint
+                  [id]="'add-user-email-input-error-message'"
+                  data-cy="add-user-email-error-text"
+                  *ngIf="form.controls['email'].touched && form.controls['email'].invalid && ErrorType.getErrorMessage(form.controls['email'].errors, 'Email')"
+                  class="email-error-hint"
+                >
+                  {{ ErrorType.getErrorMessage(form.controls['email'].errors, 'Email') }}
+                </mat-hint>
+
+                <mat-hint
+                  *ngIf="form.controls['email'].dirty"
+                  align="end"
+                  [id]="'add-user-email-input-counter'"
+                  class="counter"
+                  [class.error]="form.controls['email'].hasError('maxlength')"
+                >
+                  {{ form.controls['email'].value.length }} / 255
+                </mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="section-container" fxLayout.sm="column" fxLayout.xs="column">
+            <div class="registration-number-div" *ngIf="isAdministratorConnectedUser">
+              <mat-label>{{ 'TEAM_VIEW.EDIT_PROFILE.REGISTRATION_NUMBER' | translate }} :</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput type="number" autocomplete="off" formControlName="registrationNumber" />
+                <mat-hint
+                  *ngIf="
+                    form.controls['registrationNumber'].touched &&
+                    form.controls['registrationNumber'].invalid &&
+                    ErrorType.getErrorMessage(form.controls['registrationNumber'].errors, 'Registration Number')
+                  "
+                  class="registration-number-error-hint"
+                >
+                  {{ ErrorType.getErrorMessage(form.controls['registrationNumber'].errors, 'Registration Number') }}
+
+                  <!-- NOTE: translate of hint will be fixed after merging task-82 into default -->
+                  <!-- {{
+                    ErrorType.getErrorMessage(form.controls['registrationNumber'].errors)
+                      | translate
+                        : {
+                          elementName: 'ERROR_MESSAGES.REGISTRATION_NUMBER' | translate,
+                          suffix: ''
+                          }
+                  }} -->
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="checkbox-div">
+              <mat-label>{{ 'TEAM_VIEW.EDIT_PROFILE.ACTIVE' | translate }}</mat-label>
+              <mat-slide-toggle
+                class="checkbox-input"
+                color="primary"
+                data-test="is-active-toggler"
+                [disabled]="!isAdministratorConnectedUser"
+                formControlName="isActive"
+              ></mat-slide-toggle>
+            </div>
+          </div>
+
+          <div class="section-container" fxLayout="column" fxLayoutGap="20px">
+            <mat-expansion-panel (closed)="togglePasswordFields()" (opened)="togglePasswordFields()">
+              <mat-expansion-panel-header>
+                <mat-panel-title fxLayoutAlign="end center">{{ 'TEAM_VIEW.EDIT_PROFILE.EDIT_PASSWORD' | translate }}</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="pass-div">
+                <div class="connected-password-section">
+                  <mat-form-field appearance="outline">
+                    <div class="connected-password-input">
+                      <input
+                        data-test="password"
+                        matInput
+                        type="{{ showConnectedPassword ? 'text' : 'password' }}"
+                        autocomplete="off"
+                        formControlName="connectedPassword"
+                        [placeholder]="'TEAM_VIEW.EDIT_PROFILE.CONNECTED_PASSWORD' | translate"
+                      />
+
+                      <button
+                        #connectedPassword
+                        *ngIf="form.controls['connectedPassword'].value?.length"
+                        mat-button
+                        type="button"
+                        (click)="showConnectedPassword = !showConnectedPassword"
+                      >
+                        <mat-icon>{{ showConnectedPassword ? 'visibility_off' : 'visibility' }} </mat-icon>
+                      </button>
+                    </div>
+                    <mat-hint
+                      *ngIf="form.controls['connectedPassword'].errors && ErrorType.getErrorMessage(form.controls['connectedPassword'].errors, 'Connected password')"
+                      class="connected-password-error-hint"
+                    >
+                      {{ ErrorType.getErrorMessage(form.controls['connectedPassword'].errors, 'Connected password') }}
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="new-password-section" fxLayout.sm="column" fxLayout.xs="column">
+                  <div class="new-password">
+                    <mat-form-field appearance="outline">
+                      <div class="password-input">
+                        <input
+                          data-test="new-pwd"
+                          matInput
+                          type="{{ showPassword ? 'text' : 'password' }}"
+                          autocomplete="off"
+                          formControlName="password"
+                          [placeholder]="'TEAM_VIEW.EDIT_PROFILE.NEW_PASSWORD' | translate"
+                        />
+                        <button id="password" *ngIf="form.controls['password'].value?.length" mat-button type="button" (click)="showPassword = !showPassword">
+                          <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }} </mat-icon>
+                        </button>
+                      </div>
+                      <mat-hint *ngIf="form.controls['password'].errors && ErrorType.getErrorMessage(form.controls['password'].errors, 'Password')" class="password-error-hint">
+                        {{ ErrorType.getErrorMessage(form.controls['password'].errors, 'Password') }}
+                      </mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <div class="confirm-password">
+                    <mat-form-field appearance="outline">
+                      <div class="confirm-password-input">
+                        <input
+                          data-test="confirm-pwd"
+                          matInput
+                          type="{{ showConfirmPassword ? 'text' : 'password' }}"
+                          autocomplete="off"
+                          formControlName="confirmPassword"
+                          [placeholder]="'TEAM_VIEW.EDIT_PROFILE.CONFIRM_PASSWORD' | translate"
+                        />
+                        <button
+                          id="confirm-password"
+                          *ngIf="form.controls['confirmPassword'].value?.length"
+                          mat-button
+                          type="button"
+                          (click)="showConfirmPassword = !showConfirmPassword"
+                        >
+                          <mat-icon>{{ showConfirmPassword ? 'visibility_off' : 'visibility' }} </mat-icon>
+                        </button>
+                      </div>
+                      <mat-hint
+                        *ngIf="form.controls['confirmPassword'].errors && ErrorType.getErrorMessage(form.controls['confirmPassword'].errors, 'Confirm Password')"
+                        class="confirm-password-error-hint"
+                      >
+                        {{ ErrorType.getErrorMessage(form.controls['confirmPassword'].errors, 'Confirm Password') }}
+                      </mat-hint>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </div>
+        </div>
+
+        <div class="note-richText-div">
+          <mat-label class="note-label">{{ 'TEAM_VIEW.EDIT_PROFILE.NOTE' | translate }} :</mat-label>
+          <quill-editor
+            class="note-richText-editor"
+            [placeholder]="'TEAM_VIEW.EDIT_PROFILE.PLACEHOLDER' | translate"
+            name="note"
+            formControlName="note"
+            ngDefaultControl
+            (onContentChanged)="contentChanged($event)"
+          ></quill-editor>
+          <mat-error *ngIf="form.controls['note'].errors && ErrorType.getErrorMessage(form.controls['note'].errors, 'Note')">
+            {{ ErrorType.getErrorMessage(form.controls['note'].errors, 'Note') }}
+          </mat-error>
+        </div>
+
+        <div class="actions-row">
+          <button class="save-button" mat-raised-button color="primary" type="submit" [disabled]="form.invalid || !form.dirty" data-test="save-button">
+            {{ 'SAVE' | translate }}
+          </button>
+          <button class="cancel-button" mat-raised-button color="warn" type="button" [disabled]="!form.dirty" (click)="cancelEdit()" data-test="cancel-button">
+            {{ 'CANCEL' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

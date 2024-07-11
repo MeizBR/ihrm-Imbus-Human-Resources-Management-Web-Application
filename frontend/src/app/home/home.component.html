@@ -1,0 +1,10 @@
+<div class="main-container">
+  <app-header [userSession]="userSession$ | async" (onLogOut)="logOutUser()"></app-header>
+
+  <section>
+    <app-sidebar></app-sidebar>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+</div>

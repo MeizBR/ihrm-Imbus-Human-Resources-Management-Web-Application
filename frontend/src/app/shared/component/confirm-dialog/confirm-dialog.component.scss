@@ -1,0 +1,24 @@
+.confirm-dialog-container {
+  .mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 10%;
+
+    .no-button {
+      background-color: rgba(0, 0, 0, 0.13) !important;
+      border-color: rgba(0, 0, 0, 0.13) !important;
+    }
+  }
+
+  .mat-dialog-title {
+    color: #666666;
+  }
+
+  .mat-dialog-content {
+    white-space: pre-wrap;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    text-align: center;
+    line-height: 2rem;
+    color: #464646;
+  }
+}

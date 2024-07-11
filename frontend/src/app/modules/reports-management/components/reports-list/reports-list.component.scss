@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+.activities-container {
+    margin: 10px 20px;
+    width: 95%;
+}
+
+h5 {
+    // font-family: "Dancing Script", cursive;
+    // font-optical-sizing: auto;
+    // font-style: normal;
+    color: #009688;
+    margin: 30px auto 15px auto;
+    width: 250px;
+    border: 2px solid #009688;
+    border-radius: 5px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+h5:hover {
+    color: white;
+    background-color: #009688;
+    border: 2px solid silver;
+}
+
+table {
+    width: 90%;
+    margin: auto;
+    border: 2px solid silver;
+    border-radius: 5px;
+}
+
+table th, td {
+    font-size: 18px;
+    text-align: left;
+}
+
+.array-buttons-container {
+    width: 90%;
+    margin: 40px auto 10px auto;
+}
+
+.array-buttons {
+    width: 30%;
+    padding: 5px 15px;
+    border: 2px solid silver;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.hovered {
+    background-color: #f0f0f0;
+}
+
+img {
+    width: 25px;
+    margin-right: 10px;
+}
+
+#description, #start, #end {
+    border: none;
+}
+
+#description:hover, #start:hover, #end:hover {
+    border: 2px solid silver;
+    width: 70%;
+}
+
+span {
+    font-size: 16px;
+    background-color: white;
+    color: #009688;
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    margin-left: 10px;
+    padding: 5px;
+}

@@ -1,0 +1,18 @@
+{{#models}}
+{{#model}}
+{{^parent}}{{> header}}
+{{/parent}}
+
+{{#description}}
+/**
+  * {{{description}}}
+  */
+{{/description}}
+{{#discriminator}}
+{{> trait}}
+{{/discriminator}}
+{{^discriminator}}
+{{> class}}
+{{/discriminator}}
+{{/model}}
+{{/models}}

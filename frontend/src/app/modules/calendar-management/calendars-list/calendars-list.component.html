@@ -1,0 +1,76 @@
+<div class="calendar-container">
+  <div>
+    <app-add-calendar
+      [projectsList]="projectsList$ | async"
+      [error]="error$ | async"
+      [isCalendarsLoading]="isCalendarsLoading$ | async"
+      (onAdd)="onAddCalendar($event)"
+    ></app-add-calendar>
+  </div>
+  <div class="calendars-list-container">
+    <div class="search-div">
+      <mat-form-field class="search-form-field" appearance="none" floatLabel="never">
+        <input class="search-form-input" matInput [(ngModel)]="searchKey" [placeholder]="'SEARCH' | translate" autocomplete="off" (keyup)="applyFilter()" />
+        <button *ngIf="searchKey" class="search-form-button" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="onSearchClear()">
+          <mat-icon class="search-form-button-icon">close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div class="list-container">
+      <mat-table class="calendars-table" matSort [dataSource]="list" matSortActive="name" matSortDirection="asc">
+        <ng-container class="calendar-name-column" matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear>{{ 'CALENDAR_VIEW.CALENDAR_TABLE_HEADER.CALENDAR_NAME' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span>{{ element?.name }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container class="project-column" matColumnDef="project">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear>{{ 'CALENDAR_VIEW.CALENDAR_TABLE_HEADER.PROJECT' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <ng-container>
+              <app-item-status *ngIf="element.project" [item]="element?.projectName" [isActiveItem]="element?.isActiveProject"></app-item-status>
+              <span *ngIf="!element.project">-- -- --</span>
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container class="time-zone-column" matColumnDef="timeZone">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear>{{ 'CALENDAR_VIEW.CALENDAR_TABLE_HEADER.TIMEZONE' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span>{{ element.timeZone }}</span></mat-cell
+          >
+        </ng-container>
+
+        <ng-container class="public-column" matColumnDef="isPublic">
+          <mat-header-cell *matHeaderCellDef>{{ 'CALENDAR_VIEW.CALENDAR_TABLE_HEADER.PUBLIC' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <mat-icon color="{{ element.isPrivate ? 'warn' : 'primary' }}">{{ element.isPrivate ? 'clear' : 'done' }}</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container class="noData-column" matColumnDef="noData">
+          <mat-footer-cell *matFooterCellDef colspan="6"> {{ 'NO_DATA' | translate }} </mat-footer-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+          <mat-cell *matCellDef="let row">
+            <button mat-icon-button [disabled]="!row?.userPermission?.canDelete" color="warn" (click)="onDeleteCalendar(row.id)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+            <button mat-icon-button [disabled]="!row?.userPermission?.canEdit" (click)="navigateToCalendarDetails(row.id)">
+              <mat-icon class="material-icons">description</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{ hide: !!list?.filteredData?.length }"></mat-footer-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="(calendarsPageSize$ | async).size" showFirstLastButtons (page)="updatePagination($event)"></mat-paginator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="user-header-container" data-test="user-header">
+  <mat-tab-group [selectedIndex]="selectedIndex" animationDuration="0ms" (selectedTabChange)="goToUsers($event.index)">
+    <mat-tab label="Users">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab_icon" data-test="users-icon">folder_shared</mat-icon>
+        <span data-test="users-tab">{{ 'TEAM_VIEW.USERS_TOOLBAR.USERS_TAB' | translate }}</span>
+      </ng-template></mat-tab
+    >
+
+    <mat-tab disabled label="User Details">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab_icon" data-test="users-details-icon">list_alt</mat-icon>
+        <span data-test="users-details-tab">{{ 'TEAM_VIEW.USERS_TOOLBAR.USERS_DETAILS_TAB' | translate }}</span>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

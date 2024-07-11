@@ -1,0 +1,78 @@
+<div class="project-container">
+  <mat-card class="project-card mat-elevation-z2">
+    <div class="card-header-text">
+      <div class="card-title">
+        <span>{{ 'PROJECTS_VIEW.EDIT_PROJECT.PROJECT_DETAILS' | translate }}</span>
+      </div>
+      <div class="buttons-section" fxLayoutGap="15px">
+        <mat-icon *ngIf="!projectDetails?.userPermissions.canEdit" class="lock-icon">lock</mat-icon>
+        <button *ngIf="projectDetails?.userPermissions?.canDelete" mat-icon-button color="warn" class="delete-button" (click)="deleteProject()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-card-content class="card-content">
+      <div class="edit-project-form mat-elevation-z2">
+        <form class="edit-project" [formGroup]="form" (submit)="onSubmit()">
+          <div class="edit-project-data">
+            <div class="information-section">
+              <mat-form-field appearance="outline">
+                <mat-label data-test="customer_label">{{ 'PROJECTS_VIEW.CUSTOMER_NAME' | translate }}</mat-label>
+                <mat-select disableOptionCentering formControlName="customerId">
+                  <mat-select-trigger>
+                    <app-item-status [item]="selectedCustomer?.name" [isActiveItem]="selectedCustomer?.isActive"></app-item-status>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let customer of customersList; trackBy: customerTrackFn" [value]="customer.id" [class.inactive-customer]="!customer.isActive">
+                    <app-item-status [item]="customer?.name" [isActiveItem]="customer?.isActive"></app-item-status>
+                  </mat-option>
+                </mat-select>
+                <mat-hint *ngIf="form.controls['customerId'].touched && form.controls['customerId'].invalid">
+                  {{ ErrorType.getErrorMessage(form.controls['customerId'].errors, 'customerId') }}
+                </mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label data-test="name_label">{{ 'PROJECTS_VIEW.PROJECT_NAME' | translate }}</mat-label>
+                <input matInput type="text" formControlName="name" placeholder="{{ 'PROJECTS_VIEW.PROJECT_NAME' | translate }}" />
+                <mat-hint [id]="'project-name-input-error-message'" class="name-error-hint" *ngIf="form.controls['name'].touched && form.controls['name'].invalid">
+                  {{ ErrorType.getErrorMessage(form.controls['name'].errors, 'Project Name') }}
+                </mat-hint>
+
+                <mat-hint align="end" [id]="'project-name-input-counter'" class="counter" [class.error]="form.controls['name'].hasError('maxlength')">
+                  {{ form.controls['name'].value.length }} / 255
+                </mat-hint>
+              </mat-form-field>
+
+              <div [class.disabled-is_active-field]="!projectDetails?.userPermissions.canEdit" class="is-active-section">
+                <mat-label data-test="is_active_label">{{ 'PROJECTS_VIEW.ACTIVE' | translate }}</mat-label>
+                <mat-slide-toggle [disabled]="!projectDetails?.userPermissions.canEdit" color="primary" formControlName="isActive"></mat-slide-toggle>
+              </div>
+            </div>
+
+            <div class="description-section" fxLayout="column">
+              <mat-label class="description-label" data-test="description-label">{{ 'PROJECTS_VIEW.DESCRIPTION' | translate }}:</mat-label>
+              <quill-editor
+                [readOnly]="!projectDetails?.userPermissions.canEdit"
+                [class.disabled-description-field]="!projectDetails?.userPermissions.canEdit"
+                class="description-editor"
+                formControlName="description"
+                ngDefaultControl
+                data-test="description-text-edit"
+                (onContentChanged)="contentChanged($event)"
+              ></quill-editor>
+              <mat-error *ngIf="form.controls['description'].invalid && ErrorType.getErrorMessage(form.controls['description'].errors, 'Description')">
+                {{ ErrorType.getErrorMessage(form.controls['description'].errors, 'Description') }}
+              </mat-error>
+            </div>
+          </div>
+
+          <div *ngIf="projectDetails?.userPermissions.canEdit" class="actions-section">
+            <button mat-raised-button class="submit-button" color="primary" type="submit" [disabled]="form.invalid || !form.dirty">{{ 'SAVE' | translate }}</button>
+            <button mat-raised-button class="cancel-button" color="warn" [disabled]="!form.dirty" (click)="onClear()">{{ 'CANCEL' | translate }}</button>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

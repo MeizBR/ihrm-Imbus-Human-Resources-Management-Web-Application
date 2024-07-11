@@ -1,0 +1,40 @@
+<mat-card class="all-calendars-card mat-elevation-z3">
+  <mat-card-header class="all-calendars-card-header-text">
+    <mat-card-title class="all-calendars-card-title">{{ 'CALENDAR_VIEW.EDIT_CALENDAR.ALL_CALENDARS' | translate }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="all-calendars-card-content">
+    <div class="calendars-list">
+      <div
+        *ngFor="let calendar of splicedData; trackBy: calendarTrackFn"
+        class="calendar-details-content"
+        [class.selected]="calendar.id === selectedCalendarId"
+        [routerLink]="['../../calendar', calendar.id]"
+        fxLayoutGap="10px"
+      >
+        <div class="calendar-details" fxLayoutAlign="space-between">
+          <div class="calendar-name">
+            <span>{{ calendar.name }}</span>
+          </div>
+          <div class="calendar-time-zone">
+            <span>{{ calendar.timeZone }}</span>
+          </div>
+          <div class="is-private-calendar">
+            <mat-icon>{{ calendar.isPrivate ? 'lock' : 'public' }}</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      appPaginator
+      [itemsPerPage]="pageSize"
+      [selectedItemId]="selectedCalendarId"
+      [itemList]="calendarsList"
+      (onChangeSelectedPage)="getSelectedPage($event)"
+      [length]="pageLength"
+      [hidePageSize]="true"
+      [pageSize]="pageSize"
+      (page)="pageChangeEvent($event)"
+    >
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

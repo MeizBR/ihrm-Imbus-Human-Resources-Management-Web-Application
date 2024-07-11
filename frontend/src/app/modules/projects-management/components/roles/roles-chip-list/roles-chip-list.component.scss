@@ -1,0 +1,29 @@
+@import '../../../../../../theme/breakpoint-theme.scss';
+
+:host {
+  width: 100%;
+  display: block;
+
+  .role-field-container {
+    margin: 0 1rem;
+    display: flex;
+
+    mat-form-field {
+      flex: auto;
+
+      ::ng-deep .mat-form-field-infix {
+        border-top: 0 !important;
+      }
+
+      .role-Input {
+        cursor: pointer;
+      }
+    }
+  }
+
+  @media (max-width: 755px) {
+    .role-field-container {
+      margin: 0 !important;
+    }
+  }
+}

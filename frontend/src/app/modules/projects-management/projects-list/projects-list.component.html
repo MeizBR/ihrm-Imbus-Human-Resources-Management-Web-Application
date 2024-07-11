@@ -1,0 +1,22 @@
+<div class="project-container">
+  <div>
+    <app-add-project
+      *ngIf="(addPermitted$ | async) && isProjectsPage"
+      [customersList]="customersList$ | async"
+      [error]="error$ | async"
+      [isProjectsLoading]="isProjectsLoading$ | async"
+      (onAdd)="onAddProject($event)"
+    ></app-add-project>
+  </div>
+
+  <app-list-items
+    [pageSize]="(projectsPageSize$ | async).size"
+    [columns]="columns"
+    [list]="projectList"
+    [ownProjects]="ownProjects"
+    [displayRolesButton]="true"
+    [displayedColumns]="displayedColumns"
+    (deleteAction)="onDeleteProject($event)"
+    (pageSizeChanged)="onChangePageSize($event)"
+  ></app-list-items>
+</div>

@@ -1,0 +1,4 @@
+<div class="item-status-section" [class.inactive-item]="!isActiveItem">
+  <span>{{ item }}</span
+  ><mat-icon *ngIf="!isActiveItem">clear</mat-icon>
+</div>

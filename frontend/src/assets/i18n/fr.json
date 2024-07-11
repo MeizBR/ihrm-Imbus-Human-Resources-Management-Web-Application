@@ -1,0 +1,425 @@
+{
+  "LOG_VIEW": {
+    "LOGIN": "Identifiant",
+    "LOG_IN": "Se Connecter",
+    "LOGOUT": "Se déconnecter",
+    "PASSWORD": "Mot de passe",
+    "WORKSPACE": "Espace de travail",
+    "PROFILE": "Profil",
+    "IHRM": "iHRM",
+    "INVALID_CREDENTIALS": "Identifiants invalides. Veuillez réessayer.",
+    "INACTIVE_USER": "Échec de la connexion. Cet utilisateur est inactif.",
+    "HR_MANAGEMENT": "imbus Human Resource Management"
+  },
+  "DASHBOARD_VIEW": {
+    "DASHBOARD": "Tableau de bord"
+  },
+  "TIME_TRACKER_VIEW": {
+    "STOP": "Arrêtez",
+    "START": "Démarrer",
+    "PROJECT": "Projet",
+    "TOTAL_LABEL": "Total",
+    "TIME_TRACKER": "Suivi du temps",
+    "NO_ACTIVITIES": "Aucune activité créée pour le moment ... Vous devriez en créer un",
+    "ADD_DESCRIPTION": "Ajouter une description",
+    "ADD_WORKING": "Qu'est-ce que vous travaillez ?",
+    "PROJECT_TOOLTIP": "Veuillez sélectionner un projet",
+    "REPLAY_ACTIVITY_TOOLTIP": "Rejouer cette activité",
+    "PROJECT_LIST": {
+      "NO_DATA": "Pas de données",
+      "FILTER": "Filtrer les elements"
+    }
+  },
+  "LEAVES_VIEW": {
+    "USER": "Utilisateur",
+    "CALENDAR": "Calendrier",
+    "LEAVES": "Congés",
+    "START_DATE": "Date de début",
+    "END_DATE": "Date de fin",
+    "NEW_LEAVE": "Nouveau congé",
+    "MODIFY_LEAVE": "Mettre à jour le congé",
+    "LEAVE_TYPE": {
+      "LEAVE_TYPE": "Type de congé",
+      "LEAVE_TYPE_ENUM": {
+        "SICK": "Malade",
+        "HOLIDAY": "Vacance"
+      }
+    },
+    "STATE": {
+      "STATE": "Etat",
+      "REFUSED": "Refusé",
+      "WAITING": "En attente",
+      "PENDING": "En cours",
+      "APPROVED": "Approuvé",
+      "CANCELED": "Annulé",
+      "IN_PROGRESS": "En cours"
+    },
+    "LEAVES_TOOLBAR": {
+      "ADD_LEAVE": "Ajouter un congé",
+      "LEAVES_LIST": "liste de congé",
+      "LEAVES_TAB": "Congés",
+      "LEAVES_DETAILS_TAB": "Détails du congé"
+    },
+    "PLACEHOLDERS": {
+      "USER": "utilisateur",
+      "CALENDAR": "calendrier",
+      "STATUS": "statut",
+      "LEAVE_TYPE": "Type de congé",
+      "START_DATE": "date de début",
+      "END_DATE": "date de fin"
+    },
+    "ADD_LEAVE": {
+      "HALF_DAY": "Demi journée",
+      "FULL_START_DAY": "Jour de début complet",
+      "FULL_END_DAY": "Jour de fin complet",
+      "DESCRIPTION": "Description",
+      "COMMENT": "Commentaire"
+    },
+    "EDIT_LEAVE": {
+      "LEAVE_DETAILS": "Details du congé",
+      "UPDATE_LEAVE": "Modifier",
+      "PLACEHOLDER": "Insérez le texte ici",
+      "LEAVES_LIST": {
+        "ALL_LEAVES": "Tous Les Congés"
+      }
+    }
+  },
+  "EVENTS_VIEW": {
+    "EVENTS": "Événements",
+    "CALENDAR_NAME": "Nom du calendrier",
+    "EVENT_TYPE": "Type d'événement",
+    "STARTS_AT": "Commence à",
+    "ENDS_AT": "Fini à",
+    "TITLE": "Titre",
+    "DESCRIPTION": "Description",
+    "REPETITIVE": "Répétitive",
+    "ALL_DAY": "Toute la journée",
+    "EVENTS_TABLE_HEADER": {
+      "TITLE": "Titre",
+      "CALENDAR_NAME": "Nom Du Calendrier",
+      "EVENT_TYPE": "Type D'événement",
+      "PUBLIC_CALENDAR": "Calendrier Publique",
+      "START_DATE": "Date De Début",
+      "END_DATE": "Date De Fin"
+    },
+    "EVENT_TYPE_ENUM": {
+      "MEETING": "Réunion",
+      "DAILY_MEETING": "Réunion quotidienne",
+      "WORKSHOP": "Atelier du travail",
+      "TRAINING": "Entraînement",
+      "LEAVE": "Congé"
+    },
+    "REPETITIVE_ENUM": {
+      "DAILY": "Quotidien",
+      "WEEKLY": "Hebdomadaire",
+      "MONTHLY": "Mensuelle",
+      "YEARLY": "Annuelle",
+      "UNREPEATABLE": "Irrépétable"
+    },
+    "EVENTS_TOOLBAR": {
+      "EVENTS_TAB": "Événements",
+      "EVENTS_DETAILS_TAB": "Détails de l'évènement"
+    },
+    "EDIT_EVENT": {
+      "ALL_EVENTS": "Tous les évènements",
+      "EVENT_DETAILS": "Détails de l'évènement",
+      "CALENDAR_NAME": "Nom du calendrier",
+      "TITLE": "Titre",
+      "EVENT_TYPE": "Type d'événement",
+      "REPETITION": "Répétition",
+      "STARTS_AT": "Commence à",
+      "ENDS_AT": "Fini à",
+      "ALL_DAY": "Toute la journée",
+      "DESCRIPTION": "Description",
+      "PUBLIC_TO_PRIVATE_CAL": "Êtes-vous sûr d'attribuer cet événement à un calendrier privé? \nLes autres utilisateurs ne pourront plus le voir"
+    }
+  },
+  "TASKS_VIEW": {
+    "TASKS": "Tâches",
+    "ADD_NEW_CARD": "Ajouter une nouvelle carte",
+    "ADD_NEW_LIST": "Ajouter une nouvelle liste",
+    "CARD_DIALOG": {
+      "ID": "ID",
+      "TITLE": "Titre",
+      "STATUS": "Statut",
+      "PROJECT": "Projet",
+      "SUMMARY": "Résumé",
+      "TAGS": "Mots Clés",
+      "CANCEL": "Annuler",
+      "SAVE": "Enregistrer",
+      "DELETE": "Supprimer",
+      "PRIORITY": "Priorité",
+      "ASSIGNEE": "Cessionnaire",
+      "ADD_CARD": "Ajouter carte",
+      "CARD_TYPE": "Type de carte",
+      "STORY_POINTS": "Estimation",
+      "EDIT_CARD": "Modifier carte"
+    },
+    "COLUMN_DIALOG": {
+      "COLUMN_KEY": "Clé de colonne",
+      "COLUMN_NAME": "Nom de colonne",
+      "COLUMN_INDEX": "Index de colonne",
+      "PLACEHOLDERS": {
+        "COLUMN_KEY_PLACEHOLDER": "Saisir le champ clé",
+        "COLUMN_NAME_PLACEHOLDER": "Saisir le nom de la colonne",
+        "COLUMN_INDEX_PLACEHOLDER": "Saisir l'index de la colonne"
+      },
+      "COLUMN_HEADER": {
+        "DONE": "Terminé",
+        "OPEN": "Ouverte",
+        "CLOSE": "Fermer",
+        "REVIEW": "Revue",
+        "TO_DO": "À Faire",
+        "IN_REVIEW": "En revue",
+        "INPROGRESS": "EnCours",
+        "IN_PROGRESS": "En cours"
+      },
+      "DIALOG_TITLE": "Ajouter une nouvelle liste"
+    }
+  },
+  "CALENDAR_VIEW": {
+    "DAY": "Jour",
+    "MONTH": "Mois",
+    "WEEK": "Semaine",
+    "NEXT": "Prochain",
+    "TODAY": "Aujourd'hui",
+    "PREVIOUS": "Précédent",
+    "CALENDARS": "Calendriers",
+    "ADD_CALENDAR": "Ajouter calendrier",
+    "DELETE_CALENDAR": "Supprimer calendrier",
+    "CREATE_CALENDAR_TITLE": "Créer calendrier",
+    "ADD_EXISTING_CALENDAR": "Ajouter un calendrier existant",
+    "NO_AVAILABLE_PROJECTS": "Aucun projet disponible",
+    "EVENT": {
+      "TITLE": "Titre",
+      "STARTS_AT": "Commence à",
+      "ENDS_AT": "Se termine à",
+      "DESCRIPTION": "Description",
+      "ALL_DAY": "Toute la journée",
+      "CALENDAR_NAME": "Calendrier",
+      "EVENT_TITLE": "Créer un evénement",
+      "EVENT_TYPE": {
+        "LEAVES": "Congés",
+        "EVENTS": "Évenement",
+        "EVENT_TYPE": "Type de l'Évenement"
+      },
+      "REPETITIVITY": {
+        "MONTHLY": "Mensuel",
+        "YEARLY": "Annuelle",
+        "DAILY": "Quotidien",
+        "WEEKLY": "Hebdomadaire",
+        "REPETITIVE": "Répétitive",
+        "DOES_NOT_REPEAT": "Ne se répète pas"
+      },
+      "LEAVE": {
+        "USER": "Utilisateur",
+        "LEAVE_TYPE": "Type de congé",
+        "LEAVE_TITLE": "Créer un congé"
+      }
+    },
+    "PLACEHOLDERS": {
+      "NAME": "name",
+      "PROJECT": "Projet",
+      "TIMEZONE": "timeZone",
+      "DESCRIPTION": "Description"
+    },
+    "ADD_CALENDAR_FORM": {
+      "IS_PUBLIC": "public",
+      "PROJECT_NAME": "projet",
+      "NAME": "nom",
+      "TIME_ZONE": "fuseau horaire",
+      "DESCRIPTION": "description"
+    },
+    "EDIT_CALENDAR": {
+      "CALENDAR_DETAILS": "Détails du calendrier",
+      "PROJECT_NAME": "Projet",
+      "CALENDAR_NAME": "Nom",
+      "TIME_ZONE": "Fuseau horaire",
+      "IS_PUBLIC": "Public",
+      "DESCRIPTION": "Description",
+      "ALL_CALENDARS": "Tous les calendriers"
+    },
+    "RIGHT_BAR": {
+      "CALENDARS_LIST": "Liste des calendriers",
+      "EVENTS_LIST": "Liste des événements",
+      "LEAVES_LIST": "Liste des congés",
+      "FILTER_BY_CALENDAR": "Filtrer par calendrier",
+      "FILTER_BY_USER": "Filtrer par utilisateur",
+      "NO_AVAILABLE_CALENDARS": "Vous n'avez pas des calendriers disponibles",
+      "NO_AVAILABLE_LEAVES": "Il n'y a pas de congés disponibles",
+      "NO_AVAILABLE_LEAVES_OR_CALENDARS": "Il n'y a pas de congés ni de calendriers disponibles",
+      "CHECK_UNCHECK_ALL": "Cocher/Décocher tout"
+    },
+    "CALENDAR_TOOLBAR": {
+      "CALENDARS_TAB": "Calendriers",
+      "CALENDAR_MANAGEMENT_TAB": "Gestion du calendriers",
+      "CALENDAR_DETAILS_TAB": "Détails du calendrier"
+    },
+    "CALENDAR_TABLE_HEADER": {
+      "CALENDAR_NAME": "Nom du calendrier",
+      "PROJECT": "Nom du projet",
+      "TIMEZONE": "Fuseau horaire",
+      "PUBLIC": "Public"
+    }
+  },
+  "TEAM_VIEW": {
+    "ID": "id",
+    "FIRST_NAME": "prénom",
+    "LAST_NAME": "nom",
+    "EMAIL": "email",
+    "TEAM": "Équipe",
+    "ACTIVE": "Active",
+    "REGISTRATION_NUMBER": "matricule",
+    "LOGIN": "identifiant",
+    "PASSWORD": "mot de passe",
+    "CONFIRM_PASSWORD": "confirmez le mot de passe",
+    "NEW_USER": "Nouveau utilisateur",
+    "MODIFY_USER": "Modifier utilisateur",
+    "TEAM_TITLE": "Liste des utilisateurs",
+    "USERS_TOOLBAR": {
+      "USERS": "Utilisateurs",
+      "USERS_DETAILS": "Détails des utilisateurs"
+    },
+    "PROFILE": {
+      "USER_PROFILE": "Profil utilisateur"
+    },
+    "USERS_LIST": {
+      "ALL_USERS": "Tous les utilisateurs",
+      "USER": "Utilisateur",
+      "LOGIN": "Identifiant",
+      "EMAIL": "Email",
+      "ACTIVE": "Active",
+      "REGISTRATION_NUMBER": "Matricule"
+    },
+    "EDIT_PROFILE": {
+      "FIRST_NAME": "Prénom",
+      "LAST_NAME": "Nom",
+      "LOGIN": "Identifiant",
+      "EMAIL": "Email",
+      "REGISTRATION_NUMBER": "Matricule",
+      "PASSWORD": "Mot de passe",
+      "CONNECTED_PASSWORD": "Tapez votre mot de passe",
+      "NEW_PASSWORD": "Entrez un nouveau mot de passe",
+      "CONFIRM_PASSWORD": "Confirmez le mot de passe",
+      "ACTIVE": "Active",
+      "NOTE": "Note",
+      "DESCRIPTION": "Description",
+      "COMMENT": "Commentaire",
+      "UPDATE_PROFILE": "Modifier profil",
+      "PLACEHOLDER": "Insérez le texte ici",
+      "CANCEL": "Annuler",
+      "EDIT_PASSWORD": "Modifier mot de passe",
+      "DELETE_USER": "Supprimer l'utilisateur",
+      "RESET": "Réinitialiser",
+      "ADMINISTRATOR": "Administrateur",
+      "ACCOUNT_MANAGER": "Gestionnaire de Compte"
+    },
+    "DELETE_USER_MESSAGE": "Êtes-vous sûr de vouloir supprimer les détails de <b>{{value}}<b/>?",
+    "DELETE_ADMIN_MESSAGE": "Cet utilisateur, <b>{{value}}<b/>, a le rôle <b>Administrateur</b>, êtes-vous sûr de vouloir le supprimer?",
+    "DELETE_ACCOUNT_MANAGER_MESSAGE": "Cet utilisateur, to <b>{{value}}</b>, a le rôle <b>Gestionnaire de Compte</b>, êtes-vous sûr de vouloir le supprimer?",
+    "DELETE_ADMIN_ACCOUNT_MANAGER_MESSAGE": "Cet utilisateur, <b>{{value}}</b>, a le rôle <b>Administrateur</b> et <b>Gestionnaire de compte</b>, êtes-vous sûr de vouloir le supprimer?",
+    "SET_AS_ADMINISTRATOR_MESSAGE": "Êtes-vous sûr d'attribuer le rôle d'<b>Administrateur</b> à <b>{{value}}</b>?",
+    "SET_AS_ACCOUNT_MANAGER_MESSAGE": "Êtes-vous sûr d'attribuer le rôle de <b>Gestionnaire de Compte</b> à <b>{{value}}</b>?",
+    "REMOVE_ADMINISTRATOR_ROLE_MESSAGE": "Voulez-vous vraiment supprimer le rôle d'<b>Administrateur</b> de <b>{{value}}</b>?",
+    "REMOVE_ACCOUNT_MANAGER_ROLE_MESSAGE": "Voulez-vous vraiment supprimer le rôle de <b>Gestionnaire de Compte</b> de <b>{{value}}</b>?"
+  },
+  "CUSTOMERS_VIEW": {
+    "NAME": "Nom",
+    "IS_ACTIVE": "Active",
+    "DESCRIPTION": "Description",
+    "ACTIVE": "Active",
+    "CUSTOMERS": "Clients",
+    "CUSTOMER_ID": "N ° de client",
+    "CUSTOMER_NAME": "Nom du client",
+    "NEW_CUSTOMERS": "Nouveau Client",
+    "CUSTOMER_TITLE": "Liste de clients",
+    "MODIFY_CUSTOMERS": "Modifier Client",
+    "CUSTOMERS_TOOLBAR": {
+      "CUSTOMERS_TAB": "Clients",
+      "CUSTOMER_DETAILS_TAB": "Détails du client"
+    },
+    "EDIT_CUSTOMER": {
+      "CUSTOMER_DETAILS": "Details du Client",
+      "PLACEHOLDER": "Insérez le texte ici",
+      "Customers_LIST": {
+        "ALL_Customers": "Tous les clients"
+      }
+    },
+    "CUSTOMER_LIST": {
+      "NAME": "Nom",
+      "ACTIVE": "Active"
+    }
+  },
+  "REPORT_VIEW": {
+    "REPORT": "Rapports"
+  },
+  "DOCUMENTS_VIEW": {
+    "DOCUMENTS": "Documents"
+  },
+  "PROJECTS_VIEW": {
+    "ACTIVE": "Active",
+    "PROJECTS": "Projets",
+    "DESCRIPTION": "Déscription",
+    "CUSTOMER_NAME": "Nom de client",
+    "NEW_PROJECT": "Nouveau Projet",
+    "PROJECT_NAME": "Nom du projet",
+    "PROJECT_TITLE": "Liste de projets",
+    "MODIFY_PROJECT": "Modifier Projet",
+    "PROJECTS_TOOLBAR": {
+      "PROJECTS_TAB": "Projets",
+      "PROJECT_DETAILS_TAB": "Détails du projet"
+    },
+    "EDIT_PROJECT": {
+      "EDIT_PROJECT": "Details du projet",
+      "UPDATE_PROJECT": "Modifier",
+      "PLACEHOLDER": "Insérez le texte ici"
+    },
+    "PROJECT_LIST": {
+      "NAME": "Nom",
+      "CUSTOMER": "Client",
+      "ACTIVE": "Active"
+    },
+    "ROLES": {
+      "USER": "utilisateur",
+      "SELECT_USER": "Sélectionner un utilisateur",
+      "SELECT_ROLE_PLACEHOLDER": "Sélectionner un role ...",
+      "ROLE": "role",
+      "PROJECT": "projet",
+      "PROJECT_TAB": "Projets",
+      "SET_ROLES": "Définir les rôles",
+      "NEW_ROLES": "Nouveaux Roles",
+      "PROJECT_ROLES": "Roles de projet",
+      "PROJECT_ROLES_TAB": "Roles de projet",
+      "NO_ROLES": "Aucun utilisateur avec un rôle attribué pour ce projet"
+    }
+  },
+  "PAGINATION": {
+    "PAGE_LABEL": "Elements par page"
+  },
+  "ERROR_MESSAGES": {
+    "REQUIRED": "{{elementName}}  est requis{{suffix}}",
+    "REGISTRATION_NUMBER": "Matricule"
+  },
+  "NO": "Non",
+  "YES": "Oui",
+  "ADD": "Ajout",
+  "OK": "D'accord",
+  "CREATE": "Créer",
+  "EDIT": "Modifier",
+  "CANCEL": "Annuler",
+  "SAVE": "Sauvegarder",
+  "SEARCH": "Rechercher",
+  "RESET": "Réinitialiser",
+  "DELETE": "Supprimer",
+  "NO_DATA": "Aucune donnée ...",
+  "INACTIVE": "Inactif",
+  "UNDER_CONSTRUCTION": "Sous Construction",
+  "MANDATORY_FIELD": "Ce champ est obligatoire",
+  "CUSTOMER_DELETE_WARNING_MESSAGE": "Le client a encore un projet",
+  "DELETE_TITLE": "Confirmer l'action de suppression",
+  "SET_GLOBAL_ROLE_TITLE": "Confirmer l'action de définition de rôle",
+  "REMOVE_GLOBAL_ROLE_TITLE": "Confirmer la suppression du rôle",
+  "WARNING_MESSAGE": "Vous devez créer un calendrier avant",
+  "DELETE_MESSAGE": "Êtes-vous sûr de vouloir supprimer cet élément ?",
+  "DELETE_CALENDAR_MESSAGE": "Êtes-vous sûr de vouloir supprimer ce calendrier? \nTous les événements attachés seront également supprimés!"
+}

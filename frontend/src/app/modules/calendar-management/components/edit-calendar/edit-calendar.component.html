@@ -1,0 +1,80 @@
+<mat-card class="calendar-card mat-elevation-z3">
+  <div class="card-header-text">
+    <div class="card-title">{{ 'CALENDAR_VIEW.EDIT_CALENDAR.CALENDAR_DETAILS' | translate }} :</div>
+    <div *ngIf="editCalendarDetails?.userPermission?.canDelete" class="button-section">
+      <button mat-icon-button color="warn" (click)="deleteCalendar()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-card-content class="card-content">
+    <div class="edit-calendar-form">
+      <form [formGroup]="form" autocomplete="off" (submit)="onSubmit()">
+        <div class="calendar-data" fxLayout="column">
+          <div class="details-input-row" fxLayout="column">
+            <div class="section-container" fxLayout.sm="column" fxLayout.xs="column">
+              <div class="project-name-div">
+                <mat-form-field appearance="outline">
+                  <mat-label data-test="project_label">{{
+                    !!projectsList?.length ? ('CALENDAR_VIEW.EDIT_CALENDAR.PROJECT_NAME' | translate) : ('CALENDAR_VIEW.NO_AVAILABLE_PROJECTS' | translate)
+                  }}</mat-label>
+                  <mat-select disableOptionCentering formControlName="projectId" (selectionChange)="onProjectChange($event.value)">
+                    <mat-select-trigger>
+                      <app-item-status [item]="selectedProject?.name" [isActiveItem]="selectedProject?.isActive"></app-item-status>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let project of projectsList; trackBy: projectTrackFn" [value]="project?.id" [class.inactive-project]="!project.isActive">
+                      <app-item-status [item]="project?.name" [isActiveItem]="project?.isActive"></app-item-status>
+                    </mat-option>
+                  </mat-select>
+                  <mat-hint *ngIf="form.controls['projectId'].touched && form.controls['projectId'].invalid">
+                    {{ ErrorType.getErrorMessage(form.controls['projectId'].errors, 'Project Name') }}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="calendar-name-div">
+                <mat-form-field appearance="outline">
+                  <mat-label data-test="name_label">{{ 'CALENDAR_VIEW.EDIT_CALENDAR.CALENDAR_NAME' | translate }}</mat-label>
+                  <input matInput placeholder="{{ 'CALENDAR_VIEW.ADD_CALENDAR_FORM.NAME' | translate }}" type="text" formControlName="name" />
+
+                  <mat-hint *ngIf="form.controls['name'].invalid">
+                    {{ ErrorType.getErrorMessage(form.controls['name'].errors, 'Calendar Name') }}
+                  </mat-hint>
+
+                  <mat-hint align="end" class="counter" [class.error]="form.controls['name'].hasError('maxlength')"> {{ form.controls['name']?.value?.length }} / 255 </mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="section-container" fxLayout.sm="column" fxLayout.xs="column">
+              <div class="time-zone-div">
+                <mat-form-field appearance="outline">
+                  <mat-label data-test="time_zone_label">{{ 'CALENDAR_VIEW.EDIT_CALENDAR.TIME_ZONE' | translate }}</mat-label>
+                  <mat-select disableOptionCentering formControlName="timeZone">
+                    <mat-option *ngFor="let timeZone of TIMEZONES; trackBy: timezoneTrackFn" [value]="timeZone.timezone">{{ timeZone.timezone }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="is-public-div">
+                <mat-label class="label public-label" data-test="public_label">{{ 'CALENDAR_VIEW.EDIT_CALENDAR.IS_PUBLIC' | translate }}</mat-label>
+                <mat-slide-toggle color="primary" formControlName="isPublic" [disabled]="!canUpdateVisibility"></mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+
+          <div class="description-section" fxLayout="column">
+            <mat-label class="description-label" data-test="description_label">{{ 'CALENDAR_VIEW.EDIT_CALENDAR.DESCRIPTION' | translate }}:</mat-label>
+            <quill-editor class="description-editor" formControlName="description" ngDefaultControl (onContentChanged)="contentChanged($event)"></quill-editor>
+            <mat-error *ngIf="form.controls['description'].invalid && ErrorType.getErrorMessage(form.controls['description'].errors, 'Description')">
+              {{ ErrorType.getErrorMessage(form.controls['description'].errors, 'Description') }}
+            </mat-error>
+          </div>
+        </div>
+        <div class="actions-row">
+          <button class="save-button" mat-raised-button color="primary" type="submit" [disabled]="form.invalid || !form.dirty">{{ 'SAVE' | translate }}</button>
+          <button class="cancel-button" mat-raised-button color="warn" type="button" [disabled]="!form.dirty" (click)="onCancelEdit()">{{ 'CANCEL' | translate }}</button>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

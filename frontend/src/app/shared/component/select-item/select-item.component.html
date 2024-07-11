@@ -1,0 +1,16 @@
+<div class="search-div">
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input name="searchKey" [(ngModel)]="searchKey" matInput placeholder="{{ 'TIME_TRACKER_VIEW.PROJECT_LIST.FILTER' | translate }}" autocomplete="off" />
+  </mat-form-field>
+</div>
+<div *ngIf="!list?.length" class="no-data-span">
+  <span>{{ 'TIME_TRACKER_VIEW.PROJECT_LIST.NO_DATA' | translate }}..</span>
+</div>
+<cdk-virtual-scroll-viewport itemSize="5" class="items-viewport">
+  <div class="list-panel" *ngFor="let item of list | searchFilter: searchKey; let ind = index">
+    <a>
+      <mat-icon class="lens-icon">lens</mat-icon>
+      <span [attr.data-test]="'item-selection-' + ind" (click)="selectItem(item.id)">{{ item.name }}</span>
+    </a>
+  </div>
+</cdk-virtual-scroll-viewport>

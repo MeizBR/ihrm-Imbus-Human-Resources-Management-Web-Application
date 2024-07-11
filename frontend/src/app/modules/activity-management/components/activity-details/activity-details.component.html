@@ -1,0 +1,100 @@
+<div class="activity-details" fxLayout.gt-lg="row" fxLayout.lt-sm="row wrap" fxLayoutAlign="space-between center">
+  <div class="data-container" fxFill.lt-lg [ngStyle.lt-lg]="'width: 100%'" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="description-field" [class.current-description-field]="isCurrent" fxFill.lt-lg fxLayoutAlign="start center">
+      <input
+        data-test="activity-description"
+        autocomplete="off"
+        matInput
+        fxFill
+        #currentDescription
+        class="input"
+        placeholder="{{ (isCurrent ? 'TIME_TRACKER_VIEW.ADD_WORKING' : 'TIME_TRACKER_VIEW.ADD_DESCRIPTION') | translate }}"
+        [value]="activity?.description"
+        (keyup.enter)="isCurrent && !activity && startActivity(currentDescription.value, currentSelectedProject?.id)"
+        (change)="activity && updateActivity(currentDescription.value, activity)"
+      />
+    </div>
+    <div class="project-field" fxLayout="row" fxLayoutAlign="space-between center">
+      <!-- NOTE: Hejer: Needed improvements to be discussed with the team -->
+      <!-- NOTE: As improvements, these two ngIf below can be replaced with mat-select and placeholder do the trick -->
+      <!-- NOTE-RESP: As improvements, these two ngIf It's better to be replaced with mat-autocomplete to have the list, the projects filter and the placeholder -->
+
+      <div *ngIf="isCurrent" class="current-project" fxLayout="row" fxLayoutAlign="space-between center">
+        <a *ngIf="!activity" class="add-project" [matMenuTriggerFor]="CurrentMenu">
+          <mat-icon *ngIf="!(activity || currentSelectedProject)" class="add-circle-icon" data-test="add-project">add_circle_outline</mat-icon>
+          <span>{{ currentSelectedProject ? currentSelectedProject?.name : ('TIME_TRACKER_VIEW.PROJECT' | translate) }}</span>
+        </a>
+        <a *ngIf="activity" class="project-name" [matMenuTriggerFor]="CurrentMenu">
+          <mat-icon [class.current-lens-style]="isCurrent">lens</mat-icon>
+          <span>{{ activity?.projectName }}</span>
+        </a>
+        <mat-menu #CurrentMenu="matMenu" data-test="current-project">
+          <app-select-item class="project" [list]="projects" (click)="$event.stopPropagation()" (selectAction)="onSelectCurrentProject($event)"></app-select-item>
+        </mat-menu>
+      </div>
+      <div *ngIf="!isCurrent" class="activity-project">
+        <a
+          #menuTrigger="matMenuTrigger"
+          [matMenuTriggerFor]="menu"
+          [class.no-project]="!activity?.projectId"
+          fxLayoutAlign="center center"
+          (click)="handleMenu(menuTrigger)"
+          class="matMenuTrigger"
+        >
+          <mat-icon class="mat-icon-lens">lens</mat-icon>
+
+          <span> {{ activity?.projectName }}</span>
+        </a>
+        <mat-menu class="menu" #menu="matMenu">
+          <app-select-item [list]="projects" (click)="$event.stopPropagation()" (selectAction)="projectSelected($event)"></app-select-item>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+  <div class="timing-container" [ngStyle.lt-lg]="'width: 100%'" fxLayout="row" fxLayoutAlign="space-between center" data-test="timing-container">
+    <div fxLayout="row" class="time-condition" fxLayoutAlign="space-between center">
+      <div *ngIf="isCurrent">
+        <mat-label class="label" data-test="time-runner">{{ currentTime }}</mat-label>
+      </div>
+      <div *ngIf="!isCurrent" class="timing-labels" fxLayout="row" fxLayoutAlign="space-between center">
+        <span fxHide.lt-md class="activity-start-end">{{ activity?.start | date: 'shortTime' }} - {{ activity?.end | date: 'shortTime' }}</span>
+        <div class="activity-duration" fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-icon class="timer-icon">timer</mat-icon>
+          <span class="activity-duration-label">{{ activity?.workDuration }}</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isCurrent" class="timing-actions">
+      <button
+        *ngIf="!activity"
+        class="start-button"
+        mat-raised-button
+        [disabled]="!currentSelectedProject"
+        color="primary"
+        data-test="start-button"
+        (click)="startActivity(currentDescription.value, currentSelectedProject.id)"
+      >
+        {{ 'TIME_TRACKER_VIEW.START' | translate }}
+      </button>
+      <button *ngIf="activity && !activity?.end" class="stop-button" mat-raised-button color="warn" (click)="onStopCurActivity.emit(currentDescription.value)">
+        {{ 'TIME_TRACKER_VIEW.STOP' | translate }}
+      </button>
+      <button mat-flat-button [class.delete-button]="activity" [class.timer-button]="!activity">
+        <mat-icon *ngIf="activity" (click)="onDeleteActivity.emit(activity?.id)">clear</mat-icon>
+        <mat-icon *ngIf="!activity" class="timer">timer</mat-icon>
+
+      </button>
+    </div>
+    <div *ngIf="!isCurrent" class="activity-buttons" fxLayout="row" fxLayoutAlign="end center">
+      <button mat-flat-button class="play-button" (mousedown)="onRestartActivity.emit(activity)" data-test="play-button">
+        <mat-icon color="primary">play_arrow</mat-icon>
+      </button>
+      <button mat-flat-button class="delete-button" (click)="onDeleteActivity.emit(activity?.id)">
+        <mat-icon color="warn">delete</mat-icon>
+      </button>
+      <button mat-flat-button class="delete-button" (click)="editActivity(activity?.id)" >
+        <mat-icon color="warn">edit</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

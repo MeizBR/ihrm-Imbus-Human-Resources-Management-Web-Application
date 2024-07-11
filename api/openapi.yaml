@@ -1,0 +1,3199 @@
+openapi: 3.0.0
+info:
+  title: RESTful API of iHRM
+  description: The RESTful API of the main core of the iHRM application. Add-ons will have their own API documentation.
+  version: "2020.06.14"
+  contact:
+    name: imbus Human Resource Management
+    email: ihrm@imbus.tn
+    url: https://ihrm.imbus.tn
+
+components:
+  securitySchemes:
+    Superadmin Session Token:
+      type: apiKey
+      description: For authentication, provide a session token. The 'Bearer' prefix is optional.
+      in: header
+      name: Authorization
+    Workspace User Session Token:
+      type: apiKey
+      description: For authentication, provide a session token. The 'Bearer' prefix is optional.
+      in: header
+      name: Authorization
+  schemas:
+    UserCreatedMessage:
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+        - login
+        - email
+        - note
+        - isActive
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        login:
+          type: string
+        email:
+          type: string
+        note:
+          type: string
+        isActive:
+          type: boolean
+
+    PostAdminSession:
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+
+    PostUserSession:
+      type: object
+      required:
+        - workspace
+        - login
+        - password
+      properties:
+        workspace:
+          type: string
+        login:
+          type: string
+        password:
+          type: string
+
+    UserSession:
+      type: object
+      required:
+        - workspaceId
+        - userId
+        - fullName
+        - token
+        - globalRoles
+      properties:
+        workspaceId:
+          type: integer
+        userId:
+          type: integer
+        fullName:
+          type: string
+        token:
+          type: string
+        globalRoles:
+          type: array
+          items:
+            type: string
+
+    PostWorkspace:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        isActive:
+          type: boolean
+
+    Workspace:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - isActive
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        isActive:
+          type: boolean
+
+    PatchWorkspace:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        isActive:
+          type: boolean
+
+    PostUser:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - login
+        - email
+        - password
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        login:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        note:
+          type: string
+        isActive:
+          type: boolean
+    User:
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+        - login
+        - email
+        - note
+        - isActive
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        login:
+          type: string
+        email:
+          type: string
+        note:
+          type: string
+        isActive:
+          type: boolean
+
+    Password:
+      type: object
+      required:
+        - passwordOfConnectedUser
+        - newPassword
+      properties:
+        passwordOfConnectedUser:
+          type: string
+        newPassword:
+          type: string
+
+    PatchUser:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        login:
+          type: string
+        email:
+          type: string
+        password:
+          $ref: "#/components/schemas/Password"
+        note:
+          type: string
+        isActive:
+          type: boolean
+
+    PatchUserBySuperAdmin:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        login:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        note:
+          type: string
+        isActive:
+          type: boolean
+
+    PostCustomer:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        note:
+          type: string
+        isActive:
+          type: boolean
+
+    Customer:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - note
+        - isActive
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        note:
+          type: string
+        isActive:
+          type: boolean
+
+    PatchCustomer:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        note:
+          type: string
+        isActive:
+          type: boolean
+
+    PostProject:
+      type: object
+      required:
+        - customerId
+        - name
+      properties:
+        customerId:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        note:
+          type: string
+        isActive:
+          type: boolean
+
+    Project:
+      type: object
+      required:
+        - id
+        - customerId
+        - name
+        - description
+        - note
+        - isActive
+      properties:
+        id:
+          type: integer
+        customerId:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        note:
+          type: string
+        isActive:
+          type: boolean
+
+    PatchProject:
+      type: object
+      properties:
+        customerId:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        note:
+          type: string
+        isActive:
+          type: boolean
+
+    ProjectRoles:
+      type: object
+      required:
+        - userId
+        - roles
+      properties:
+        userId:
+          type: integer
+        roles:
+          type: array
+          items:
+            type: string
+            x-scalaType: api.ProjectRole
+
+    PostActivity:
+      type: object
+      required:
+        - userId
+        - projectId
+        - description
+      properties:
+        userId:
+          type: integer
+        projectId:
+          type: integer
+        description:
+          type: string
+
+    Activity:
+      type: object
+      required:
+        - id
+        - userId
+        - projectId
+        - description
+        - start
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        projectId:
+          type: integer
+        description:
+          type: string
+        start:
+          type: string
+          x-scalaType: java.time.Instant
+        end:
+          type: string
+          x-scalaType: java.time.Instant
+
+    PatchActivity:
+      type: object
+      properties:
+        userId:
+          type: integer
+        projectId:
+          type: integer
+        description:
+          type: string
+        start:
+          type: string
+          x-scalaType: java.time.Instant
+        end:
+          type: string
+          x-scalaType: java.time.Instant
+
+    Calendar:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - isPrivate
+        - userId
+        - timeZone
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        projectId:
+          type: integer
+        description:
+          type: string
+        isPrivate:
+          type: boolean
+        userId:
+          type: integer
+        timeZone:
+          type: string
+
+    PostCalendar:
+      type: object
+      required:
+        - name
+        - userId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        isPrivate:
+          type: boolean
+        timeZone:
+          type: string
+
+    PatchCalendar:
+      type: object
+      properties:
+        name:
+          type: string
+        projectId:
+          type: integer
+        description:
+          type: string
+        isPrivate:
+          type: boolean
+        timeZone:
+          type: string
+
+    Leave:
+      type: object
+      required:
+        - id
+        - start
+        - isFullDayStart
+        - end
+        - isFullDayEnd
+        - daysNumber
+        - userId
+        - leaveType
+        - description
+        - state
+        - comment
+      properties:
+        id:
+          type: integer
+        start:
+          type: string
+          x-scalaType: java.time.LocalDate
+        isFullDayStart:
+          type: boolean
+        end:
+          type: string
+          x-scalaType: java.time.LocalDate
+        isFullDayEnd:
+          type: boolean
+        daysNumber:
+          type: number
+          format: double
+        userId:
+          type: integer
+        leaveType:
+          type: string
+          enum: ["Sick", "Holiday"]
+        description:
+          type: string
+        state:
+          type: string
+          enum: ["Approved", "Refused", "Canceled", "Waiting", "InProgress"]
+        comment:
+          type: string
+
+    SummaryLeave:
+      type: object
+      required:
+        - id
+        - start
+        - isFullDayStart
+        - end
+        - isFullDayEnd
+        - daysNumber
+        - userId
+        - leaveType
+        - state
+      properties:
+        id:
+          type: integer
+        start:
+          type: string
+          x-scalaType: java.time.LocalDate
+        isFullDayStart:
+          type: boolean
+        end:
+          type: string
+          x-scalaType: java.time.LocalDate
+        isFullDayEnd:
+          type: boolean
+        daysNumber:
+          type: number
+          format: double
+        userId:
+          type: integer
+        leaveType:
+          type: string
+          enum: ["Sick", "Holiday"]
+        state:
+          type: string
+          enum: ["Approved", "Refused", "Canceled", "Waiting", "InProgress"]
+
+    PostLeave:
+      type: object
+      required:
+        - start
+        - isFullDayStart
+        - end
+        - isFullDayEnd
+        - daysNumber
+        - leaveType
+        - description
+      properties:
+        start:
+          type: string
+          x-scalaType: java.time.LocalDate
+        isFullDayStart:
+          type: boolean
+        end:
+          type: string
+          x-scalaType: java.time.LocalDate
+        isFullDayEnd:
+          type: boolean
+        daysNumber:
+          type: number
+          format: double
+        leaveType:
+          type: string
+          enum: ["Sick", "Holiday"]
+        description:
+          type: string
+        state:
+          type: string
+          enum: ["Approved", "Refused", "Canceled", "Waiting", "InProgress"]
+
+    PutLeave:
+      type: object
+      properties:
+        state:
+          type: string
+          enum: ["Approved", "Refused", "Canceled", "Waiting", "InProgress"]
+        comment:
+          type: string
+
+    PatchLeave:
+      type: object
+      properties:
+        start:
+          type: string
+          x-scalaType: java.time.LocalDate
+        isFullDayStart:
+          type: boolean
+        end:
+          type: string
+          x-scalaType: java.time.LocalDate
+        isFullDayEnd:
+          type: boolean
+        daysNumber:
+          type: number
+          format: double
+        leaveType:
+          type: string
+          enum: ["Sick", "Holiday"]
+        description:
+          type: string
+
+    Event:
+      type: object
+      required:
+        - id
+        - start
+        - end
+        - calendarId
+        - isPrivateCalendar
+        - title
+        - description
+        - repetition
+        - allDay
+        - eventType
+        - creator
+      properties:
+        id:
+          type: integer
+        calendarId:
+          type: integer
+        isPrivateCalendar:
+          type: boolean
+        start:
+          type: string
+          x-scalaType: java.time.Instant
+          example: "2021-01-01T00:00:00.00Z"
+        end:
+          type: string
+          x-scalaType: java.time.Instant
+          example: "2021-01-01T00:00:00.00Z"
+        title:
+          type: string
+        description:
+          type: string
+        repetition:
+          type: string
+          enum: ["Daily", "Weekly", "Monthly", "Yearly", "Unrepeatable"]
+        allDay:
+          type: boolean
+        eventType:
+          type: string
+          enum: ["Meeting", "Workshop", "Training", "Leave"]
+        creator:
+          type: integer
+    PostEvent:
+      type: object
+      required:
+        - calendarId
+        - start
+        - end
+        - title
+        - allDay
+        - eventType
+      properties:
+        calendarId:
+          type: integer
+        start:
+          type: string
+          x-scalaType: java.time.Instant
+          example: "2021-01-01T00:00:00.00Z"
+        end:
+          type: string
+          x-scalaType: java.time.Instant
+          example: "2021-01-01T00:00:00.00Z"
+        title:
+          type: string
+        description:
+          type: string
+        repetition:
+          type: string
+          enum: ["Daily", "Weekly", "Monthly", "Yearly", "Unrepeatable"]
+        allDay:
+          type: boolean
+        eventType:
+          type: string
+          enum: ["Meeting", "Workshop", "Training", "Leave"]
+    PatchEvent:
+      type: object
+      properties:
+        calendarId:
+          type: integer
+        start:
+          type: string
+          x-scalaType: java.time.Instant
+          example: "2021-01-01T00:00:00.00Z"
+        end:
+          type: string
+          x-scalaType: java.time.Instant
+          example: "2021-01-01T00:00:00.00Z"
+        title:
+          type: string
+        description:
+          type: string
+        repetition:
+          type: string
+          enum: ["Daily", "Weekly", "Monthly", "Yearly", "Unrepeatable"]
+        allDay:
+          type: boolean
+        eventType:
+          type: string
+          enum: ["Meeting", "Workshop", "Training", "Leave"]
+    Card:
+      type: object
+      required:
+        - id
+        - status
+        - projectId
+        - project
+        - cardType
+        - title
+        - assignee
+        - priority
+        - storyPoints
+        - tags
+        - summary
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+          enum: ["Open", "InProgress", "Review", "Close"]
+        projectId:
+          type: integer
+        project:
+          type: string
+        cardType:
+          type: string
+          enum: ["Story", "Epic", "Bug", "Improvement", "Others"]
+        title:
+          type: string
+        assignee:
+          type: string
+        priority:
+          type: string
+          enum: ["Low", "Medium", "High", "Critical"]
+        storyPoints:
+          type: number
+          format: double
+        tags:
+          type: string
+        summary:
+          type: string
+
+    PostCard:
+      type: object
+      required:
+        - status
+        - projectId
+        - project
+        - cardType
+        - title
+        - assignee
+        - priority
+      properties:
+        status:
+          type: string
+          enum: ["Open", "InProgress", "Review", "Close"]
+        projectId:
+          type: integer
+        project:
+          type: string
+        cardType:
+          type: string
+          enum: ["Story", "Epic", "Bug", "Improvement", "Others"]
+        title:
+          type: string
+        assignee:
+          type: string
+        priority:
+          type: string
+          enum: ["Low", "Medium", "High", "Critical"]
+        storyPoints:
+          type: number
+          format: double
+        tags:
+          type: string
+        summary:
+          type: string
+
+    PatchCard:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: ["Open", "InProgress", "Review", "Close"]
+        projectId:
+          type: integer
+        project:
+          type: string
+        cardType:
+          type: string
+          enum: ["Story", "Epic", "Bug", "Improvement", "Others"]
+        title:
+          type: string
+        assignee:
+          type: string
+        priority:
+          type: string
+          enum: ["Low", "Medium", "High", "Critical"]
+        storyPoints:
+          type: number
+          format: double
+        tags:
+          type: string
+        summary:
+          type: string
+
+    TaskList:
+      type: object
+      required:
+        - id
+        - name
+        - key
+        - index
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        key:
+          type: string
+          enum: ["Open", "InProgress", "Review", "Close", "Others"]
+        index:
+          type: integer
+    PostTaskList:
+      type: object
+      required:
+        - name
+        - key
+        - index
+      properties:
+        name:
+          type: string
+        key:
+          type: string
+          enum: ["Open", "InProgress", "Review", "Close", "Others"]
+        index:
+          type: integer
+
+    PatchTaskList:
+      type: object
+      properties:
+        name:
+          type: string
+        key:
+          type: string
+          enum: ["Open", "InProgress", "Review", "Close", "Others"]
+        index:
+          type: integer
+
+    Board:
+      type: object
+      required:
+        - id
+        - title
+        - team
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        team:
+          type: string
+
+    PostBoard:
+      type: object
+      required:
+        - title
+        - team
+      properties:
+        title:
+          type: string
+        team:
+          type: string
+    PatchBoard:
+      type: object
+      properties:
+        title:
+          type: string
+        team:
+          type: string
+
+tags:
+  - name: Sessions
+    description: Management of the login sessions.
+  - name: Admins
+    description: Management of super admins.
+  - name: Workspaces
+    description: Management of workspaces.
+  - name: Users
+    description: Management of the workspace users.
+  - name: Customers
+    description: Management of the customers.
+  - name: Projects
+    description: Management of the projects.
+  - name: Activities
+    description: Management of the activities.
+  - name: Calendar
+    description: Management of the Calendar.
+  - name: Leaves
+    description: Management of the Leaves.
+  - name: Events
+    description: Management of the Events.
+  - name: Cards
+    description: Management of the task cards.
+  - name: TaskLists
+    description: Management of the task Lists.
+  - name: Board
+    description: Management of the board.
+paths:
+  /api/admin/session:
+    post:
+      tags:
+        - Sessions
+      summary: Logs in a super admin and returns a session token.
+      operationId: postAdminSession
+      requestBody:
+        description: The credentials to use for logging in.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostAdminSession"
+      responses:
+        "201":
+          description: The login was successful, a session token has been created.
+          content:
+            application/json:
+              schema:
+                type: string
+                description: The session token as JSON string.
+        "409":
+          description: Already logged in or password needs to be changed.
+    delete:
+      tags:
+        - Sessions
+      summary: Logs out the currently logged in super admin.
+      operationId: deleteAdminSession
+      security:
+        - Superadmin Session Token: []
+      responses:
+        "204":
+          description: The session has been terminated.
+
+  /api/workspaces/session:
+    post:
+      tags:
+        - Sessions
+      summary: Logs in a workspace user and returns a session object.
+      operationId: postUserSession
+      requestBody:
+        description: The credentials to use for logging in.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUserSession"
+      responses:
+        "201":
+          description: The login was successful, a session token has been created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSession"
+        "409":
+          description: Already logged in or password needs to be changed.
+
+  /api/workspaces/{workspaceId}/session:
+    get:
+      tags:
+        - Sessions
+      summary: read current session.
+      operationId: getUserSession
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+          description: The identifier of the workspace.
+      responses:
+        "200":
+          description: The session has been read.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSession"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+    delete:
+      tags:
+        - Sessions
+      summary: Logs out the currently logged in workspace user.
+      operationId: deleteUserSession
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The session has been deleted.
+  /api/admin/workspaces:
+    post:
+      tags:
+        - Workspaces
+      summary: Creates a new workspace. Only a super user can use this call.
+      operationId: postWorkspace
+      requestBody:
+        description: The data of the workspace that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostWorkspace"
+      security:
+        - Superadmin Session Token: []
+      responses:
+        "201":
+          description: The workspace was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workspace"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: Workspace already exists.
+    get:
+      tags:
+        - Workspaces
+      summary: Returns the list of workspaces. Only a super user can use this call.
+      operationId: getWorkspaces
+      security:
+        - Superadmin Session Token: []
+      responses:
+        "200":
+          description: The workspace was created.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Workspace"
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/admin/workspaces/{workspaceId}:
+    patch:
+      tags:
+        - Workspaces
+      summary: Modifies an existing workspace. Only a super user can use this call.
+      operationId: patchWorkspace
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The new data of the workspace that should be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchWorkspace"
+      security:
+        - Superadmin Session Token: []
+      responses:
+        "200":
+          description: The workspace was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workspace"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+        "409":
+          description: Workspace name already exists.
+    delete:
+      tags:
+        - Workspaces
+      summary: Delete an existing workspace. Only a super user can use this call.
+      operationId: deleteWorkspace
+      security:
+        - Superadmin Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The workspace was deleted.
+
+  /api/admin/workspaces/{workspaceId}/users:
+    post:
+      tags:
+        - Users
+      summary: Creates a workspace user. Only a super user can use this call.
+      operationId: createUserByAdmin
+      security:
+        - Superadmin Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the user that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUser"
+      responses:
+        "201":
+          description: The user was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: User already exists.
+    get:
+      tags:
+        - Users
+      summary: Returns the list of workspace users. Only a super user can use this call.
+      operationId: getUsersByAdmin
+      security:
+        - Superadmin Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The users were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "403":
+          description: Forbidden or workspace not found.
+  /api/admin/workspaces/{workspaceId}/users/{userId}:
+    patch:
+      tags:
+        - Users
+      summary: Modifies a workspace user. Only a super user can use this call.
+      operationId: patchUserByAdmin
+      security:
+        - Superadmin Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: path
+          description: The identifier of the user.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the user that should be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchUserBySuperAdmin"
+      responses:
+        "200":
+          description: The user was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+        "409":
+          description: User already exists.
+    delete:
+      tags:
+        - Users
+      summary: Deletes a workspace user. Only a super user can use this call.
+      operationId: deleteUserByAdmin
+      security:
+        - Superadmin Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: path
+          description: The identifier of the user.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The user was deleted.
+
+  /api/admin/workspaces/{workspaceId}/users/{userId}/roles:
+    put:
+      tags:
+        - Users
+      summary: Sets the global roles of a workspace user. Only a super user can use this call.
+      operationId: putUserRolesByAdmin
+      security:
+        - Superadmin Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: path
+          description: The identifier of the user.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The global roles of the user.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                x-scalaType: api.GlobalRole
+                description: Possible values are Administrator and AccountManager
+      responses:
+        "200":
+          description: The user roles were set.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  x-scalaType: api.GlobalRole
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+    get:
+      tags:
+        - Users
+      summary: Reads the global roles of a workspace user. Only a super user can use this call.
+      operationId: getUserRolesByAdmin
+      security:
+        - Superadmin Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: path
+          description: The identifier of the user.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The user roles were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  x-scalaType: api.GlobalRole
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+
+  /api/workspaces/{workspaceId}/users:
+    post:
+      tags:
+        - Users
+      summary: Creates a workspace user. Only a workspace admin can use this call.
+      operationId: createUser
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the user that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUser"
+      responses:
+        "201":
+          description: The user was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: User already exists.
+    get:
+      tags:
+        - Users
+      summary: Returns the list of workspace users. Any workspace user can use this call.
+      operationId: getUsers
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The users were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "403":
+          description: Forbidden or workspace not found.
+    patch:
+      tags:
+        - Users
+      summary: Modifies a workspace user. Only a workspace admin can use this call.
+      operationId: patchUser
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: query
+          description: The identifier of the user.
+          required: false
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the user that should be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchUser"
+      responses:
+        "200":
+          description: The user was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+        "409":
+          description: User already exists.
+  /api/workspaces/{workspaceId}/users/{userId}:
+    delete:
+      tags:
+        - Users
+      summary: Deletes a workspace user. Only a workspace admin can use this call.
+      operationId: deleteUser
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: path
+          description: The identifier of the user.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The user was deleted.
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/users/{userId}/roles:
+    put:
+      tags:
+        - Users
+      summary: Sets the global roles of a workspace user. Only a workspace admin can use this call.
+      operationId: putUserRoles
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: path
+          description: The identifier of the user.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The global roles of the user.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                x-scalaType: api.GlobalRole
+                description: Possible values are Administrator and AccountManager
+      responses:
+        "200":
+          description: The user roles were set.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  x-scalaType: api.GlobalRole
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+    get:
+      tags:
+        - Users
+      summary: Reads the global roles of a workspace user. Any workspace user can use this call.
+      operationId: getUserRoles
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: path
+          description: The identifier of the user.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The user roles were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  x-scalaType: api.GlobalRole
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/customers:
+    post:
+      tags:
+        - Customers
+      summary: Creates a customer. Only a workspace admin can use this call.
+      operationId: createCustomer
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the customer that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCustomer"
+      responses:
+        "201":
+          description: The customer was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: Customer already exists.
+    get:
+      tags:
+        - Customers
+      summary: Returns the list of customers. Any workspace user can use this call.
+      operationId: getCustomers
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The customers were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/customers/{customerId}:
+    patch:
+      tags:
+        - Customers
+      summary: Modifies a customer. Only a workspace admin can use this call.
+      operationId: patchCustomer
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: customerId
+          in: path
+          description: The identifier of the customer.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the customer that should be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchCustomer"
+      responses:
+        "200":
+          description: The customer was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+        "409":
+          description: Customer already exists.
+    delete:
+      tags:
+        - Customers
+      summary: Deletes a customer. Only a workspace admin can use this call.
+      operationId: deleteCustomer
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: customerId
+          in: path
+          description: The identifier of the customer.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The customer was deleted.
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: Customer still has projects.
+
+  /api/workspaces/{workspaceId}/projects:
+    post:
+      tags:
+        - Projects
+      summary: Creates a project. Only a workspace admin can use this call.
+      operationId: createProject
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the project that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostProject"
+      responses:
+        "201":
+          description: The project was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+        "409":
+          description: Project already exists.
+
+    get:
+      tags:
+        - Projects
+      summary: Returns the list of projects. Any workspace user can use this call.
+      operationId: getProjects
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: customerId
+          in: query
+          description: The identifier of the customer.
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The projects were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/projects/{projectId}:
+    patch:
+      tags:
+        - Projects
+      summary: Modifies a project. Only a workspace admin can use this call.
+      operationId: patchProject
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: path
+          description: The identifier of the project.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the project that should be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchProject"
+      responses:
+        "200":
+          description: The project was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+        "409":
+          description: Project already exists.
+    delete:
+      tags:
+        - Projects
+      summary: Deletes a project. Only a workspace admin can use this call.
+      operationId: putProject
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: path
+          description: The identifier of the project.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The project was deleted.
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+
+  /api/workspaces/{workspaceId}/projects/{projectId}/users/{userId}/roles:
+    put:
+      tags:
+        - Projects
+      summary: Updates the project roles of a user. Only a workspace admin or a project lead can use this call.
+      operationId: putUserProjectRoles
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: path
+          description: The identifier of the project.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: path
+          description: The identifier of the user.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The Project roles of the user.
+        content:
+          application/json:
+            schema:
+              type: array
+              description: Possible values are Lead, Supervisor and Member
+              items:
+                type: string
+      responses:
+        "200":
+          description: The Project roles were updated.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+
+    get:
+      tags:
+        - Projects
+      summary: Reads the project roles of a user. Only a workspace admin or a user with any project role can use this call.
+      operationId: getUserProjectRoles
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: path
+          description: The identifier of the project.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: path
+          description: The identifier of the user.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The Project roles were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+
+  /api/workspaces/{workspaceId}/projects/{projectId}/users/self/roles:
+    get:
+      tags:
+        - Projects
+      summary: Reads the own project roles. Only a user with any project role can use this call.
+      operationId: getOwnProjectRoles
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: path
+          description: The identifier of the project.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The Project roles were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/projects/{projectId}/users/roles:
+    get:
+      tags:
+        - Projects
+      summary: Reads the project roles of all users. Only a workspace admin or a user with any project role can use this call.
+      operationId: getProjectRolesOfAllUsers
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: path
+          description: The identifier of the project.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The project roles were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProjectRoles"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+
+  /api/workspaces/{workspaceId}/projects/user/{userId}:
+    get:
+      tags:
+        - Projects
+      summary: Reads the own projects. Any workspace user can use this call.
+      operationId: getOwnProjects
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: path
+          description: The identifier of the user.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The projects were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/activities:
+    post:
+      tags:
+        - Activities
+      summary: Creates an activity. Any workspace user can use this call.
+      operationId: createActivity
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the activity that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostActivity"
+      responses:
+        "201":
+          description: The activity was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+        "403":
+          description: Forbidden or workspace not found.
+    get:
+      tags:
+        - Activities
+      summary: Returns the list of activities. Any workspace user can use this call.
+      operationId: getActivities
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: query
+          description: The identifier of the user.
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: query
+          description: The identifier of the project.
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: from
+          in: query
+          description: The start date of the period.
+          schema:
+            type: string
+            x-scalaType: java.time.LocalDate
+            example: '"2021-01-01"'
+        - name: to
+          in: query
+          description: The end date of the period.
+          schema:
+            type: string
+            x-scalaType: java.time.LocalDate
+            example: '"2021-02-01"'
+      responses:
+        "200":
+          description: The activities were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Activity"
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/self/activities:
+    get:
+      tags:
+        - Activities
+      summary: Returns the list of self activities. Any workspace user can use this call (owner).
+      operationId: getSelfActivities
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: query
+          description: The identifier of the project. Use -1 for getting activities that are assigned to no project.
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: from
+          in: query
+          description: The start date of the period.
+          schema:
+            type: string
+            x-scalaType: java.time.LocalDate
+            example: '"2021-01-01"'
+        - name: to
+          in: query
+          description: The end date of the period.
+          schema:
+            type: string
+            x-scalaType: java.time.LocalDate
+            example: '"2021-02-01"'
+      responses:
+        "200":
+          description: The activities were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Activity"
+        "403":
+          description: Forbidden or workspace not found.
+  /api/workspaces/{workspaceId}/activities/{activityId}:
+    patch:
+      tags:
+        - Activities
+      summary: Modifies an activity. Only the owner, the workspace admin or the project lead can modify the activity.
+      operationId: patchActivity
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: activityId
+          in: path
+          description: The identifier of the activity.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the activity that should be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchActivity"
+      responses:
+        "200":
+          description: The activity was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+        "422":
+          description: End timestamp should be after start timestamp.
+    delete:
+      tags:
+        - Activities
+      summary: Deletes an activity
+      operationId: deleteActivity
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: activityId
+          in: path
+          description: The identifier of the activity.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: query
+          description: The identifier of the project.
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The activity was deleted.
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/calendar:
+    post:
+      tags:
+        - Calendar
+      summary: Create calendar. Any workspace admin or user can use this call.
+      description: For the workspace admin
+        - He cannot create a public global calendar with a name that is already used in another public global or project calendar.
+        - He cannot create a private calendar with a name that is already used in another owned private one.
+        For any workspace user
+        - He can create a public project calendar with a name that is already used in another public project (where he has not a role) calendar.
+        - He cannot create a public global calendar with a name that is already used in another public global or project (where he has role) calendar.
+        - He cannot create a private calendar with a name that is already used in another owned private one.
+      operationId: createCalendar
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: query
+          description: The identifier of the project.
+          required: false
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the calendar that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCalendar"
+      responses:
+        "201":
+          description: The calendar was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Calendar"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: Calendar already exists.
+
+  /api/workspaces/{workspaceId}/calendars:
+    get:
+      tags:
+        - Calendar
+      summary: Returns list of calendars. Any workspace user can use this call.
+      operationId: getCalendars
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: query
+          description: The identifier of the project.
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: isPrivate
+          in: query
+          description: Public or private calendar.
+          required: false
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: The calendars were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Calendar"
+        "403":
+          description: Forbidden or workspace not found/ or project not found.
+        "404":
+          description: Project not found.
+
+  /api/workspaces/{workspaceId}/calendar/{calendarId}:
+    get:
+      tags:
+        - Calendar
+      summary: Get calendar. The workspace admin or the owner can use this call.
+      operationId: getCalendar
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: calendarId
+          in: path
+          description: The identifier of the calendar.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The calendar was read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Calendar"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Calendar not found.
+    patch:
+      tags:
+        - Calendar
+      summary: Edit a calendar. The workspace admin or the calendar owner ( creator ) can use this call.
+      operationId: patchCalendar
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: calendarId
+          in: path
+          description: The identifier of the calendar.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The workspace admin can edit a calendar if he is the creator of the calendar, or the calendar is global public or project public and the calendar user has project role. The creator of the calendar can only edit his calendar.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchCalendar"
+      responses:
+        "200":
+          description: The calendar was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Calendar"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Calendar or project not found.
+        "409":
+          description: Unable to edit this calendar (Intersection with another calendar with the same name).
+    delete:
+      tags:
+        - Calendar
+      summary: Deletes a calendar
+      operationId: deleteCalendar
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: calendarId
+          in: path
+          description: The identifier of the calendar.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The calendar was deleted.
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/leaves:
+    post:
+      tags:
+        - Leaves
+      summary: Create a leave. The workspace admin or any user can use this call.
+      operationId: createLeave
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: userId
+          in: query
+          description: The identifier of the user.
+          required: false
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the leave that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostLeave"
+      responses:
+        "201":
+          description: The leave was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Leave"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: Unable to create leave (there is another leave on this date).
+        "422":
+          description: Finish date should be after start date.
+    get:
+      tags:
+        - Leaves
+      summary: Get all leaves. Any user can use this call.
+      operationId: getAllLeaves
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: usersId
+          in: query
+          description: The identifiers of the users.
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+            minItems: 1
+          explode: false
+          style: simple
+        - name: state
+          in: query
+          schema:
+            type: string
+            enum: ["Approved", "Refused", "Canceled", "Waiting", "InProgress"]
+        - name: from
+          in: query
+          schema:
+            type: string
+            x-scalaType: java.time.LocalDate
+            example: '"2021-01-01"'
+        - name: to
+          in: query
+          schema:
+            type: string
+            x-scalaType: java.time.LocalDate
+            example: '"2021-02-02"'
+      responses:
+        "200":
+          description: The leaves were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SummaryLeave"
+        "403":
+          description: Forbidden or workspace not found.
+  /api/workspaces/{workspaceId}/leaves/{leaveId}:
+    get:
+      tags:
+        - Leaves
+      summary: Get own leave. The workspace admin or the owner can use this call.
+      operationId: getLeave
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: leaveId
+          in: path
+          description: The identifier of the leave.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The leaves were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Leave"
+        "403":
+          description: Forbidden or workspace not found.
+    put:
+      tags:
+        - Leaves
+      summary: Update leave's state. Only the workspace admin or the owner can use this call.
+      operationId: patchLeave
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: leaveId
+          in: path
+          description: The identifier of the leave.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: -Only the admin can set/update the comment. -The admin can update the comment in whatever state. If the leave state is Waiting the admin can update the state ( InProgress or Approved or Refused ). If the leave state is InProgress the admin can update the state ( Waiting or Approved or Refused ). If leave state is Approved or Refused the workspace admin can update the state only to the Waiting state. If the  leave state is canceled the workspace admin cannot update the state. If the leave state is Waiting or InProgress the user can update the state to the canceled state. If the leave state is Canceled or Approved or Refused the user cannot update the state.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PutLeave"
+      responses:
+        "200":
+          description: The leave was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Leave"
+        "403":
+          description: Forbidden or workspace not found.
+        "422":
+          description: Unable to update leave status.
+        "404":
+          description: Leave not found.
+
+    patch:
+      tags:
+        - Leaves
+      summary: Edit a leave. The workspace admin or the leave owner can use this call.
+      operationId: patchOwnLeave
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: leaveId
+          in: path
+          description: The identifier of the leave.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: If leave state is Waiting the user can update his leave. If leave state is InProgress the user can update description. If leave state is Canceled or Approved or Refused the leave cannot be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchLeave"
+      responses:
+        "200":
+          description: The leave was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Leave"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Leave not found.
+        "409":
+          description: Unable to edit this leave (Intersection with another leave with the same date).
+        "422":
+          description: Finish date should be after start date.
+  /api/workspaces/{workspaceId}/events:
+    post:
+      tags:
+        - Events
+      summary: Creates an event. Any workspace user can use this call.
+      operationId: createEvent
+      security:
+        - Workspace User Session Token: []
+      description: For the workspacec admin, he should be the creator of the calendar or the calendar is global public or project public. For any workspace user, he should be the creator of the calendar or the calendar is global public or project public where he should has role.
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the event that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostEvent"
+      responses:
+        "201":
+          description: The event was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "403":
+          description: Forbidden or workspace not found.
+        "422":
+          description: Finish date should be after start date or invalid event type or repetition.
+    get:
+      tags:
+        - Events
+      summary: Get the list of events. Any workspace user can use this call.
+      description:
+        The workspace admin can get the list of all events created with public global or public project calendars and all events created with his owned private global or private project calendars.
+        The workspace user can get the list of all events created with public global calendars or with public project calendars where he has role and all events created with his owned private global or private project calendars.
+      operationId: getEvents
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: calendarId
+          in: query
+          description: The identifier of the calendar.
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: isPrivate
+          in: query
+          description: Public or private calendar.
+          required: false
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Events were successfully loaded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+  /api/workspaces/{workspaceId}/events/{eventId}:
+    get:
+      tags:
+        - Events
+      summary: Get an event. Any workspace user can use this call.
+      description: The creator can get his own event. The workspace admin can get another user's public event. Any workspace user can get another user's public project calendar if he has a project role in this project.
+      operationId: getEventById
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: eventId
+          in: path
+          description: The identifier of the event.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The event was successfully loaded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+    patch:
+      tags:
+        - Events
+      summary: Update an event. Any workspace user can use this call.
+      operationId: patchEvent
+      security:
+        - Workspace User Session Token: []
+      description: The workspace admin should be alse the creator of the calendar or the calendar is global public or project public. For the workspace user, he should be the creator of the calendar or the calendar is global public or project public where he should has role.
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: eventId
+          in: path
+          description: The identifier of the event.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Data of the updated event.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchEvent"
+      responses:
+        "200":
+          description: The event was successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "403":
+          description: Forbidden or workspace not found.
+        "404":
+          description: Not found.
+        "422":
+          description: Finish date should be after start date or invalid event type or repetition.
+    delete:
+      tags:
+        - Events
+      summary: Delete an event. Any workspace user can use this call.
+      description: The creator can delete his event. The workspace admin can delete another user's public event.
+      operationId: deleteEvent
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: eventId
+          in: path
+          description: The identifier of the event.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The event was successfully deleted.
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/cards:
+    post:
+      tags:
+        - Cards
+      summary: Creates a card. Any workspace user can use this call.
+      operationId: createCard
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the card that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCard"
+      responses:
+        "201":
+          description: The card was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Card"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: Card already exists.
+    get:
+      tags:
+        - Cards
+      summary: Returns the list of Cards. Any user can use this call.
+      operationId: getCards
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: projectId
+          in: query
+          description: The identifier of the project.
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The cards were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Card"
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/cards/{cardId}:
+    patch:
+      tags:
+        - Cards
+      summary: Modifies a card. Only owner or project members  can use this call.
+      operationId: patchCard
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: cardId
+          in: path
+          description: The identifier of the card.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the card that should be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchCard"
+      responses:
+        "200":
+          description: The card was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Card"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: Card already exists.
+    delete:
+      tags:
+        - Cards
+      summary: Deletes a card
+      operationId: deleteCard
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: cardId
+          in: path
+          description: The identifier of the card.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The card was deleted.
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/taskLists:
+    post:
+      tags:
+        - TaskLists
+      summary: Creates a list for tasks. Any workspace user can use this call.
+      operationId: createList
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the list that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostTaskList"
+      responses:
+        "201":
+          description: The list was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskList"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: List already exists.
+    get:
+      tags:
+        - TaskLists
+      summary: Returns the lists. Any workspace user can use this call.
+      operationId: getTaskLists
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The lists were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TaskList"
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/taskLists/{taskListId}:
+    patch:
+      tags:
+        - TaskLists
+      summary: Modifies a list. Any workspace user can use this call.
+      operationId: patchList
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: taskListId
+          in: path
+          description: The identifier of the list.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the list that should be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchTaskList"
+      responses:
+        "200":
+          description: The list was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskList"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: List already exists.
+    delete:
+      tags:
+        - TaskLists
+      summary: Deletes a list
+      operationId: deleteTaskList
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: taskListId
+          in: path
+          description: The identifier of the list.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The list was deleted.
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/boards:
+    post:
+      tags:
+        - Board
+      summary: Creates a board. Any workspace user can use this call.
+      operationId: createBoard
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the board that should be created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostBoard"
+      responses:
+        "201":
+          description: The list was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Board"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: Bord already exists.
+    get:
+      tags:
+        - Board
+      summary: Returns the boards. Any workspace user can use this call.
+      operationId: getBoards
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: The boards were read.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Board"
+        "403":
+          description: Forbidden or workspace not found.
+
+  /api/workspaces/{workspaceId}/boards/{boardId}:
+    patch:
+      tags:
+        - Board
+      summary: Modifies a list. Any workspace user can use this call.
+      operationId: patchBoard
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: boardId
+          in: path
+          description: The identifier of the board.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: The data of the board that should be updated.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchBoard"
+      responses:
+        "200":
+          description: The board was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Board"
+        "403":
+          description: Forbidden or workspace not found.
+        "409":
+          description: Board already exists.
+    delete:
+      tags:
+        - Board
+      summary: Deletes a Board
+      operationId: deleteBoard
+      security:
+        - Workspace User Session Token: []
+      parameters:
+        - name: workspaceId
+          in: path
+          description: The identifier of the workspace.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: boardId
+          in: path
+          description: The identifier of the board.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "204":
+          description: The board was deleted.
+        "403":
+          description: Forbidden or workspace not found.

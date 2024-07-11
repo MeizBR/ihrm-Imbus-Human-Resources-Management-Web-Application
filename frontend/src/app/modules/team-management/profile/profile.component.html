@@ -1,0 +1,18 @@
+<div class="profile-container">
+  <div class="cards" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+    <div *ngIf="isAdministrator$ | async" class="left-card">
+      <app-all-users-card [users]="allUsers" [selectedUserId]="userFromUrl"></app-all-users-card>
+    </div>
+    <div class="right-card">
+      <app-edit-profile-card
+        [error]="error$ | async"
+        [editCardDetails]="userDetails"
+        [isOwnProfile]="isOwnProfile"
+        [isAdministratorConnectedUser]="isAdministrator$ | async"
+        (updatedUser)="updateUser($event)"
+        (onDeleteUser)="deleteUser()"
+        (onSetGlobalRole)="setRoles($event)"
+      ></app-edit-profile-card>
+    </div>
+  </div>
+</div>

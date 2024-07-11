@@ -1,0 +1,50 @@
+<div class="card-header-text">
+  <div class="user-section" fxLayoutGap="10px">
+    <div class="user-img">
+      <div mat-card-avatar class="avatar"></div>
+    </div>
+    <div class="global-roles-icons">
+      <mat-icon *ngIf="isAdministrator" class="material-icons-outlined">admin_panel_settings</mat-icon>
+      <mat-icon *ngIf="isAccountManager" class="material-icons-outlined">manage_accounts</mat-icon>
+    </div>
+    <div class="user-name" data-test="user-name">
+      <mat-card-title class="edit-profile-title"
+        ><span>{{ cardDetails?.firstName }} {{ cardDetails?.lastName }}</span></mat-card-title
+      >
+    </div>
+  </div>
+  <div *ngIf="isAdministratorConnectedUser" class="settings-section">
+    <button mat-icon-button id="userMenu" [matMenuTriggerFor]="userMenu">
+      <mat-icon class="material-icons-outlined">settings</mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu" class="settings-menu">
+      <div mat-menu-item class="menu-section" (click)="$event.stopPropagation()">
+        <mat-label class="admin-label">
+          <mat-icon class="material-icons-outlined">admin_panel_settings</mat-icon>
+          {{ 'TEAM_VIEW.EDIT_PROFILE.ADMINISTRATOR' | translate }}</mat-label
+        >
+        <mat-slide-toggle
+          id="administrator"
+          [disabled]="(isOwnProfile && isAdministrator) || !isActiveUser"
+          [checked]="isAdministrator"
+          (change)="onChangeRole($event)"
+        ></mat-slide-toggle>
+      </div>
+      <div mat-menu-item class="menu-section" (click)="$event.stopPropagation()">
+        <mat-label class="manager-label">
+          <mat-icon class="material-icons-outlined">manage_accounts</mat-icon>
+          {{ 'TEAM_VIEW.EDIT_PROFILE.ACCOUNT_MANAGER' | translate }}</mat-label
+        >
+        <mat-slide-toggle id="accountManager" [disabled]="!isActiveUser" [checked]="isAccountManager" (change)="onChangeRole($event)"></mat-slide-toggle>
+      </div>
+      <mat-divider *ngIf="cardDetails?.userPermissions?.canDelete"></mat-divider>
+      <div *ngIf="cardDetails?.userPermissions?.canDelete" mat-menu-item class="menu-section delete" (click)="$event.stopPropagation()">
+        <mat-label>{{ 'TEAM_VIEW.EDIT_PROFILE.DELETE_USER' | translate }}</mat-label>
+        <button mat-icon-button color="warn" (click)="deleteUser()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-menu>
+  </div>
+  <span *ngIf="isOwnProfile && !isAdministrator" class="register-section">{{ cardDetails?.registrationNumber }}</span>
+</div>

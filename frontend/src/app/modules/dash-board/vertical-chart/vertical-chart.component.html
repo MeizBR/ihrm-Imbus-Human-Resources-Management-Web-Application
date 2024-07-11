@@ -1,0 +1,22 @@
+<!-- vertical-chart.component.html -->
+
+<div class="container" *ngIf="chartData">
+  <ngx-charts-bar-vertical-stacked
+    [results]="chartData"
+    [scheme]="'vivid'"
+    [xAxis]="true"
+    [yAxis]="true"
+    [showXAxisLabel]="true"
+    [gradient]="true"
+    [yAxisTickFormatting]="yLabelFormatting"
+    [trimYAxisTicks]="true"
+    legendTitle="Projects"
+    (select)="onSelect($event)"
+
+  ><ng-template #tooltipTemplate let-model="model">
+    <div class="tooltip-container">
+      <div class="tooltip-header">{{ model.name }}</div>
+      <div class="tooltip-body">{{displayValue(model.value)}}</div>
+    </div>
+  </ng-template></ngx-charts-bar-vertical-stacked>
+</div>

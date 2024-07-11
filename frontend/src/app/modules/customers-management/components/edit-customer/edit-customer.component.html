@@ -1,0 +1,56 @@
+<mat-card class="customer-details-card mat-elevation-z3">
+  <div class="card-header-text">
+    <div class="card-title">
+      <span>{{ 'CUSTOMERS_VIEW.EDIT_CUSTOMER.CUSTOMER_DETAILS' | translate }}</span>
+    </div>
+
+    <div *ngIf="editCustomerDetails?.userPermissions?.canDelete" class="button-section">
+      <button mat-icon-button color="warn" (click)="deleteCustomer()" data-test="delete-customer">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-card-content class="card-content">
+    <div class="edit-customer-form">
+      <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()">
+        <div class="section-container">
+          <div class="name-container">
+            <mat-form-field appearance="outline">
+              <mat-label data-test="name_label">{{ 'CUSTOMERS_VIEW.NAME' | translate }}</mat-label>
+              <input matInput placeholder="{{ 'CUSTOMERS_VIEW.NAME' | translate }}" type="text" formControlName="name" />
+              <span data-test="name_errormsg">
+                <mat-hint [id]="'add-customer-name-input-error-message'" *ngIf="form.controls['name'].touched && form.controls['name'].invalid">
+                  {{ ErrorType.getErrorMessage(form.controls['name'].errors, 'Name') }}
+                </mat-hint>
+
+                <mat-hint align="end" [id]="'add-customer-name-input-counter'" class="counter" [class.error]="form.controls['name'].hasError('maxlength')">
+                  {{ form.controls['name'].value.length }} / 255
+                </mat-hint>
+              </span>
+            </mat-form-field>
+          </div>
+          <div class="is-active-section">
+            <mat-label data-test="is-active-label">{{ 'CUSTOMERS_VIEW.ACTIVE' | translate }}</mat-label>
+            <mat-slide-toggle color="primary" formControlName="isActive"></mat-slide-toggle>
+          </div>
+        </div>
+        <div class="description-section" fxLayout="column">
+          <mat-label class="description-label" data-test="description-label">{{ 'CUSTOMERS_VIEW.DESCRIPTION' | translate }}:</mat-label>
+          <quill-editor class="description-editor" formControlName="description" ngDefaultControl (onContentChanged)="contentChanged($event)"></quill-editor>
+          <mat-error *ngIf="form.controls['description'].invalid && ErrorType.getErrorMessage(form.controls['description'].errors, 'Description')">
+            {{ ErrorType.getErrorMessage(form.controls['description'].errors, 'Description') }}
+          </mat-error>
+        </div>
+      </form>
+      <div class="buttons-container">
+        <button mat-raised-button color="primary" type="submit" class="save-button" data-test="save-button" [disabled]="form.invalid || !form.dirty" (click)="onSubmit()">
+          {{ 'SAVE' | translate }}
+        </button>
+        <button mat-raised-button color="warn" type="button" class="cancel-button" data-test="cancel-button" [disabled]="!form.dirty" (click)="onCancelEdit()">
+          {{ 'CANCEL' | translate }}
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,12 @@
+<div class="confirm-dialog-container">
+  <h1 mat-dialog-title>{{ title | translate }}</h1>
+
+  <div mat-dialog-content>
+    <p [innerHTML]="message | translate: { value: value }"></p>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button class="no-button" (click)="onDismiss()">{{ 'NO' | translate }}</button>
+    <button mat-raised-button color="primary" class="yes-button" data-test="yes-button" (click)="onConfirm()">{{ 'YES' | translate }}</button>
+  </div>
+</div>

@@ -1,0 +1,234 @@
+@import '../../../../sass/mixins';
+@import '../../../../../theme/breakpoint-theme.scss';
+
+// FIXME: variable to be moved to `ihrm-measurements.scss`
+$attention: red;
+
+:host {
+  display: block;
+  height: 100%;
+
+  .customer-details-card {
+    padding: 0;
+    height: 100%;
+    align-content: space-between;
+
+    .card-header-text {
+      height: 4rem;
+      display: flex;
+      padding: 0 1rem;
+      border-radius: 5px 5px 0 0;
+      background-color: #d3dddf;
+      justify-content: space-between;
+
+      .card-title {
+        display: flex;
+        font: 23px serif;
+        align-self: center;
+        color: #0697a6ed;
+        text-transform: capitalize;
+
+        span {
+          max-width: 25rem;
+          @extend %text-overflow;
+        }
+      }
+
+      .button-section {
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+          font-size: 2.1em;
+        }
+      }
+    }
+
+    .card-content {
+      height: calc(100% - 4rem);
+
+      .edit-customer-form {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        font-size: 1rem;
+        border-radius: 5px;
+        flex-direction: column;
+        padding: 2rem 1rem 1rem;
+        justify-content: space-between;
+
+        form {
+          display: flex;
+          flex-flow: column wrap;
+          margin-bottom: 2rem;
+
+          .section-container {
+            display: flex;
+            flex: 1 1 auto;
+            flex-flow: row wrap;
+            height: fit-content;
+            margin: 1.5rem 0;
+
+            .is-active-section {
+              flex: 1;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0 0.5rem 1rem 0.5rem;
+
+              .mat-slide-toggle {
+                margin-left: 1rem;
+              }
+            }
+            .name-container {
+              flex: 4;
+
+              mat-form-field {
+                width: 100%;
+                margin: 0.25rem 0.5rem 0 0.5rem;
+
+                ::ng-deep .mat-form-field-wrapper {
+                  padding-bottom: 1.2rem !important;
+                }
+
+                ::ng-deep .mat-form-field-ripple {
+                  background: blue;
+                }
+
+                &.ng-invalid.ng-touched {
+                  ::ng-deep .mat-form-field-ripple {
+                    background: $attention;
+                  }
+                }
+
+                mat-hint {
+                  &:not(.mat-right) {
+                    color: $attention;
+                  }
+
+                  &.counter {
+                    display: none;
+
+                    &.error {
+                      color: $attention;
+                    }
+                  }
+                }
+
+                &.mat-focused {
+                  .counter {
+                    flex: 0 0 auto;
+                    display: inline-block;
+                  }
+                }
+              }
+            }
+          }
+
+          .description-section {
+            flex: 4;
+            display: flex;
+
+            .description-label {
+              color: black;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 18px;
+              padding: 0 0 0.25rem 0.5rem;
+            }
+
+            .description-editor {
+              padding: 0.5rem 0.5rem 0;
+              border-radius: 5% !important;
+              ::ng-deep .ql-container {
+                height: auto !important;
+              }
+            }
+          }
+        }
+
+        .buttons-container {
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          flex: 0 0 auto;
+          padding: 0 1rem 1rem 1rem;
+
+          .mat-raised-button {
+            margin: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  /** 599px */
+  @media (max-width: $breakpoint-xs-max-width) {
+    .customer-details-card {
+      .card-header-text {
+        padding-left: 0.5rem;
+      }
+
+      .card-content {
+        .edit-customer-form {
+          form {
+            flex-flow: column wrap;
+            align-items: stretch;
+
+            .section-container {
+              flex-flow: row wrap;
+
+              .name-container {
+                flex: inherit;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* 600px  959px*/
+  @media (min-width: $breakpoint-sm-min-width) and (max-width: $breakpoint-sm-max-width) {
+    .customer-details-card {
+      .card-content {
+        .edit-customer-form {
+          form {
+            flex-flow: column wrap;
+            align-items: stretch;
+
+            .section-container {
+              flex-flow: row wrap;
+
+              .name-container {
+                flex: inherit;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* 960px  1279px*/
+  @media (min-width: $breakpoint-md-min-width) and (max-width: $breakpoint-md-max-width) {
+    .customer-details-card {
+      .card-content {
+        .edit-customer-form {
+          form {
+            flex-flow: column wrap;
+            align-items: stretch;
+
+            .section-container {
+              flex-flow: row wrap;
+
+              .name-container {
+                flex: inherit;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+<mat-toolbar>
+  <span>Dashboard</span>
+  <span class="spacer"></span>
+  <div class="content">
+    <button mat-stroked-button [matMenuTriggerFor]="menu">{{ selectedChoice ? 'Only me' : 'Team' }}</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="changeChoice(true)">Only me</button>
+      <button mat-menu-item (click)="changeChoice(false)">Team</button>
+    </mat-menu>
+    <mat-form-field >
+      <input matInput
+             ngxDaterangepickerMd
+             [opens]="'left'"
+             [(ngModel)]="selectedDates"
+             [locale]="{format: 'YYYY-MM-DD' }"
+             [ranges]="ranges"
+             [alwaysShowCalendars]="true"
+             [linkedCalendars]="false"
+             (datesUpdated)="onDatesUpdated($event)"
+             class="date-picker">
+    </mat-form-field>
+
+    <button mat-icon-button (click)="navigateDate(-1)"><mat-icon>chevron_left</mat-icon></button>
+    <button mat-icon-button (click)="navigateDate(1)"><mat-icon>chevron_right</mat-icon></button>
+  </div>
+</mat-toolbar>

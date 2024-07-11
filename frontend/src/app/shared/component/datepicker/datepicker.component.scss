@@ -1,0 +1,61 @@
+// FIXME: variable to be moved to `ihrm-measurements.scss`
+$attention: red;
+$disabled: gray;
+
+:host {
+  display: flex;
+  flex: 1;
+
+  .date-picker {
+    flex: 1;
+
+    mat-form-field {
+      flex: 1;
+      height: 6rem !important;
+
+      ::ng-deep .mat-placeholder-required {
+        color: $attention !important;
+      }
+
+      ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+        margin: 0.25em 0 0 0 !important;
+      }
+
+      ::ng-deep .mat-form-field-subscript-wrapper {
+        margin: 0.5rem 0 !important;
+        padding: 0 0.5rem !important;
+      }
+
+      ::ng-deep .mat-form-field-ripple {
+        background: blue;
+      }
+
+      &.ng-invalid.ng-touched {
+        ::ng-deep .mat-form-field-ripple {
+          background: $attention;
+        }
+      }
+
+      mat-hint {
+        &:not(.mat-right) {
+          color: $attention;
+        }
+
+        &.counter {
+          display: none;
+
+          &.error {
+            color: $attention;
+          }
+        }
+      }
+
+      &.mat-focused {
+        .counter {
+          flex: 0 0 auto;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

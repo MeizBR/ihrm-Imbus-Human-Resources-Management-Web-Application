@@ -1,0 +1,43 @@
+:host {
+  display: block;
+
+  /** new scss*/
+  .add-card-container {
+    .card-form {
+      margin-top: 5%;
+      .card-form-group {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        margin-bottom: 5%;
+        font-size: 0.95em;
+
+        .label {
+          display: flex;
+          min-width: 30%;
+          max-width: 30%;
+        }
+
+        .field {
+          display: flex;
+          min-width: 70%;
+          max-width: 70%;
+          border: 0.5px solid rgb(172, 172, 172);
+          padding: 0 10px 0 10px;
+          font-family: inherit;
+          font-size: 0.95em;
+          border-radius: 5px;
+          height: 35px;
+          padding: 0 2%;
+        }
+
+        .no-outline {
+          outline: none;
+          border: none;
+          background-color: transparent;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

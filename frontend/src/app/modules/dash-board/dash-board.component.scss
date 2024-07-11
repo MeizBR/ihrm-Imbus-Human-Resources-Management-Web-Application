@@ -1,0 +1,66 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.dash-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .dash-header{
+    height: 10%;
+    width: 100%;
+  }
+  .dash-content{
+       height: 85%;
+       width: 100%;
+       display: flex;
+       flex-direction: row;
+       align-items: center;
+       justify-content: space-evenly;
+    .charts {
+      height: 100%;
+      width: 73%;
+    }
+
+    .activity-list {
+      height: 100%;
+      width: 25%;
+    }
+     }
+  .dash-content-false{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap :20px;
+    .charts {
+      height: 97%;
+      width: 100%;
+    }
+
+    .team-list {
+      width: 100%;
+    }
+  }
+
+
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+  .dash-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .charts,
+  .activity-list {
+    width: 100%;
+  }
+}

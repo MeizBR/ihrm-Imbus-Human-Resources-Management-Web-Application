@@ -1,0 +1,42 @@
+<mat-card class="container">
+  <mat-card-header class="card-header">
+    <div class="header">
+      <div class="header-items" style="border-right:1px solid rgb(159 157 157 / 27%); width: 70%">
+        <p style="font-size: 86% ; color: rgba(61,63,65,0.8)"> Team activities</p>
+      </div>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="content"><mat-table [dataSource]="usersOfActivities">
+
+  <!-- Team Member Column -->
+  <ng-container matColumnDef="teamMember">
+    <mat-header-cell *matHeaderCellDef> TEAM MEMBER </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element}} </mat-cell>
+  </ng-container>
+
+  <!-- Latest Activity Column -->
+  <ng-container matColumnDef="latestActivity">
+    <mat-header-cell *matHeaderCellDef> LATEST ACTIVITY </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{activitiesByUser[element].activities[0].description}} </mat-cell>
+  </ng-container>
+
+  <!-- Total Tracked Column -->
+  <ng-container matColumnDef="totalTracked">
+    <mat-header-cell *matHeaderCellDef> TOTAL TRACKED (FEB 7, 2024 - FEB 29, 2024) </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{activitiesByUser[element].totalWork}} <div style="width: 80%; height:70px;">
+      <ngx-charts-bar-horizontal-stacked
+        [results]="chartData[element]"
+        [scheme]="'vivid'"
+        [showXAxisLabel]="true"
+        [gradient]="true"
+      ></ngx-charts-bar-horizontal-stacked>
+    </div>  </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</mat-table>
+
+
+  </mat-card-content></mat-card>

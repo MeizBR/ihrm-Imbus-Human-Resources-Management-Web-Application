@@ -1,0 +1,24 @@
+<div class="leave-container">
+  <div class="cards" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="20px">
+    <div class="left-card">
+      <app-all-leaves-card
+        class="all-leave-card"
+        [leaveList]="allLeaves$ | async"
+        [onlyOwnLeaves]="!(isAdministrator$ | async)"
+        [selectedLeaveId]="leaveFromUrl"
+      ></app-all-leaves-card>
+    </div>
+    <div class="right-card">
+      <app-edit-leave
+        class="edit-leave-card"
+        [error]="error$ | async"
+        [isLeaveLoading]="isLeaveLoading$ | async"
+        [editLeaveDetails]="leaveDetails$ | async"
+        [isAdministrator]="isAdministrator$ | async"
+        [isOwner]="(currentUser$ | async) === (leaveDetails$ | async).userId"
+        (updateLeave)="updateLeave($event)"
+        (updateLeaveStatus)="putLeave($event)"
+      ></app-edit-leave>
+    </div>
+  </div>
+</div>

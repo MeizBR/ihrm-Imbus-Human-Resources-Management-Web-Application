@@ -1,0 +1,15 @@
+<div class="customer-details-container">
+  <div class="cards" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="20px">
+    <div class="left-card">
+      <app-all-customers [customers]="allCustomers" [selectedCustomerId]="customerFromUrl"></app-all-customers>
+    </div>
+    <div class="right-card">
+      <app-edit-customer
+        [editCustomerDetails]="customerDetails"
+        [error]="error$ | async"
+        (updateCustomer)="updateCustomer($event)"
+        (onDeleteCustomer)="deleteCustomer($event)"
+      ></app-edit-customer>
+    </div>
+  </div>
+</div>

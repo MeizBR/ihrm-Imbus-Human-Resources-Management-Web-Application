@@ -1,0 +1,98 @@
+<div class="leaves-container">
+  <div>
+    <app-add-leave
+      [error]="error$ | async"
+      [isLeaveLoading]="isLeaveLoading$ | async"
+      [isAdministrator]="isAdministrator$ | async"
+      [currentUserId]="currentUser$ | async"
+      [userList]="usersList$ | async"
+      (onAdd)="onAddLeave($event)"
+    ></app-add-leave>
+  </div>
+  <div class="leaves-list-container">
+    <div class="search-div">
+      <mat-form-field class="search-form-field" appearance="none" floatLabel="never">
+        <input class="search-form-input" matInput [(ngModel)]="searchKey" [placeholder]="'SEARCH' | translate" autocomplete="off" (keyup)="applyFilter()" data-test="search-area" />
+        <button *ngIf="searchKey" class="search-form-button" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="onSearchClear()">
+          <mat-icon class="search-form-button-icon">close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div class="list-container">
+      <mat-table class="leaves-table" matSort [dataSource]="list" matSortActive="userName" matSortDirection="asc">
+        <!-- NOTE: try to add the first column sticky -->
+        <ng-container class="user-column" matColumnDef="userName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="user-col">{{ 'LEAVES_VIEW.USER' | translate }}</mat-header-cell>
+          <div>
+            <mat-cell *matCellDef="let element; let ind = index">
+              <app-item-status [item]="element.userName" [isActiveItem]="element.isActiveUser" [attr.data-test]="'user-full-name-' + ind"></app-item-status>
+            </mat-cell>
+          </div>
+        </ng-container>
+
+        <ng-container class="leave-type-column" matColumnDef="leaveType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="leave-type-col">{{ 'LEAVES_VIEW.LEAVE_TYPE.LEAVE_TYPE' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element; let ind = index"
+            ><span>{{ leaveType.getTranslate(element?.leaveType) | translate }}</span></mat-cell
+          >
+        </ng-container>
+
+        <ng-container class="start-date-column" matColumnDef="start">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="start-date">{{ 'LEAVES_VIEW.START_DATE' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element"
+            ><span>{{ element?.start | date: 'mediumDate' }}</span></mat-cell
+          >
+        </ng-container>
+
+        <ng-container class="end-date-column" matColumnDef="end">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="end-date">{{ 'LEAVES_VIEW.END_DATE' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element"
+            ><span>{{ element?.end | date: 'mediumDate' }}</span></mat-cell
+          >
+        </ng-container>
+
+        <ng-container class="state-column" matColumnDef="state">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="state">{{ 'LEAVES_VIEW.STATE.STATE' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element"
+            ><span>{{ LeaveState.getTranslate(element?.state) | translate }}</span></mat-cell
+          >
+        </ng-container>
+
+        <ng-container class="state-icon-column" matColumnDef="state-icon">
+          <mat-header-cell *matHeaderCellDef disabled="true"></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <div class="state-icons">
+              <mat-icon [style.color]="LeaveState.getIconColor(element.state)"
+                ><span>{{ LeaveState.getIconName(element?.state) }}</span></mat-icon
+              >
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container class="noData-column" matColumnDef="noData">
+          <mat-footer-cell *matFooterCellDef colspan="6">{{ 'NO_DATA' | translate }}</mat-footer-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let row; let ind = index">
+            <button [disabled]="!row.editPermission?.canEdit" mat-icon-button (click)="navigateToLeaveDetails(row.id)">
+              <mat-icon class="material-icons" [attr.data-test]="'edit-' + ind">description</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{ hide: !!list?.filteredData?.length }"></mat-footer-row>
+      </mat-table>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [pageSize]="(leavesPageSize$ | async).size"
+        showFirstLastButtons
+        (page)="updatePagination($event)"
+        data-test="items-per-page"
+      ></mat-paginator>
+    </div>
+  </div>
+</div>

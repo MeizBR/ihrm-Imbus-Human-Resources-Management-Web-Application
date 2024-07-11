@@ -1,0 +1,168 @@
+@import '../../../theme/breakpoint-theme.scss';
+
+// FIXME: variable to be moved to `ihrm-measurements.scss`
+$attention: red;
+$disabled: gray;
+
+:host {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  .login-container {
+    width: inherit;
+    height: inherit;
+
+    mat-card {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      text-align: center;
+      padding: 0 !important;
+      background-color: #eeeeee;
+
+      mat-card-content {
+        display: flex;
+        width: inherit;
+
+        .background-title-container {
+          flex: 3;
+          background-image: linear-gradient(#74c6be54, #74c6be00), url('src/assets/img/background.jpeg');
+          background-repeat: no-repeat;
+          background-size: cover;
+
+          .title-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+
+            .company {
+              display: flex;
+              justify-content: flex-end;
+              padding: 0.5rem;
+
+              span {
+                font-size: 1rem;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 300;
+                font-style: italic;
+                color: #3a7575;
+              }
+            }
+
+            .title {
+              margin-bottom: 5rem;
+              span {
+                font-size: 3rem;
+                margin-top: 5rem;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 500;
+                font-style: italic;
+                color: #242d2e;
+              }
+            }
+          }
+        }
+
+        .form-container {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          .form-content {
+            padding: 0 3rem;
+
+            span {
+              color: #3a7575;
+              font-size: 1.5rem;
+              margin-bottom: 3rem;
+              font-family: 'Roboto', Times, serif;
+            }
+
+            form {
+              .error-hint {
+                margin: 1rem 0;
+
+                mat-hint {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: $attention !important;
+
+                  mat-icon {
+                    width: 18px !important;
+                    height: 18px !important;
+                    font-size: 18px !important;
+                    padding-left: 0.5rem !important;
+                  }
+                }
+              }
+
+              .actions-container {
+                margin-top: 1.5rem;
+              }
+            }
+          }
+        }
+
+        @media (max-width: $breakpoint-sm-min-width) {
+          .background-title-container {
+            display: none;
+          }
+
+          .form-container {
+            justify-content: space-between !important;
+            background-color: rgb(#3a7575, 0.1);
+            .company {
+              display: flex;
+              justify-content: flex-end;
+              padding: 1rem;
+
+              span {
+                font-size: 1rem;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 300;
+                font-style: italic;
+                color: #3a7575;
+              }
+            }
+
+            .title {
+              margin-bottom: 5rem;
+
+              span {
+                font-size: 3rem;
+                margin-top: 5rem;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 500;
+                font-style: italic;
+                color: #3a7575;
+              }
+              :last-child {
+                font-size: 1rem;
+              }
+            }
+          }
+        }
+      }
+
+      ::ng-deep mat-form-field {
+        width: 100%;
+        display: flex;
+        line-height: 1.5 !important;
+
+        mat-icon {
+          color: $disabled;
+          cursor: pointer;
+        }
+
+        .mat-form-field-wrapper {
+          display: flex;
+          width: inherit;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+<mat-card class="event-card mat-elevation-z3">
+  <div class="card-header-text">
+    <div class="card-title">{{ 'EVENTS_VIEW.EDIT_EVENT.EVENT_DETAILS' | translate }} :</div>
+    <div *ngIf="editEventDetails?.userPermission?.canDelete" class="button-section">
+      <button mat-icon-button color="warn" (click)="deleteEvent()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-card-content class="card-content">
+    <div class="edit-event-form">
+      <form [formGroup]="form" fxLayout.xs="column" (submit)="onSubmit()">
+        <div class="section-container">
+          <mat-form-field appearance="outline" class="calendar-field" fxLayout="column wrap" fxLayoutGap="32px">
+            <mat-label data-test="calendar_label">{{ 'EVENTS_VIEW.EDIT_EVENT.CALENDAR_NAME' | translate }}</mat-label>
+            <mat-select formControlName="calendarId" class="border" (selectionChange)="onCalendarChange($event.value)">
+              <mat-select-trigger>
+                <div>
+                  <span>{{ selectedCalendar?.name }}</span>
+                  <mat-icon>{{ selectedCalendar?.isPrivate ? 'lock' : 'public' }}</mat-icon>
+                </div>
+              </mat-select-trigger>
+              <mat-option *ngFor="let calendar of calendarsList; trackBy: trackCalendarFn" [value]="calendar?.id">
+                <div>
+                  <span>{{ calendar?.name }}</span>
+                  <mat-icon>{{ calendar?.isPrivate ? 'lock' : 'public' }}</mat-icon>
+                </div>
+              </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="form.controls['calendarId'].touched && form.controls['calendarId'].invalid">
+              {{ ErrorType.getErrorMessage(form.controls['calendarId'].errors, 'Calendar') }}
+            </mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline" id="title-field" fxLayout="column wrap" fxLayoutGap="32px">
+            <mat-label data-test="title_label">{{ 'EVENTS_VIEW.EDIT_EVENT.TITLE' | translate }}</mat-label>
+            <input matInput formControlName="title" class="border" />
+            <mat-hint id="title-error-message" *ngIf="form.controls['title'].touched && form.controls['title'].invalid">
+              {{ ErrorType.getErrorMessage(form.controls['title'].errors, 'Title') }}
+            </mat-hint>
+
+            <mat-hint align="end" [id]="'title-input-counter'" class="counter" [class.error]="form.controls['title'].hasError('maxlength')">
+              {{ form.controls['title'].value?.length }} / 255
+            </mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline" id="event-type-field" fxLayout="column wrap" fxLayoutGap="32px">
+            <mat-label data-test="event_type_label">{{ 'EVENTS_VIEW.EDIT_EVENT.EVENT_TYPE' | translate }}</mat-label>
+            <mat-select formControlName="eventType" class="border">
+              <mat-option *ngFor="let eventType of EventType?.getValues(); trackBy: trackEventType" [value]="eventType">
+                {{ EventType.getTranslate(eventType) | translate }}</mat-option
+              >
+            </mat-select>
+            <mat-hint *ngIf="form.controls['eventType'].touched && form.controls['eventType'].invalid">
+              {{ ErrorType.getErrorMessage(form.controls['eventType'].errors, 'Event type') }}
+            </mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline" id="repetition-field" fxLayout="column wrap" fxLayoutGap="32px">
+            <mat-label data-test="repetition_label">{{ 'EVENTS_VIEW.EDIT_EVENT.REPETITION' | translate }}</mat-label>
+            <mat-select formControlName="repetition" class="border">
+              <mat-option *ngFor="let repetitive of Repetitive?.getValues(); trackBy: trackRepetitions" [value]="repetitive">
+                {{ Repetitive.getTranslate(repetitive) | translate }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="section-container">
+          <div class="start-date-field">
+            <app-datepicker *ngIf="checked" [parentForm]="form" [controlName]="'start'" [pickerLabel]="'EVENTS_VIEW.EDIT_EVENT.START_AT'"></app-datepicker>
+            <app-datetimepicker *ngIf="!checked" [parentForm]="form" [controlName]="'start'" [pickerLabel]="'EVENTS_VIEW.EDIT_EVENT.START_AT'"></app-datetimepicker>
+          </div>
+          <div class="end-date-field">
+            <app-datepicker
+              *ngIf="checked"
+              [parentForm]="form"
+              [minDate]="form.controls['start'].value"
+              [controlName]="'end'"
+              [pickerLabel]="'EVENTS_VIEW.EDIT_EVENT.END_AT'"
+            ></app-datepicker>
+            <app-datetimepicker
+              *ngIf="!checked"
+              [parentForm]="form"
+              [minDate]="form.controls['start'].value"
+              [maxDate]="form.controls['start'].value"
+              [controlName]="'end'"
+              [pickerLabel]="'EVENTS_VIEW.EDIT_EVENT.END_AT'"
+            ></app-datetimepicker>
+          </div>
+
+          <div class="all-day-check-box">
+            <mat-label data-test="all_day_label">{{ 'EVENTS_VIEW.EDIT_EVENT.ALL_DAY' | translate }}</mat-label>
+            <mat-slide-toggle color="primary" formControlName="allDay" [checked]="checked" (change)="toggleAllDaySlide($event.checked)"></mat-slide-toggle>
+          </div>
+        </div>
+        <div class="description-container">
+          <mat-label class="description-label" data-test="description_label">{{ 'EVENTS_VIEW.EDIT_EVENT.DESCRIPTION' | translate }}:</mat-label>
+          <quill-editor class="description-editor" name="description" formControlName="description" ngDefaultControl (onContentChanged)="contentChanged($event)"></quill-editor>
+          <mat-error *ngIf="form.controls['description'].invalid && ErrorType.getErrorMessage(form.controls['description'].errors, 'Description')">
+            {{ ErrorType.getErrorMessage(form.controls['description'].errors, 'Description') }}
+          </mat-error>
+        </div>
+      </form>
+      <div class="actions-container" fxLayout="row" fxFlexAlign="end" fxFlexAlign.xs="stretch">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || !form.dirty" (click)="onSubmit()">{{ 'SAVE' | translate }}</button>
+        <button mat-raised-button color="warn" [disabled]="!form.dirty" class="cancel-button" (click)="onCancelEdit()">{{ 'CANCEL' | translate }}</button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

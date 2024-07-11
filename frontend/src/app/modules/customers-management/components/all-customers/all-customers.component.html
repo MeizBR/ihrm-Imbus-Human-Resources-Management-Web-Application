@@ -1,0 +1,36 @@
+<mat-card class="all-customers-card mat-elevation-z3">
+  <mat-card-header class="all-customers-card-header-text">
+    <mat-card-title class="all-customers-card-title" data-test="all_customers">{{ 'CUSTOMERS_VIEW.EDIT_CUSTOMER.Customers_LIST.ALL_Customers' | translate }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="all-customers-card-content">
+    <div class="customers-list">
+      <div
+        *ngFor="let customer of splicedData; trackBy: customerTrackFn; let ind = index"
+        class="customer-details-content"
+        [class.selected]="customer.id === selectedCustomerId"
+        [routerLink]="['../../details', customer.id]"
+        fxLayoutGap="10px"
+      >
+        <div mat-card-avatar class="customer-avatar"></div>
+        <div class="customer-details" fxLayoutAlign="space-between">
+          <div class="customer-information" [attr.data-test]="'customer-info-' + ind">{{ customer.name }}</div>
+          <div class="is-active">
+            <mat-icon color="{{ customer.isActive ? 'primary' : 'warn' }}">{{ customer.isActive ? 'done' : 'clear' }}</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      appPaginator
+      [itemsPerPage]="pageSize"
+      [selectedItemId]="selectedCustomerId"
+      [itemList]="customers"
+      (onChangeSelectedPage)="getSelectedPage($event)"
+      [length]="pageLength"
+      [hidePageSize]="true"
+      [pageSize]="pageSize"
+      (page)="pageChangeEvent($event)"
+    >
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

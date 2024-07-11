@@ -1,0 +1,100 @@
+@import '../../../../sass/mixins';
+@import '../../../../../theme/breakpoint-theme.scss';
+
+:host {
+  height: 100%;
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  @extend %set-scrollbar;
+
+  .calendars-filter-card {
+    margin-left: 0.5rem;
+    padding-right: 0.7rem;
+
+    &.reversed-items {
+      display: flex;
+      flex-direction: column-reverse !important;
+    }
+
+    .no-items-section {
+      margin: 1rem 0;
+    }
+
+    span {
+      display: block;
+      width: 10rem;
+      max-width: 10rem;
+      @extend %text-overflow;
+
+      &.right-bar-title {
+        width: 13rem;
+        font-size: 20px;
+        max-width: 13rem;
+        color: #26a69a;
+        margin-bottom: 1.5rem;
+      }
+
+      &.filter-title {
+        width: 13rem;
+        max-width: 13rem;
+      }
+    }
+
+    .calendars-section,
+    .users-leaves-section {
+      padding: 1rem 0 1rem 0.5rem;
+
+      .calendars-list-section,
+      .leaves-list-section {
+        margin: 0 0 1rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .filter-details {
+          display: flex;
+          align-items: center;
+
+          mat-icon {
+            width: 1rem;
+            height: 1rem;
+            font-size: 1.1rem;
+            margin-right: 0.3rem;
+          }
+        }
+      }
+    }
+
+    ::ng-deep .mat-checkbox-layout {
+      .mat-checkbox-inner-container {
+        width: 13px !important;
+        height: 13px !important;
+      }
+
+      .mat-checkbox-label {
+        width: 10rem;
+        @extend %text-overflow;
+      }
+    }
+
+    /** 959 px */
+    @media (max-width: $breakpoint-sm-max-width) {
+      span.right-bar-title {
+        width: 11rem !important;
+      }
+
+      .calendars-list-section,
+      .leaves-list-section {
+        ::ng-deep span {
+          width: 8rem !important;
+        }
+
+        ::ng-deep .mat-checkbox-inner-container {
+          width: 12px !important;
+          height: 12px !important;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+<div fxFlex class="list-item-container">
+  <div class="search-div" data-test="search-field">
+    <mat-form-field class="search-form-field" appearance="none" floatLabel="never">
+      <input matInput [(ngModel)]="searchKey" [placeholder]="'SEARCH' | translate" autocomplete="off" data-test="search-input" (keyup)="applyFilter()" />
+      <button *ngIf="searchKey" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="table-list mat-elevation-z2">
+    <mat-table matTableResponsive matSort [dataSource]="list" [matSortActive]="matSortActive" matSortDirection="asc">
+      <!-- NOTE: try to add the first column sticky too -->
+      <ng-container *ngFor="let column of columns; trackBy: colTrackFn" [matColumnDef]="column.matColumnDef">
+        <mat-header-cell *matHeaderCellDef mat-sort-header disableClear [attr.data-test]="column.matColumnDef">{{ column.headerName | translate }}</mat-header-cell>
+        <div [ngSwitch]="column.attribute" data-test="global-roles">
+          <div *ngSwitchCase="'globalRoles'">
+            <mat-cell *matCellDef="let element">
+              <div class="global-role-icons">
+                <mat-icon *ngIf="element['globalRoles']?.includes(roleModel.Administrator)" class="material-icons-outlined">admin_panel_settings</mat-icon>
+                <mat-icon *ngIf="element?.globalRoles?.includes(roleModel.AccountManager)" class="material-icons-outlined">manage_accounts</mat-icon>
+              </div>
+            </mat-cell>
+          </div>
+          <div *ngSwitchCase="'user'">
+            <mat-cell *matCellDef="let element; let ind = index">
+              <span [attr.data-test]="'user-info-' + ind">{{ element.firstName }} {{ element.lastName }}</span>
+            </mat-cell>
+          </div>
+
+          <div *ngSwitchCase="'customer'">
+            <mat-cell *matCellDef="let element; let ind = index">
+              <app-item-status [item]="element.customer" [isActiveItem]="element.isActiveCustomer" [attr.data-test]="'customer-name-' + ind"></app-item-status>
+            </mat-cell>
+          </div>
+
+          <div *ngSwitchCase="'active'">
+            <mat-cell *matCellDef="let element">
+              <mat-icon *ngIf="element.isActive === true" color="primary">done</mat-icon>
+              <mat-icon *ngIf="element.isActive === false" color="warn">clear</mat-icon>
+            </mat-cell>
+          </div>
+          <div *ngSwitchDefault>
+            <mat-cell *matCellDef="let element; let ind = index">
+              <span [attr.data-test]="column.attribute + '-' + ind">{{ element[column.attribute] }}</span>
+            </mat-cell>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row; let ind = index">
+          <button
+            *ngIf="displayDeleteButton"
+            mat-icon-button
+            [disabled]="!row?.userPermissions?.canDelete"
+            [attr.data-test]="'delete-item-' + ind"
+            color="warn"
+            (click)="deleteAction.emit(row.id)"
+          >
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+
+          <button
+            *ngIf="displayEditButton && !displayRolesButton"
+            mat-icon-button
+            [disabled]="!row?.userPermissions?.canEdit"
+            [attr.data-test]="'edit-item-' + ind"
+            (click)="editAction.emit(row)"
+          >
+            <mat-icon class="material-icons">description</mat-icon>
+          </button>
+
+          <button
+            *ngIf="displayRolesButton"
+            mat-icon-button
+            class="roles-button"
+            [disabled]="!row?.userPermissions?.canEdit && !row?.userPermissions?.seeRoles"
+            [attr.data-test]="'edit-item-' + ind"
+            (click)="navigateToProjectDetails(row.id)"
+          >
+            <mat-icon class="details-icon">description</mat-icon>
+          </button>
+
+          <button
+            *ngIf="displayProfileButton"
+            mat-icon-button
+            [disabled]="!row?.userPermissions?.canEdit"
+            [attr.data-test]="'edit-item-' + ind"
+            (click)="navigateUserDetails(row.id)"
+          >
+            <mat-icon class="material-icons">switch_account</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">{{ 'NO_DATA' | translate }}</mat-footer-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns" [class.not-active-status]="!row['isActive']"></mat-row>
+      <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{ hide: !!list?.filteredData?.length }"></mat-footer-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" showFirstLastButtons (page)="updatePagination($event)"></mat-paginator>
+  </div>
+</div>

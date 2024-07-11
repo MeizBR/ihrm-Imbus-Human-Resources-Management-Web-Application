@@ -1,0 +1,61 @@
+:host {
+  display: block;
+  height: 3rem;
+
+  .calendar-header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    mat-tab-group {
+      width: 100%;
+
+      ::ng-deep .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+        display: none !important;
+      }
+
+      ::ng-deep .mat-tab-header-pagination-chevron {
+        display: none;
+      }
+
+      .tab_icon {
+        margin-right: 0.5rem;
+      }
+    }
+
+    .header-action {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 680px) {
+      mat-tab-group {
+        ::ng-deep .mat-tab-header {
+          display: block;
+
+          .mat-tab-label {
+            padding: 0 4px !important;
+
+            .tab_icon {
+              margin-right: 3px !important;
+            }
+
+            @media (max-width: 489px) {
+              font-size: 10px !important;
+
+              .tab_icon {
+                font-size: 17px !important;
+                width: 17px !important;
+                height: 17px !important;
+              }
+            }
+
+            @media (min-width: 600px) and (max-width: 680px) {
+              min-width: 7rem !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

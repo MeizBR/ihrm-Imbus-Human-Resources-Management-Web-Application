@@ -1,0 +1,13 @@
+<div class="warning-dialog-container">
+  <h1 *ngIf="title" mat-dialog-title>
+    {{ title | translate }}
+  </h1>
+
+  <div mat-dialog-content>
+    <p>{{ message | translate }}</p>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onConfirm()">{{ 'OK' | translate }}</button>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+@import '../../../sass/mixins';
+@import '../../../../theme/breakpoint-theme.scss';
+
+:host {
+  display: block;
+
+  .project-container {
+    .project-toolBar {
+      display: flex;
+      flex-direction: row-reverse;
+      margin: 0 0.5rem 0.5rem 0;
+    }
+
+    ::ng-deep mat-table {
+      mat-cell,
+      mat-header-cell {
+        padding-right: 1rem !important;
+
+        &:first-of-type {
+          padding-left: 1rem !important;
+        }
+      }
+
+      .mat-column-name,
+      .mat-column-active,
+      .mat-column-customer {
+        max-width: 50rem !important;
+      }
+
+      @media only screen and (max-width: $breakpoint-xs-min-width) {
+        mat-header-row,
+        mat-row {
+          @include horizontal-scroll(200%);
+        }
+      }
+
+      /* 375px 599px */
+      @media only screen and (min-width: $breakpoint-xs-min-width) and (max-width: $breakpoint-xs-max-width) {
+        mat-header-row,
+        mat-row {
+          @include horizontal-scroll(130%);
+
+          mat-cell,
+          mat-header-cell {
+            padding: 0 0.5rem !important;
+            &:last-of-type {
+              @include set-actions-width(5rem, 5rem);
+              justify-content: center;
+            }
+          }
+          .mat-column-active {
+            max-width: 5rem !important;
+          }
+        }
+      }
+    }
+  }
+}

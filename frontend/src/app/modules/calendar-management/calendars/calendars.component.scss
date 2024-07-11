@@ -1,0 +1,171 @@
+@import '../../../sass/mixins';
+@import '../../../../theme/breakpoint-theme.scss';
+
+:host {
+  height: 100%;
+  display: block;
+  overflow: auto !important;
+
+  .calendar-container {
+    flex: 1;
+    height: inherit;
+    display: flex;
+    font-size: 14px;
+    flex-flow: row;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+
+    .mat-sidenav-container {
+      flex: auto;
+      width: auto !important;
+      min-width: auto !important;
+
+      ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+        background-color: transparent !important;
+      }
+
+      .mat-sidenav {
+        width: 12rem;
+      }
+
+      .mat-drawer-content {
+        overflow-y: hidden !important;
+
+        .left-div {
+          margin-top: 1rem;
+          padding: 0 1rem 0 1rem;
+          height: calc(100% - 2rem);
+
+          .menu-button {
+            height: 3rem;
+            display: flex;
+            justify-content: flex-end;
+
+            button {
+              padding: 0 16px !important;
+              background-color: transparent;
+            }
+          }
+
+          .fc {
+            height: 100%;
+
+            ::ng-deep .fc-toolbar.fc-header-toolbar {
+              height: 2.5rem !important;
+            }
+
+            ::ng-deep .fc-view-harness {
+              height: calc(100% - 4rem) !important;
+
+              .fc-scrollgrid-liquid {
+                height: 100% !important;
+
+                ::ng-deep .fc-scrollgrid-section-liquid {
+                  width: 100% !important;
+
+                  > td {
+                    height: 100% !important;
+
+                    .fc-scroller-harness-liquid {
+                      height: 100% !important;
+
+                      .fc-scroller-liquid-absolute {
+                        overflow-y: hidden auto;
+
+                        ::ng-deep .fc-daygrid-body {
+                          height: 100%;
+
+                          table {
+                            overflow: auto;
+                            // @extend %set-scrollbar;
+                            width: 100% !important;
+                            height: 100% !important;
+
+                            tr {
+                              height: 7.75rem !important;
+
+                              .fc-daygrid-event-harness {
+                                a {
+                                  cursor: pointer !important;
+
+                                  .fc-event-title {
+                                    text-overflow: ellipsis;
+                                  }
+
+                                  &.not-clickable {
+                                    cursor: default !important;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+            // NOTE: FIXME: needs some rectifications to display half day as box
+            // ::ng-deep .fc-daygrid-dot-event {
+            //   width: 50%;
+
+            //   .fc-event-time, .fc-daygrid-event-dot {
+            //     display: none;
+            //   }
+            //   .fc-event-title {
+            //     padding: 1px;
+            //     border-radius: 2px;
+            //   }
+            // }
+
+            @media (min-width: 465px) and (max-width: 690px) {
+              ::ng-deep .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk {
+                font-size: 10px !important;
+              }
+            }
+
+            @media (max-width: 464px) {
+              ::ng-deep .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk {
+                font-size: 8px !important;
+
+                .fc-toolbar-title {
+                  font-size: 14px !important;
+
+                  @media (max-width: 399px) {
+                    font-size: 11px !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .right-div {
+      width: 14rem !important;
+      border-left: 1px solid #ededed;
+    }
+
+    /*959px*/
+    @media (max-width: $breakpoint-sm-max-width) {
+      .fc {
+        height: calc(100% - 3rem) !important;
+
+        ::ng-deep .fc-view-harness {
+          width: 100% !important;
+          overflow: auto !important;
+
+          ::ng-deep .fc-daygrid {
+            width: 150%;
+          }
+        }
+      }
+
+      .left-div {
+        margin: 0 !important;
+      }
+    }
+  }
+}

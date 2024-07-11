@@ -1,0 +1,131 @@
+// FIXME: variable to be moved to `ihrm-measurements.scss`
+$attention: red;
+$disabled: gray;
+
+:host {
+  display: block;
+  padding: 0.5rem 1rem;
+
+  .container {
+    display: flex;
+
+    .button-container {
+      display: flex;
+      flex-direction: row-reverse;
+      width: 100%;
+    }
+
+    .add-user {
+      width: 100%;
+      display: flex;
+      font-size: 1rem;
+      border-radius: 5px;
+      flex-direction: column;
+
+      form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+
+        .form-container {
+          display: flex;
+          flex: 1 1 auto;
+          flex-direction: column;
+
+          .section-container {
+            display: flex;
+            flex: 1 1 auto;
+            flex-wrap: wrap;
+
+            mat-form-field {
+              flex: 1;
+              margin: 0.25rem 0.5rem;
+
+              ::ng-deep .mat-form-field-ripple {
+                background: blue;
+              }
+
+              &.ng-invalid.ng-touched {
+                ::ng-deep .mat-form-field-ripple {
+                  background: $attention;
+                }
+              }
+
+              mat-hint {
+                &:not(.mat-right) {
+                  color: $attention;
+                }
+
+                &.counter {
+                  display: none;
+
+                  &.error {
+                    color: $attention;
+                  }
+                }
+              }
+
+              &.mat-focused {
+                .counter {
+                  flex: 0 0 auto;
+                  display: inline-block;
+                }
+              }
+
+              .password-input {
+                display: flex;
+                align-items: center;
+
+                input {
+                  padding-right: 1rem;
+                }
+
+                button {
+                  min-width: 0;
+                  padding: 0 0.5rem;
+                  line-height: 0;
+                  position: relative;
+
+                  mat-icon {
+                    position: absolute;
+                    top: -13px;
+                    right: 3px;
+                    color: $disabled;
+                    cursor: pointer;
+                  }
+                }
+              }
+
+              ::ng-deep .mat-placeholder-required {
+                color: $attention !important;
+              }
+            }
+
+            .is-active-section {
+              flex: 1;
+              display: flex;
+              align-items: center;
+              margin: 0.25rem 0.5rem;
+
+              .mat-slide-toggle {
+                margin-left: 1rem;
+              }
+            }
+          }
+        }
+      }
+
+      .buttons-container {
+        width: 100%;
+        display: flex;
+        flex: 0 0 auto;
+        padding: 0 0 0 1rem;
+        justify-content: flex-end;
+
+        .mat-raised-button {
+          margin: 0.5rem;
+        }
+      }
+    }
+  }
+}

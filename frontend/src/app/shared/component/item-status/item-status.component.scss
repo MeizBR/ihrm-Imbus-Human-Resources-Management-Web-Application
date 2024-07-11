@@ -1,0 +1,22 @@
+:host {
+  min-width: 0;
+
+  .inactive-item {
+    display: flex;
+    justify-content: normal !important;
+
+    span {
+      color: #707070;
+      align-self: center !important;
+    }
+
+    mat-icon {
+      color: #ff8282;
+      margin-left: 0.3rem;
+      width: 22px !important;
+      height: 22px !important;
+      font-size: 22px !important;
+      line-height: 1 !important;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<div class="date-time-picker" [formGroup]="parentForm">
+  <mat-form-field appearance="outline" fxLayout="column wrap">
+    <mat-label data-test="date_label">{{ pickerLabel | translate }}</mat-label>
+    <input matInput required [formControlName]="controlName" [matDatetimepicker]="pickerId" [min]="minDate" readonly />
+    <mat-datetimepicker-toggle [for]="pickerId" matSuffix></mat-datetimepicker-toggle>
+    <mat-datetimepicker #pickerId type="datetime" openOnFocus="true" clockStep="1"> </mat-datetimepicker>
+    <mat-hint *ngIf="ErrorType.isDateContainsErrors(controlName, parentForm.controls[controlName].errors)">
+      {{ ErrorType.getErrorMessage(parentForm.controls[controlName].errors) }}
+    </mat-hint>
+  </mat-form-field>
+</div>

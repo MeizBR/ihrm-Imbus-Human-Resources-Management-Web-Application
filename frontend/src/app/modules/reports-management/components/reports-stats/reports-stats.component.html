@@ -1,0 +1,39 @@
+<div class="flex-container">
+    <div id="list">
+        <h3>Daily Activities List</h3>
+        <mat-tab-group>
+            <ng-container *ngFor="let date of activitiesDatesArray">
+                <mat-tab [label]="getDayName(date) + ' - ' + date">
+                    <ng-container *ngFor="let project of projectsArray">
+                        <ng-container *ngIf="project.data.length >= activitiesDatesArray.length">
+                            <div *ngIf="project.data[activitiesDatesArray.indexOf(date)] !== undefined" class="d-flex">
+                                <div class="p-2 bg-light flex-fill project-item">
+                                    {{ project.name }}
+                                </div>
+                                <div class="p-2 bg-light flex-fill project-item">
+                                    {{ formatSecondsToHHMMSS(project.data[activitiesDatesArray.indexOf(date)]) }}
+                                </div>
+                                
+                            </div><div id="line"></div>
+                        </ng-container>
+                    </ng-container>
+                </mat-tab>
+            </ng-container>
+        </mat-tab-group>
+    </div>
+    <div id="pie-chart">
+        <h3>Daily Activities Pie Chart</h3>
+        <h5 style="color: gray;">Choose the Date for visualizing your Projects</h5>
+        <select class="form-select" (click)="showChart()" [(ngModel)]="donutPieFilterDate">
+            <option *ngFor="let date of activitiesDatesArray" [value]="date">{{ date }}</option>
+        </select>
+        <div id="chart">
+            <apx-chart
+                [series]="chartOptions.series"
+                [chart]="chartOptions.chart"
+                [labels]="chartOptions.labels"
+                [responsive]="chartOptions.responsive"
+            ></apx-chart>
+        </div>
+    </div>
+</div>

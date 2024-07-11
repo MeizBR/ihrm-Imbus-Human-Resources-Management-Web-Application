@@ -1,0 +1,42 @@
+<div class="calendars-filter-card" [class.reversed-items]="!eventsFilterList?.length">
+  <div *ngIf="eventsFilterList?.length" class="calendars-section" fxLayout="column" fxLayoutGap="20px">
+    <span class="right-bar-title">{{ 'CALENDAR_VIEW.RIGHT_BAR.EVENTS_LIST' | translate }} :</span>
+    <span class="filter-title">{{ 'CALENDAR_VIEW.RIGHT_BAR.FILTER_BY_CALENDAR' | translate }} :</span>
+    <div class="all-calendars-section">
+      <mat-checkbox color="primary" class="all-calendars-checkbox" [checked]="!!allCalendarsSelected" [indeterminate]="someCompletedCalendars()" (change)="toggleAllCalendar()">
+        <span class="all-calendars">{{ 'CALENDAR_VIEW.RIGHT_BAR.CHECK_UNCHECK_ALL' | translate }}</span>
+      </mat-checkbox>
+    </div>
+    <div *ngFor="let calendarFilter of eventsFilterList; trackBy: trackCalendars" class="calendars-list-section" fxLayout="row">
+      <mat-checkbox color="primary" class="calendar-checkbox" [checked]="calendarFilter.isChecked" (change)="checkedCalendarChanged(calendarFilter.calendarId, $event.checked)">
+        <div class="filter-details">
+          <mat-icon class="event-icon">today</mat-icon>
+          <span class="calendar-name">{{ calendarFilter.calendarName }}</span>
+        </div>
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <div *ngIf="leavesFilterList?.length" class="users-leaves-section" fxLayout="column" fxLayoutGap="20px">
+    <span class="right-bar-title">{{ 'CALENDAR_VIEW.RIGHT_BAR.LEAVES_LIST' | translate }} :</span>
+    <span class="filter-title">{{ 'CALENDAR_VIEW.RIGHT_BAR.FILTER_BY_USER' | translate }} :</span>
+    <div class="all-leaves-section">
+      <mat-checkbox color="primary" class="all-leaves-checkbox" [checked]="!!allLeavesSelected" [indeterminate]="someCompletedLeaves()" (change)="toggleAllLeaves()">
+        <span class="all-leaves">{{ 'CALENDAR_VIEW.RIGHT_BAR.CHECK_UNCHECK_ALL' | translate }}</span>
+      </mat-checkbox>
+    </div>
+
+    <div *ngFor="let leavesFilter of leavesFilterList; trackBy: trackLeaves" class="leaves-list-section" fxLayout="row">
+      <mat-checkbox color="primary" class="user-checkbox" [checked]="leavesFilter.isChecked" (change)="checkedUserLeavesChanged(leavesFilter.userId, $event.checked)">
+        <div class="filter-details">
+          <mat-icon class="user-icon">person</mat-icon>
+          <span class="user-name">{{ leavesFilter.userName }}</span>
+        </div>
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <div *ngIf="noItemMsg" class="no-items-section">
+    <app-no-items [message]="noItemMsg"></app-no-items>
+  </div>
+</div>

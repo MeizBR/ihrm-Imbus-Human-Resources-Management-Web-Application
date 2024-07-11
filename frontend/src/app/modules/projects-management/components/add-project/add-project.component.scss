@@ -1,0 +1,118 @@
+// FIXME: variable to be moved to `ihrm-measurements.scss`
+$attention: red;
+$disabled: gray;
+
+:host {
+  display: block;
+  padding: 0.5rem 1rem;
+
+  .container {
+    display: flex;
+
+    .button-container {
+      width: 100%;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+
+    .add-project {
+      width: 100%;
+      display: flex;
+      font-size: 1rem;
+      border-radius: 5px;
+      flex-direction: column;
+
+      form {
+        display: flex;
+        flex-direction: column;
+
+        .section-container {
+          display: flex;
+          flex: 1 1 auto;
+          flex-wrap: wrap;
+
+          mat-form-field {
+            flex: 1;
+            margin: 0.25rem 0.5rem;
+
+            ::ng-deep .mat-form-field-ripple {
+              background: blue;
+            }
+
+            &.ng-invalid.ng-touched {
+              ::ng-deep .mat-form-field-ripple {
+                background: $attention;
+              }
+            }
+
+            mat-hint {
+              &:not(.mat-right) {
+                color: $attention;
+              }
+
+              &.counter {
+                display: none;
+
+                &.error {
+                  color: $attention;
+                }
+              }
+            }
+
+            &.mat-focused {
+              .counter {
+                flex: 0 0 auto;
+                display: inline-block;
+              }
+            }
+
+            ::ng-deep .mat-placeholder-required {
+              color: $attention !important;
+            }
+          }
+        }
+
+        .is-active-section {
+          display: flex;
+          padding: 1rem;
+          align-items: center;
+
+          .mat-slide-toggle {
+            margin-left: 1rem;
+          }
+        }
+
+        .description-section {
+          width: 100%;
+          display: flex;
+
+          .description-label {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 18px;
+            color: black !important;
+            padding: 0 0 0.25rem 0.5rem;
+          }
+
+          .description-editor {
+            padding: 0.5rem 0.5rem 0;
+            color: black !important;
+            border-radius: 5% !important;
+          }
+        }
+      }
+
+      .buttons-container {
+        width: 100%;
+        display: flex;
+        flex: 0 0 auto;
+        padding: 0 0 0 1rem;
+        justify-content: flex-end;
+
+        .mat-raised-button {
+          margin: 0.5rem;
+        }
+      }
+    }
+  }
+}

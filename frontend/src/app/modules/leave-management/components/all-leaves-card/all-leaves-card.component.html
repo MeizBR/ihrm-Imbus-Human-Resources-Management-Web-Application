@@ -1,0 +1,38 @@
+<mat-card class="all-leaves-card mat-elevation-z3">
+  <mat-card-header class="all-leaves-card-header-text">
+    <mat-card-title class="all-leaves-card-title">{{ 'LEAVES_VIEW.EDIT_LEAVE.LEAVES_LIST.ALL_LEAVES' | translate }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="all-leaves-card-content">
+    <div class="leaves-list">
+      <div
+        *ngFor="let leave of splicedData; trackBy: leaveTrackFn"
+        class="leave-details-content"
+        [class.selected]="leave.id === selectedLeaveId"
+        [routerLink]="['../../leave', leave.id]"
+        fxLayoutGap="10px"
+      >
+        <mat-icon class="leave-icon" [style.color]="LeaveState.getIconColor(leave?.state)">{{ LeaveState.getIconName(leave?.state) }}</mat-icon>
+        <div class="leave-details column" fxLayoutAlign="space-between">
+          <div *ngIf="!onlyOwnLeaves" class="leave-user-name">
+            <span [class.inactive-user]="!leave?.isActiveUser"> {{ onlyOwnLeaves ? (LeaveState.getTranslate(leave?.state) | translate) : leave.userName }}</span>
+          </div>
+          <div class="leave-period">
+            <span> {{ leave.start | datesDiff: leave.end }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      appPaginator
+      [itemsPerPage]="pageSize"
+      [selectedItemId]="selectedLeaveId"
+      [itemList]="leaveList"
+      (onChangeSelectedPage)="getSelectedPage($event)"
+      [length]="pageLength"
+      [hidePageSize]="true"
+      [pageSize]="pageSize"
+      (page)="pageChangeEvent($event)"
+    >
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,10 @@
+<div class="dash-container">
+  <div class="dash-header">
+  <app-dash-board-header (choiceChange)="onChoiceChange($event)" (dateRangeChange)="ondateRangeChange($event)" ></app-dash-board-header>
+</div>
+  <div  [ngClass]="{'dash-content': selectedChoice, 'dash-content-false': !selectedChoice}">
+  <div class ="charts"><app-charts-component [selectedDates]="actualSelectedDates"></app-charts-component></div>
+  <div class="activity-list" *ngIf="selectedChoice"><app-top-activities-list [selfActivities]="selfActivities"></app-top-activities-list></div>
+  <div class="team-list"><app-team-activities-list  [activities]="activities" *ngIf="!selectedChoice"></app-team-activities-list></div>
+  </div>
+</div>

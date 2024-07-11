@@ -1,0 +1,155 @@
+@import '../../../../../theme/breakpoint-theme.scss';
+
+:host {
+  display: block;
+  height: 100%;
+
+  .calendar-card {
+    align-content: space-between;
+    height: 100%;
+    padding: 0;
+
+    .card-header-text {
+      height: 4rem;
+      display: flex;
+      padding: 0 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 5px 5px 0 0;
+      background-color: #d3dddf;
+      justify-content: space-between;
+
+      .card-title {
+        display: flex;
+        color: #3a7575;
+        align-self: center;
+        font: 20px sans-serif;
+      }
+
+      .button-section {
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+          font-size: 2.1em;
+        }
+      }
+    }
+
+    .card-content {
+      height: calc(100% - 4rem);
+
+      .edit-calendar-form {
+        height: 100%;
+        padding: 2rem;
+
+        form {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .details-input-row {
+            display: flex;
+
+            .section-container {
+              display: flex;
+              flex-flow: row;
+              width: 100%;
+
+              .project-name-div,
+              .calendar-name-div,
+              .time-zone-div,
+              .is-public-div {
+                display: flex;
+                flex-flow: column wrap;
+                margin-bottom: 1rem;
+                width: 100%;
+              }
+
+              mat-label {
+                font: 16px sans-serif;
+                margin-bottom: 0.5rem;
+              }
+
+              mat-hint {
+                min-width: 100% !important;
+
+                &:not(.mat-right) {
+                  color: red;
+                }
+
+                &.error {
+                  color: red;
+                }
+              }
+
+              :not(:last-child) {
+                margin-right: 1rem;
+              }
+
+              mat-form-field {
+                flex: 1;
+
+                ::ng-deep .mat-select.mat-select-disabled {
+                  .mat-select-arrow {
+                    display: none !important;
+                  }
+                }
+              }
+            }
+          }
+
+          .description-section {
+            display: flex;
+            flex-flow: column wrap;
+            max-width: 90%;
+            margin: 1.5rem 0 2rem 0;
+            max-width: 100%;
+
+            .description-label {
+              display: flex;
+              margin-bottom: 0.5rem;
+              font: 16px sans-serif;
+            }
+
+            .description-editor {
+              border-radius: 5% !important;
+            }
+          }
+
+          .actions-row {
+            display: flex;
+            flex-flow: row;
+            justify-content: flex-end;
+
+            :not(:last-child) {
+              margin-right: 0.5rem;
+            }
+          }
+        }
+
+        @media (max-width: $breakpoint-xs-max-width) {
+          padding: 1rem !important;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .inactive-project {
+  display: flex;
+
+  span {
+    color: gray;
+    align-self: center !important;
+    margin-right: 0.5rem !important;
+  }
+
+  mat-icon {
+    color: #ff8282;
+    line-height: 0.9;
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 20px !important;
+  }
+}

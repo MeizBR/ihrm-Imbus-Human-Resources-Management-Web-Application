@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+#chart {
+    width: 100%;
+    margin: 35px auto;
+}
+
+.apex-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#buttons-container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filter-button {
+    width: 20%;
+    color: #009688;
+    background-color: white;
+    margin: 0 auto 10px auto;
+    padding: 5px 30px;
+    border: 1px solid #009688;
+    border-radius: 5px;
+    text-align: center;
+    // font-family: "Dancing Script", cursive;
+    // font-optical-sizing: auto;
+    // font-style: normal;
+}
+
+.filter-button:nth-child(2) {
+    width: 30%;
+}
+
+.filter-button:hover {
+    color: white;
+    background-color: #009688;
+    border: 2px solid silver;
+}

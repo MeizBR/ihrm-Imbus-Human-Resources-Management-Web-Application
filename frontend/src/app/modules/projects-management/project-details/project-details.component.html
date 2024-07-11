@@ -1,0 +1,19 @@
+<div class="project-container">
+  <div class="project-toolBar">
+    <app-set-roles *ngIf="this.projectDetails?.userPermissions.canEditRole" [usersToSelect]="usersToSelect" (userRoleToAdd)="onAddUserRole($event)"></app-set-roles>
+  </div>
+  <div class="cards" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+    <div class="left-card">
+      <app-roles class="project-roles-card" [selectedProjectId]="projectFromUrl" (emittedUsersToSelect)="emittedUsersToSelect($event)"></app-roles>
+    </div>
+    <div class="right-card">
+      <app-edit-project
+        class="edit-project-card"
+        [projectDetails]="projectDetails"
+        [customersList]="customersList$ | async"
+        (updateProject)="updateProject($event)"
+        (onDeleteProject)="deleteProject($event)"
+      ></app-edit-project>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<mat-card class="container">
+  <mat-card-header class="card-header">
+    <div class="header">
+      <div class="header-items" style="border-right:1px solid rgb(159 157 157 / 27%);">
+        <p style="font-size: 78% ; color: rgba(61,63,65,0.8)">Total Time</p>
+        <p style="font-size:120% ;">{{totalDuration}}</p>
+      </div >
+      <div class="header-items" style="border-right:1px solid rgb(159 157 157 / 27%);">
+        <p style="font-size: 78% ; color: rgba(61,63,65,0.8)">Top Project</p>
+        <p style="font-size: 120% ;">{{projectWithMaxTotalWork}}</p>
+      </div>
+      <div class="header-items">
+        <p style="font-size: 78% ; color: rgba(61,63,65,0.8)">Top Client</p>
+        <p style="font-size: 120% ;">{{customerWithMaxTotalWork}}</p>
+      </div>
+    </div>
+  </mat-card-header>
+  <mat-card-content  class="content">
+    <mat-grid-list  class="content-grid" cols="2" rowHeight="2:1">
+      <mat-grid-tile colspan="2"  class="vertical-chart"><app-vertical-chart  [selectedDates]="selectedDates" style="height: 100%;width: 100%"></app-vertical-chart></mat-grid-tile>
+      <!-- Your charts go here -->
+      <mat-grid-tile>
+        <div class="pie-chart">
+          <ngx-charts-pie-chart         [scheme]="'vivid'"
+                                        [gradient]="true"
+                                        [doughnut]="true"
+                                        [explodeSlices]="false"
+                                        (select)="onSelect($event)"
+                                        [tooltipText]="tooltipTextFunction"
+                                        [results]="chartData">
+          </ngx-charts-pie-chart>
+          <div style="position: absolute; top: 48%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+            <span style="font-size: 150%; color: rgba(0,0,0,0.77);">{{ totalDuration }}</span>
+          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="horizontal-chart"  >
+          <ngx-charts-bar-horizontal
+            [scheme]="'vivid'"
+            [results]="chartData"
+            [yAxis]="true"
+            [gradient]="true"
+            [trimYAxisTicks]="true"
+            [barPadding]="20"
+            [showDataLabel]="true"
+            [dataLabelFormatting]="percentageValueFormatting"
+            [maxYAxisTickLength]="50"
+            (select)="onSelect($event)"
+            [tooltipDisabled]="false"
+            [yAxisTickFormatting]="yLabelFormatting">
+            <ng-template #tooltipTemplate let-model="model">
+              <div class="tooltip-container">
+                <div class="tooltip-header">{{ model.name }}</div>
+                <div class="tooltip-body">{{displayValue(model.value)}}</div>
+              </div>
+            </ng-template>
+          </ngx-charts-bar-horizontal>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>

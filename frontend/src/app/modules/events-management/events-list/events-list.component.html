@@ -1,0 +1,89 @@
+<div class="events-container">
+  <div>
+    <app-add-event [error]="error$ | async" [isEventsLoading]="isEventsLoading$ | async" [calendarList]="calendarsList$ | async" (onSubmitItem)="onSubmit($event)"></app-add-event>
+  </div>
+  <div class="events-list-container">
+    <div class="search-div" data-test="search-button">
+      <mat-form-field class="search-form-field" appearance="none" floatLabel="never">
+        <input class="search-form-input" matInput [(ngModel)]="searchKey" [placeholder]="'SEARCH' | translate" autocomplete="off" (keyup)="applyFilter()" />
+        <button *ngIf="searchKey" class="search-form-button" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="onSearchClear()">
+          <mat-icon class="search-form-button-icon">close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div class="list-container">
+      <mat-table class="events-table" matSort [dataSource]="list" matSortActive="title" matSortDirection="asc">
+        <ng-container class="title-column" matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="event-title">{{ 'EVENTS_VIEW.EVENTS_TABLE_HEADER.TITLE' | translate }}</mat-header-cell>
+          <div>
+            <mat-cell *matCellDef="let element"
+              ><span>{{ element.title }}</span></mat-cell
+            >
+          </div>
+        </ng-container>
+
+        <ng-container class="calendar-column" matColumnDef="calendarName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="calendar-name">{{
+            'EVENTS_VIEW.EVENTS_TABLE_HEADER.CALENDAR_NAME' | translate
+          }}</mat-header-cell>
+          <div>
+            <mat-cell *matCellDef="let element"
+              ><span>{{ element.calendarName }}</span></mat-cell
+            >
+          </div>
+        </ng-container>
+
+        <ng-container class="event-type-column" matColumnDef="eventType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="events-type">{{ 'EVENTS_VIEW.EVENTS_TABLE_HEADER.EVENT_TYPE' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element"
+            ><span>{{ eventType.getTranslate(element.eventType) | translate }}</span></mat-cell
+          >
+        </ng-container>
+
+        <ng-container class="public-column" matColumnDef="isPrivateCalendar">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="public-calendar">{{
+            'EVENTS_VIEW.EVENTS_TABLE_HEADER.PUBLIC_CALENDAR' | translate
+          }}</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <mat-icon color="{{ element.isPrivateCalendar ? 'warn' : 'primary' }}">{{ element.isPrivateCalendar ? 'clear' : 'done' }}</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container class="start-date-column" matColumnDef="start">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="start">{{ 'EVENTS_VIEW.EVENTS_TABLE_HEADER.START_DATE' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element"
+            ><span>{{ element.allDay ? (element.start | date: 'MMM d, y') : (element.start | date: 'MMM d, y, HH:mm') }}</span></mat-cell
+          >
+        </ng-container>
+
+        <ng-container class="end-date-column" matColumnDef="end">
+          <mat-header-cell *matHeaderCellDef mat-sort-header disableClear data-test="end">{{ 'EVENTS_VIEW.EVENTS_TABLE_HEADER.END_DATE' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let element"
+            ><span>{{ element.allDay ? (element.end | date: 'MMM d, y') : (element.end | date: 'MMM d, y, HH:mm') }}</span></mat-cell
+          >
+        </ng-container>
+
+        <ng-container class="noData-column" matColumnDef="noData">
+          <mat-footer-cell *matFooterCellDef colspan="6">{{ 'NO_DATA' | translate }}</mat-footer-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button mat-icon-button [disabled]="!row?.userPermission?.canDelete" color="warn" (click)="onDeleteEvent(row.id)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+            <button mat-icon-button (click)="navigateToEventDetails(row.id)" data-test="events-details-button">
+              <mat-icon class="material-icons">description</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{ hide: !!list?.filteredData?.length }"></mat-footer-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="(eventsPageSize$ | async).size" showFirstLastButtons (page)="updatePagination($event)"></mat-paginator>
+    </div>
+  </div>
+</div>

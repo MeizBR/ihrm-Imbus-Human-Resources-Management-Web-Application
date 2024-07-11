@@ -1,0 +1,10 @@
+.warning-dialog-container {
+  .mat-dialog-title {
+    color: red;
+  }
+  .mat-dialog-actions {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10%;
+  }
+}

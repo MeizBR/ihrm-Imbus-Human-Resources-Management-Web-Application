@@ -1,0 +1,110 @@
+<div class="add-leave-container">
+  <div *ngIf="!formVisibility" class="button-container">
+    <button class="add-leave-button" mat-raised-button (click)="createLeave()" data-test="create-button"><mat-icon>add</mat-icon>{{ 'CREATE' | translate }}</button>
+  </div>
+  <div *ngIf="formVisibility" class="add-leave mat-elevation-z1">
+    <form [formGroup]="form" fxLayout="column" (submit)="onSubmit()">
+      <div class="fields-content" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="space-between">
+        <div class="section-container">
+          <mat-form-field appearance="outline" class="user-field">
+            <mat-select required disableOptionCentering formControlName="userId" [placeholder]="'LEAVES_VIEW.PLACEHOLDERS.USER' | translate" data-test="users-selection">
+              <mat-option *ngFor="let user of userList; let ind = index" [value]="user.id" [attr.data-test]="'user-name-' + ind">{{ user?.fullName }}</mat-option>
+            </mat-select>
+            <mat-hint *ngIf="form.controls['userId'].touched && form.controls['userId'].invalid">
+              {{ ErrorType.getErrorMessage(form.controls['userId'].errors, 'User') }}
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="leave-type-field">
+            <mat-select required disableOptionCentering formControlName="leaveType" [placeholder]="'LEAVES_VIEW.PLACEHOLDERS.LEAVE_TYPE' | translate" data-test="leave-type">
+              <mat-option [value]="LeaveType.Sick | translate" data-test="sick-leave">{{ LeaveType.Sick | translate }}</mat-option>
+              <mat-option [value]="LeaveType.Holiday | translate" data-test="holiday-leave">{{ LeaveType.Holiday | translate }}</mat-option>
+            </mat-select>
+            <mat-hint *ngIf="form.controls['leaveType'].touched && form.controls['leaveType'].invalid">
+              {{ ErrorType.getErrorMessage(form.controls['leaveType'].errors, 'Leave type') }}
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="section-container">
+          <div class="start-date-field">
+            <!-- FIXME: Is better to use the internal component `app-datetimepicker` -->
+            <mat-form-field appearance="outline" class="field-container" fxFlex floatLabel="always">
+              <mat-label data-test="start_date_label">{{ 'LEAVES_VIEW.PLACEHOLDERS.START_DATE' | translate }}</mat-label>
+              <div class="field-content start-date" fxLayoutAlign="space-between center">
+                <mat-datetimepicker-toggle [for]="pickerStart" matSuffix data-test="start-date"></mat-datetimepicker-toggle>
+                <mat-datetimepicker #pickerStart openOnFocus="true"> </mat-datetimepicker>
+                <input
+                  matInput
+                  readonly
+                  required
+                  id="start-date"
+                  class="start-input"
+                  formControlName="start"
+                  [matDatetimepicker]="pickerStart"
+                  [placeholder]="'LEAVES_VIEW.PLACEHOLDERS.START_DATE' | translate"
+                  (dateChange)="dateChange()"
+                />
+                <mat-checkbox class="half-day-start-field" formControlName="isHalfDayStart" [labelPosition]="'before'">{{
+                  'LEAVES_VIEW.ADD_LEAVE.HALF_DAY' | translate
+                }}</mat-checkbox>
+              </div>
+              <mat-hint *ngIf="form.controls['start'].touched && form.controls['start'].invalid && ErrorType.getErrorMessage(form.controls['start'].errors, 'Start date')">
+                {{ ErrorType.getErrorMessage(form.controls['start'].errors, 'Start date') }}
+              </mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="end-date-field">
+            <!-- FIXME: Is better to use the internal component `app-datepicker` -->
+            <mat-form-field appearance="outline" class="field-container" floatLabel="always">
+              <mat-label data-test="end_date_label">{{ 'LEAVES_VIEW.PLACEHOLDERS.END_DATE' | translate }}</mat-label>
+              <div class="field-content end-date" fxLayoutAlign="space-between center">
+                <mat-datetimepicker-toggle [for]="pickerEnd" matSuffix data-test="end-date"></mat-datetimepicker-toggle>
+                <mat-datetimepicker #pickerEnd openOnFocus="true"></mat-datetimepicker>
+                <input
+                  matInput
+                  readonly
+                  required
+                  id="end-date"
+                  class="end-input"
+                  formControlName="end"
+                  [matDatetimepicker]="pickerEnd"
+                  [min]="form.controls['start'].value"
+                  [placeholder]="'LEAVES_VIEW.PLACEHOLDERS.END_DATE' | translate"
+                  (dateChange)="dateChange()"
+                />
+                <mat-checkbox *ngIf="!isHalfDayEndHidden" class="half-day-end-field" formControlName="isHalfDayEnd" [labelPosition]="'before'">{{
+                  'LEAVES_VIEW.ADD_LEAVE.HALF_DAY' | translate
+                }}</mat-checkbox>
+              </div>
+              <mat-hint *ngIf="form.controls['end'].touched && form.controls['end'].invalid && ErrorType.getErrorMessage(form.controls['end'].errors, 'End date')">
+                {{ ErrorType.getErrorMessage(form.controls['end'].errors, 'End date') }}
+              </mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="description-container">
+          <!-- FIXME: class name will change in other branch -->
+          <mat-label class="description-label" [class.invalid]="form.controls['description'].touched && form.controls['description'].invalid"
+            ><span>{{ 'LEAVES_VIEW.ADD_LEAVE.DESCRIPTION' | translate }} :</span></mat-label
+          >
+          <quill-editor
+            class="description-richText-editor"
+            [class.invalid]="form.controls['description'].touched && form.controls['description'].invalid"
+            formControlName="description"
+            data-test="description-field"
+          ></quill-editor>
+          <mat-error *ngIf="form.controls['description'].touched && form.controls['description'].invalid">
+            {{ ErrorType.getErrorMessage(form.controls['description'].errors, 'Description') }}
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="buttons-content" fxLayout="row" fxFlexAlign="end" fxFlexAlign.xs="stretch">
+        <button class="add-button" mat-raised-button color="primary" type="submit" [disabled]="form.invalid" data-test="add-button">{{ 'ADD' | translate }}</button>
+        <button class="cancel-button" mat-raised-button color="warn" (click)="onClear()" data-test="cancel-button">{{ 'CANCEL' | translate }}</button>
+      </div>
+    </form>
+  </div>
+</div>

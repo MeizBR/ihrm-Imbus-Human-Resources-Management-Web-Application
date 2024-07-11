@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <logger name="pekko" level="WARN"/>
+    <logger name="scala.slick" level="INFO" />
+    <logger name="com.typesafe" level="INFO"/>
+
+    <timestamp key="bySecond" datePattern="yyyy-MM-dd-HH-mm-ss"/>
+
+    <appender name="timeBasedFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/ihrm.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>ihrm_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%date{ISO8601}] [%level] [%logger] [%marker] [%thread]</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="asyncTimeBasedFile" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>8192</queueSize>
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="timeBasedFile"/>
+    </appender>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>[%date{ISO8601}] [%level] [%logger] [%marker] [%thread]</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="asyncConsole" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="console"/>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="asyncConsole"/>
+        <appender-ref ref="asyncTimeBasedFile"/>
+    </root>
+</configuration>

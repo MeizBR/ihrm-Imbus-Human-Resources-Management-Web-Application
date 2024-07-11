@@ -1,0 +1,7 @@
+<div class="calendar-container" data-test="calendar-page">
+  <app-calendar-header [isCalendarsListPage]="isCalendarsListPage" [isCalendars]="isCalendars"></app-calendar-header>
+
+  <div class="calendars-wrapper" [class.margin-on-top]="!isCalendars">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="calendar-container">
+  <mat-sidenav-container fxFlexFill class="example-container">
+    <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true" position="end">
+      <app-filter-calendars
+        [eventsFilterList]="eventsFilterList"
+        [leavesFilterList]="leavesFilterList"
+        (calendarFiltersChanged)="calendarFilterChanged($event)"
+        (usersLeavesFilterChanged)="leavesFilterChanged($event)"
+        (allCalendarsToggled)="toggleAllCalendar($event)"
+        (allLeavesToggled)="toggleAllLeaves($event)"
+      ></app-filter-calendars>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+      <div class="left-div">
+        <div fxShow="true" fxHide.gt-sm="true" class="menu-button">
+          <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+        <full-calendar #calendar [options]="calendarOptions" id="calendar"></full-calendar>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <div fxShow fxHide.lt-md class="right-div">
+    <app-filter-calendars
+      [eventsFilterList]="eventsFilterList"
+      [leavesFilterList]="leavesFilterList"
+      (calendarFiltersChanged)="calendarFilterChanged($event)"
+      (usersLeavesFilterChanged)="leavesFilterChanged($event)"
+      (allCalendarsToggled)="toggleAllCalendar($event)"
+      (allLeavesToggled)="toggleAllLeaves($event)"
+    ></app-filter-calendars>
+  </div>
+</div>

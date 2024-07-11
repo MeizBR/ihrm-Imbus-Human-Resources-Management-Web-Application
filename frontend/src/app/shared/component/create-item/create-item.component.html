@@ -1,0 +1,41 @@
+<div class="create-item-container">
+  <mat-toolbar class="create-toolbar">
+    <span>{{ data.title | translate }}</span>
+    <span class="fill-space"></span>
+    <button class="button-dialog-close" mat-mini-fab (click)="onClose()">
+      <mat-icon class="clear-icon">clear</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="create-item-form">
+    <form *ngIf="form" [formGroup]="form" fxLayout="column" (submit)="onSubmit()">
+      <div class="form-content">
+        <mat-form-field *ngFor="let item of data.dataForm" appearance="none" [ngClass]="{ 'field-line': item.isInput || item.isSelect }">
+          <input hidden="true" matInput />
+          <div *ngIf="item.isInput">
+            <input *ngIf="item.isInput" matInput [placeholder]="item.translatedName | translate" [formControlName]="item.name" />
+          </div>
+          <div *ngIf="item.isCheckBox" class="checkbox-field">
+            <input type="checkbox" [formControlName]="item.name" [checked]="item.isChecked" />
+            {{ item.translatedName | translate }}
+          </div>
+
+          <div *ngIf="item.isSelect">
+            <mat-select [formControlName]="item.name" placeholder="{{ item.translatedName | translate }}" [disabled]="disabled" [multiple]="item.multiple">
+              <mat-option *ngFor="let option of data.selectItems[item.fieldName]" (click)="selectValue(option.id)" [value]="option.name">{{ option.name }}</mat-option>
+            </mat-select>
+          </div>
+          <mat-error>{{ 'MANDATORY_FIELD' | translate }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-footer">
+        <button mat-raised-button class="add-button" color="primary" type="submit" [disabled]="form.invalid || !form.dirty">
+          {{ form.controls['id'].value ? ('EDIT' | translate) : ('ADD' | translate) }}
+        </button>
+        <button mat-raised-button color="warn" type="button" (click)="onClear()">
+          {{ 'RESET' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

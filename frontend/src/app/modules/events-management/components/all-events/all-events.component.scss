@@ -1,0 +1,123 @@
+@import '../../../../sass/mixins';
+@import '../../../../../theme/breakpoint-theme.scss';
+
+:host {
+  height: 100%;
+  display: block;
+
+  .all-events-card {
+    padding: 0;
+    height: 100%;
+    border-radius: 5px;
+
+    .all-events-card-header-text {
+      height: 4rem;
+      align-items: center;
+      border-radius: 5px 5px 0 0;
+      background-color: #d3dddf;
+
+      .all-events-card-title {
+        color: #3a7575;
+        align-self: center;
+        font: 20px sans-serif;
+        text-transform: capitalize;
+      }
+    }
+
+    .mat-card-header .mat-card-title {
+      margin-bottom: 0 !important;
+    }
+
+    .all-events-card-content {
+      display: flex;
+      padding: 0.5rem;
+      flex-direction: column;
+      height: calc(100% - 4rem);
+      justify-content: space-between;
+
+      .events-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .event-details-content {
+          display: flex;
+          padding: 0.75rem;
+          text-align: center;
+          flex-direction: row;
+          outline: none !important;
+
+          .event-details {
+            display: flex;
+            align-items: center !important;
+            width: 100%;
+            justify-content: space-between;
+            .event-title {
+              flex: 2;
+            }
+
+            .event-type {
+              flex: 1;
+            }
+            .event-period {
+              flex: 1;
+              color: gray;
+            }
+
+            span {
+              max-width: 10rem;
+              @extend %text-overflow;
+            }
+          }
+
+          &.selected {
+            border-radius: 4px;
+            outline: none !important;
+            background-color: #e0f2f1;
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      ::ng-deep.mat-paginator-range-actions {
+        .mat-paginator-range-label {
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+
+  /** 1279px*/
+  @media (max-width: $breakpoint-md-max-width) {
+    .all-events-card {
+      .all-events-card-content {
+        padding: 0.5rem;
+
+        .event-details-content {
+          padding: 0.75rem 0.25rem;
+
+          .event-details {
+            .event-title {
+              flex: 1 !important;
+
+              span {
+                max-width: 4rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /** 599px */
+  @media (max-width: $breakpoint-xs-max-width) {
+    .all-events-card {
+      .all-events-card-content {
+        padding: 0.5rem 0.25rem;
+      }
+    }
+  }
+}

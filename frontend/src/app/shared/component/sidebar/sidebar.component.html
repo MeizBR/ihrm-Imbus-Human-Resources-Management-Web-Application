@@ -1,0 +1,79 @@
+<div class="side-nav-bar">
+  <mat-list>
+    <a mat-list-item  class="under-construction" routerLink="/home/dashboard">
+      <div class="item-list-details">
+        <mat-icon>dashboard</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate>{{ 'DASHBOARD_VIEW.DASHBOARD' | translate }}</span>
+      </div>
+    </a>
+
+    <a mat-list-item routerLink="/home/timeTracker" routerLinkActive="active-section">
+      <div class="item-list-details">
+        <mat-icon>timer</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate data-test="time-tracker">{{ 'TIME_TRACKER_VIEW.TIME_TRACKER' | translate }}</span>
+      </div>
+    </a>
+
+    <a mat-list-item routerLink="/home/team" routerLinkActive="active-section">
+      <div class="item-list-details">
+        <mat-icon>folder_shared</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate data-test="teams">{{ 'TEAM_VIEW.TEAM' | translate }}</span>
+      </div>
+    </a>
+
+    <a mat-list-item routerLink="/home/leaves" routerLinkActive="active-section">
+      <div class="item-list-details">
+        <mat-icon>today</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate data-test="leaves">{{ 'LEAVES_VIEW.LEAVES' | translate }}</span>
+      </div>
+    </a>
+    <a mat-list-item routerLink="/home/events" routerLinkActive="active-section">
+      <div class="item-list-details">
+        <mat-icon>event</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate data-test="events">{{ 'EVENTS_VIEW.EVENTS' | translate }}</span>
+      </div>
+    </a>
+
+    <a mat-list-item routerLink="/home/calendars" routerLinkActive="active-section">
+      <div class="item-list-details">
+        <mat-icon>calendar_today</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate data-test="calendars">{{ 'CALENDAR_VIEW.CALENDARS' | translate }}</span>
+      </div>
+    </a>
+
+    <a mat-list-item routerLink="/home/projects" routerLinkActive="active-section">
+      <div class="item-list-details">
+        <mat-icon>source</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate data-test="projects">{{ 'PROJECTS_VIEW.PROJECTS' | translate }}</span>
+      </div>
+    </a>
+
+    <a mat-list-item routerLink="/home/customers" routerLinkActive="active-section">
+      <div class="item-list-details">
+        <mat-icon>support_agent</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate data-test="customers">{{ 'CUSTOMERS_VIEW.CUSTOMERS' | translate }}</span>
+      </div>
+    </a>
+
+    <a mat-list-item disabled class="under-construction" routerLink="/home/tasks" routerLinkActive="active-section">
+      <div class="item-list-details">
+        <mat-icon>task_alt</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate data-test="tasks">{{ 'TASKS_VIEW.TASKS' | translate }}</span>
+      </div>
+    </a>
+
+    <a mat-list-item class="under-construction" routerLink="/home/reports/summary" routerLinkActive="active-section">
+      <div class="item-list-details">
+        <mat-icon>summarize</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate data-test="reports">{{ 'REPORT_VIEW.REPORT' | translate }}</span>
+      </div>
+    </a>
+
+    <a mat-list-item disabled class="under-construction" routerLink="/home/documents" routerLinkActive="active-section">
+      <div class="item-list-details">
+        <mat-icon>article</mat-icon>
+        <span *ngIf="!minimizedSidenav" fxHide.lt-sm translate data-test="documents">{{ 'DOCUMENTS_VIEW.DOCUMENTS' | translate }}</span>
+      </div>
+    </a>
+  </mat-list>
+</div>

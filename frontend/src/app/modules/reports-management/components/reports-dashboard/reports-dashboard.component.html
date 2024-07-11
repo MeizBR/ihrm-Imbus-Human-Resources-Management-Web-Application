@@ -1,0 +1,22 @@
+<div id="chart">
+    <div id="buttons-container">
+      <button (click)="displayAllActivities()" class="filter-button" type="button">
+        <h5>Display all Activities</h5>
+      </button>
+  
+      <button class="filter-button" type="button">
+        <h5>Total Activities Duration: {{ totalDuration }}</h5>
+      </button>
+    </div>
+
+    <apx-chart class="apex-chart"
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [dataLabels]="chartOptions.dataLabels"
+      [plotOptions]="chartOptions.plotOptions"
+      [responsive]="chartOptions.responsive"
+      [xaxis]="chartOptions.xaxis"
+      [legend]="chartOptions.legend"
+      [fill]="chartOptions.fill"
+    ></apx-chart>
+</div>

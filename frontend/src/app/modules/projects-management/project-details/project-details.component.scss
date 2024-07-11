@@ -1,0 +1,44 @@
+@import '../../../../theme/breakpoint-theme.scss';
+
+:host {
+  display: block;
+
+  .project-container {
+    .project-toolBar {
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 0.5rem;
+    }
+
+    .cards {
+      height: 100%;
+      display: flex;
+      padding: 0 1rem 0.5rem;
+      flex: 1 1 auto;
+      box-sizing: border-box;
+
+      .left-card {
+        flex: 1 1 auto;
+        box-sizing: border-box;
+      }
+
+      .right-card {
+        flex: 1 1 auto;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  @media (min-width: $breakpoint-md-min-width) and (max-width: $breakpoint-lg-min-width) {
+    .cards {
+      .left-card {
+        flex: 2 !important;
+      }
+
+      .right-card {
+        flex: 3 !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+@import '../../../sass/mixins';
+@import '../../../../theme/breakpoint-theme.scss';
+
+:host {
+  display: block;
+
+  .team-container {
+    .team-toolbar {
+      height: auto;
+      margin-top: 2%;
+      min-height: 4rem;
+
+      span {
+        color: #05b8cc;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 17px;
+      }
+    }
+
+    ::ng-deep mat-table {
+      /* 375px */
+      @media only screen and (max-width: $breakpoint-xs-min-width) {
+        mat-header-row,
+        mat-row {
+          @include horizontal-scroll(200%);
+        }
+      }
+
+      /* 375px 600px */
+      @media only screen and (min-width: $breakpoint-xs-min-width) and (max-width: $breakpoint-sm-min-width) {
+        mat-header-row,
+        mat-row {
+          @include horizontal-scroll(170%);
+        }
+      }
+    }
+  }
+}

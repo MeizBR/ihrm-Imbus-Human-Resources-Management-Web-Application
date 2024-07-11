@@ -1,0 +1,87 @@
+<div class="add-event-container">
+  <div *ngIf="!formVisibility" class="button-container">
+    <button class="add-event-button" mat-raised-button (click)="createEvent()" data-test="create-event"><mat-icon>add</mat-icon>{{ 'CREATE' | translate }}</button>
+  </div>
+
+  <div *ngIf="formVisibility" class="add-event mat-elevation-z1">
+    <form [formGroup]="form" fxLayout.xs="column" (submit)="onSubmit()">
+      <div class="section-container">
+        <mat-form-field appearance="outline" id="calendar-field" fxLayout="column wrap" fxLayoutGap="32px">
+          <mat-select required formControlName="calendarId" [placeholder]="'EVENTS_VIEW.CALENDAR_NAME' | translate" class="border" data-test="calendar-name">
+            <mat-option *ngFor="let calendar of calendarList; trackBy: trackCalendarFn" [value]="calendar?.id">{{ calendar.name }}</mat-option>
+          </mat-select>
+          <mat-hint *ngIf="form.controls['calendarId'].touched && form.controls['calendarId'].invalid" data-test="calendar-name-errormsg">
+            {{ ErrorType.getErrorMessage(form.controls['calendarId'].errors, 'Calendar') }}
+          </mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" id="title-field" fxLayout="column wrap" fxLayoutGap="32px">
+          <mat-label data-test="title_label">{{ 'EVENTS_VIEW.TITLE' | translate }}</mat-label>
+          <input matInput required formControlName="title" [placeholder]="'EVENTS_VIEW.TITLE' | translate" class="border" />
+          <mat-hint [id]="'title-error-message'" *ngIf="form.controls['title'].touched && form.controls['title'].invalid">
+            {{ ErrorType.getErrorMessage(form.controls['title'].errors, 'Title') }}
+          </mat-hint>
+
+          <mat-hint align="end" [id]="'title-input-counter'" class="counter" [class.error]="form.controls['title'].hasError('maxlength')">
+            {{ form.controls['title'].value?.length }} / 255
+          </mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" id="event-type-field" fxLayout="column wrap" fxLayoutGap="32px">
+          <mat-select formControlName="eventType" [placeholder]="'EVENTS_VIEW.EVENT_TYPE' | translate" class="border" data-test="event-type">
+            <mat-option *ngFor="let eventType of EventType.getValues(); trackBy: trackEventType" [value]="eventType">
+              {{ EventType.getTranslate(eventType) | translate }}
+            </mat-option>
+          </mat-select>
+          <mat-hint *ngIf="form.controls['eventType'].touched && form.controls['eventType'].invalid">
+            {{ ErrorType.getErrorMessage(form.controls['eventType'].errors, 'Event type') }}
+          </mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" id="repetition-field" fxLayout="column wrap" fxLayoutGap="32px">
+          <mat-select formControlName="repetition" [placeholder]="'EVENTS_VIEW.REPETITIVE' | translate" class="border" data-test="event-repetition">
+            <mat-option *ngFor="let repetitive of Repetitive.getValues(); trackBy: trackRepetitions" [value]="repetitive">
+              {{ Repetitive.getTranslate(repetitive) | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="section-container">
+        <div class="start-date-field" data-test="start-date">
+          <app-datepicker *ngIf="checked" [parentForm]="form" [controlName]="'start'" [pickerLabel]="'EVENTS_VIEW.EDIT_EVENT.START_AT'"></app-datepicker>
+          <app-datetimepicker *ngIf="!checked" [parentForm]="form" [controlName]="'start'" [pickerLabel]="'EVENTS_VIEW.EDIT_EVENT.START_AT'"></app-datetimepicker>
+        </div>
+        <div class="end-date-field" data-test="end-date">
+          <app-datepicker
+            *ngIf="checked"
+            [parentForm]="form"
+            [minDate]="this.form.controls['start'].value"
+            [controlName]="'end'"
+            [pickerLabel]="'EVENTS_VIEW.EDIT_EVENT.END_AT'"
+          ></app-datepicker>
+          <app-datetimepicker
+            *ngIf="!checked"
+            [parentForm]="form"
+            [minDate]="this.form.controls['start'].value"
+            [maxDate]="this.form.controls['start'].value"
+            [controlName]="'end'"
+            [pickerLabel]="'EVENTS_VIEW.EDIT_EVENT.END_AT'"
+          ></app-datetimepicker>
+        </div>
+        <div class="all-day-check-box">
+          <mat-label data-test="all_day_label">{{ 'EVENTS_VIEW.ALL_DAY' | translate }}</mat-label>
+          <mat-slide-toggle color="primary" formControlName="allDay" [checked]="checked" (change)="toggleCheckBox($event)"></mat-slide-toggle>
+        </div>
+      </div>
+      <div class="description-container">
+        <mat-label class="description-label" data-test="description-label">{{ 'EVENTS_VIEW.DESCRIPTION' | translate }}:</mat-label>
+        <quill-editor class="description-editor" name="description" formControlName="description" (onContentChanged)="contentChanged($event)"></quill-editor>
+        <mat-error *ngIf="form.controls['description'].invalid && ErrorType.getErrorMessage(form.controls['description'].errors, 'Description')">
+          {{ ErrorType.getErrorMessage(form.controls['description'].errors, 'Description') }}
+        </mat-error>
+      </div>
+    </form>
+    <div class="buttons-container" fxLayout="row" fxFlexAlign="end" fxFlexAlign.xs="stretch">
+      <button class="add-button" mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="form.invalid">{{ 'ADD' | translate }}</button>
+      <button class="cancel-button" mat-raised-button color="warn" (click)="onClose()" data-test="cancel-button">{{ 'CANCEL' | translate }}</button>
+    </div>
+  </div>
+</div>

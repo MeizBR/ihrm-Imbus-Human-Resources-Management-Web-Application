@@ -1,0 +1,262 @@
+@import '../../../../sass/mixins';
+@import '../../../../../theme/breakpoint-theme.scss';
+
+// FIXME: variable to be moved to `ihrm-measurements.scss`
+$disabled: gray;
+
+:host {
+  display: block;
+  height: 100%;
+
+  .profile-card {
+    align-content: space-between;
+    height: 100%;
+    padding: 0;
+
+    .card-content {
+      height: calc(100% - 7rem);
+      overflow: auto;
+      @extend %set-scrollbar;
+
+      .create-user-form {
+        padding: 2rem;
+
+        .details-input-div {
+          display: flex;
+
+          .section-container {
+            display: flex;
+            flex-flow: row;
+            width: 100%;
+
+            .first-name-div,
+            .last-name-div,
+            .checkbox-div,
+            .login-div,
+            .email-div,
+            .registration-number-div {
+              display: flex;
+              flex-flow: column wrap;
+              margin-bottom: 1%;
+              width: 50%;
+
+              .checkbox-input {
+                margin: 1rem 0.2rem 2rem 0.2rem;
+              }
+            }
+
+            ::ng-deep .mat-expansion-panel {
+              box-shadow: none !important;
+            }
+
+            .pass-div {
+              display: flex;
+              flex-flow: column wrap;
+
+              .connected-password-section {
+                mat-form-field {
+                  width: 50%;
+                }
+              }
+
+              .new-password-section {
+                display: flex;
+                width: 100%;
+
+                .new-password,
+                .confirm-password {
+                  width: 50%;
+                }
+              }
+
+              mat-label {
+                margin: 0.5rem 0 1rem;
+              }
+
+              .connected-password-input,
+              .password-input,
+              .confirm-password-input {
+                display: flex;
+
+                button {
+                  min-width: 0;
+                  padding: 0 1.5rem 0 1rem;
+                  line-height: 0;
+                  position: relative;
+
+                  mat-icon {
+                    position: absolute;
+                    line-height: 0 !important;
+                    color: $disabled;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+
+            mat-form-field {
+              width: 100%;
+
+              ::ng-deep .mat-form-field-wrapper {
+                padding-bottom: 0 !important;
+                margin: 0.5em 0 !important;
+              }
+
+              ::ng-deep .mat-form-field-subscript-wrapper {
+                position: relative !important;
+                padding: 0 !important;
+              }
+            }
+
+            mat-label {
+              font: 16px sans-serif;
+              margin-bottom: 1rem;
+            }
+
+            mat-hint {
+              min-width: 100% !important;
+
+              &:not(.mat-right) {
+                color: red;
+              }
+
+              &.error {
+                color: red;
+              }
+            }
+
+            :not(:last-child) {
+              margin-right: 1rem;
+            }
+          }
+        }
+
+        .note-richText-div {
+          display: flex;
+          flex-flow: column wrap;
+          max-width: 90%;
+          margin: 3rem 0 2rem 0;
+          max-width: 100%;
+
+          .note-label {
+            display: flex;
+            margin-bottom: 1rem;
+            font: 16px sans-serif;
+          }
+
+          .note-richText-editor {
+            border-radius: 5% !important;
+          }
+        }
+
+        .actions-row {
+          display: flex;
+          flex-flow: row;
+          justify-content: flex-end;
+
+          :not(:last-child) {
+            margin-right: 0.5rem;
+          }
+        }
+
+        /* 599px */
+        @media (max-width: $breakpoint-xs-max-width) {
+          padding: 1rem !important;
+
+          .details-input-row {
+            .section-container {
+              .first-name-div,
+              .last-name-div,
+              .login-div,
+              .email-div,
+              .pass-div,
+              .checkbox-div,
+              .registration-number-div {
+                width: 100% !important;
+              }
+
+              :not(:last-child) {
+                margin-right: 0 !important;
+              }
+
+              .connected-password-section,
+              .new-password,
+              .confirm-password {
+                width: 100% !important;
+              }
+            }
+          }
+        }
+
+        /* 600px  959px*/
+        @media (min-width: $breakpoint-sm-min-width) and (max-width: $breakpoint-sm-max-width) {
+          padding: 1rem !important;
+
+          .details-input-row {
+            .section-container {
+              .first-name-div,
+              .last-name-div,
+              .login-div,
+              .email-div,
+              .pass-div,
+              .registration-number-div,
+              .checkbox-div {
+                width: 100% !important;
+              }
+
+              :not(:last-child) {
+                margin-right: 0 !important;
+              }
+
+              .connected-password-section,
+              .new-password,
+              .confirm-password {
+                width: 100% !important;
+              }
+            }
+          }
+        }
+
+        @media (max-width: $breakpoint-md-max-width) {
+          .section-container {
+            .pass-div {
+              .connected-password-section {
+                width: 100% !important;
+                mat-form-field {
+                  width: 100% !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  ::ng-deep mat-expansion-panel-header {
+    padding: 0 0.5rem !important;
+    height: 2.5rem !important;
+    margin-right: 0rem !important;
+
+    mat-panel-title {
+      font: 18px serif;
+      color: #0697a6ed;
+      text-transform: capitalize;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .mat-expansion-indicator::after {
+      color: #0697a6ed !important;
+    }
+
+    &.mat-expanded {
+      height: 2.5rem !important;
+      border-radius: 0;
+    }
+  }
+
+  ::ng-deep .mat-expansion-panel-body {
+    padding: 0 !important;
+  }
+}

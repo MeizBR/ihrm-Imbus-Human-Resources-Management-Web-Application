@@ -1,0 +1,130 @@
+@import '../../../../sass/mixins';
+@import '../../../../../theme/breakpoint-theme.scss';
+
+:host {
+  height: 100%;
+  display: block;
+
+  .all-leaves-card {
+    height: 100%;
+    padding: 0;
+    border-radius: 5px;
+
+    .all-leaves-card-header-text {
+      height: 4rem;
+      align-items: center;
+      background-color: #d3dddf;
+      border-radius: 5px 5px 0 0;
+
+      .all-leaves-card-title {
+        font: 20px sans-serif;
+        align-self: center;
+        color: #3a7575;
+        text-transform: capitalize;
+      }
+    }
+
+    .mat-card-header .mat-card-title {
+      margin-bottom: 0 !important;
+    }
+
+    .all-leaves-card-content {
+      display: flex;
+      padding: 0.5rem;
+      flex-direction: column;
+      justify-content: space-between;
+      height: calc(100% - 4rem);
+
+      .leaves-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .leave-details-content {
+          display: flex;
+          padding: 0.75rem;
+          text-align: center;
+          flex-direction: row;
+          outline: none !important;
+
+          .leave-details {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            width: 100%;
+
+            mat-icon {
+              margin-right: 0.5rem;
+            }
+
+            .leave-user-name {
+              flex: 4;
+              display: flex;
+              text-align: start;
+
+              span {
+                max-width: 10rem;
+                align-self: center;
+
+                &.inactive-user {
+                  color: gray;
+                }
+
+                @extend %text-overflow;
+              }
+            }
+
+            .leave-period {
+              flex: 3;
+              display: flex;
+              color: gray;
+              justify-content: flex-end;
+              white-space: nowrap;
+              margin: 0.2rem 0.5rem;
+            }
+          }
+
+          &.selected {
+            background-color: #e0f2f1;
+            outline: none !important;
+            border-radius: 4px;
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      ::ng-deep.mat-paginator-range-actions {
+        .mat-paginator-range-label {
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+
+  /** 1279px*/
+  @media (max-width: $breakpoint-md-max-width) {
+    .all-leaves-card {
+      .all-leaves-card-content {
+        .leave-details-content {
+          padding: 0.75rem 0.25rem;
+
+          .leave-details {
+            .leave-user-name {
+              flex: 1 !important;
+
+              span {
+                max-width: 5rem;
+
+                @media (min-width: $breakpoint-sm-min-width) and (max-width: $breakpoint-sm-max-width) {
+                  max-width: 10rem !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

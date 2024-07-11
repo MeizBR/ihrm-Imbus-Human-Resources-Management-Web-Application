@@ -1,0 +1,73 @@
+---
+- name: Pull Docker images and start containers
+  hosts: all
+  become: true
+  tasks:
+    # Create Docker Volume
+    - name: Create a volume
+      docker_volume:
+        name: ihrm_db_data
+
+    # Create Docker Network of type Bridge
+    - name: Create Docker network
+      community.docker.docker_network:
+        name: "ihrm-net"
+        state: present
+        driver: "bridge"
+
+    # Pull the Postgres Docker Image
+    - name: Pull the Postgres Docker Image
+      community.docker.docker_image:
+        name: "postgres:latest"
+        source: pull
+
+    # Create Postgres containers
+    - name: Create Postgres containers
+      community.docker.docker_container:
+        name: "ihrmDB"
+        image: "postgres:latest"
+        env:
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "Imbus2013"
+          POSTGRES_DB: "ihrm"
+        networks:
+          - name: "ihrm-net"
+        volumes:
+          - "ihrm_db_data:/var/lib/postgresql/data"
+        state: started
+        ports:
+        - "5432:5432"
+    
+    # Pull the iHRM Backend Docker Image
+    - name: Pull iHRM Backend Docker Image
+      community.docker.docker_image:
+        name: "maiezbrm/ihrm_backend:latest"
+        source: pull
+
+    # Create Backend containers
+    - name: Create Backend containers
+      community.docker.docker_container:
+        name: backend
+        image: "maiezbrm/ihrm_backend:latest"
+        networks:
+          - name: "ihrm-net"
+        state: started
+        ports:
+        - "9000:9000"
+
+    # Pull the iHRM Frontend Docker Image
+    - name: Pull iHRM Frontend Docker Image
+      community.docker.docker_image:
+        name: "maiezbrm/ihrm_frontend:latest"
+        source: pull
+
+    # Create Frontend containers
+    - name: Create Frontend containers
+      community.docker.docker_container:
+        name: frontend
+        image: "maiezbrm/ihrm_frontend:latest"
+        networks:
+          - name: "ihrm-net"
+        state: started
+        ports:
+        - "80:80"

@@ -1,0 +1,198 @@
+@import '../../../../sass/mixins';
+@import '../../../../../theme/breakpoint-theme.scss';
+
+// FIXME: variable to be moved to `ihrm-measurements.scss`
+$attention: red;
+$disabled: gray;
+
+:host {
+  display: block;
+  height: 100%;
+
+  .event-card {
+    height: 100%;
+    padding: 0;
+    align-content: space-between;
+
+    .card-header-text {
+      height: 4rem;
+      display: flex;
+      padding: 0 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 5px 5px 0 0;
+      background-color: #d3dddf;
+      justify-content: space-between;
+
+      .card-title {
+        display: flex;
+        color: #3a7575;
+        align-self: center;
+        font: 20px sans-serif;
+      }
+
+      .button-section {
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+          font-size: 2.1em;
+        }
+      }
+    }
+
+    .card-content {
+      height: calc(100% - 4rem);
+
+      .edit-event-form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        padding: 0.5rem;
+        font-size: 1rem;
+        border-radius: 5px;
+        margin-top: 1.1rem;
+
+        form {
+          display: flex;
+          flex-direction: column !important;
+
+          .section-container {
+            display: flex;
+            flex: 1 1 auto;
+            flex-wrap: wrap;
+
+            input {
+              color: black;
+            }
+
+            .start-date-field,
+            .end-date-field {
+              display: flex;
+              flex: 1;
+              margin: 0.25rem 0.5rem 0 0.5rem;
+            }
+
+            .all-day-check-box {
+              display: flex;
+              align-self: center;
+              margin: 0rem 1rem 1.5rem;
+              flex: 2;
+
+              mat-label {
+                margin-right: 0.5rem !important;
+              }
+            }
+
+            .calendar-field {
+              mat-select-trigger {
+                div {
+                  display: flex !important;
+                  justify-content: space-between !important;
+                  align-items: center !important;
+
+                  span {
+                    @extend %text-overflow;
+                  }
+
+                  mat-icon {
+                    font-size: 19px !important;
+                    margin-right: 5px !important;
+                    line-height: 1.3 !important;
+                  }
+                }
+              }
+
+              ::ng-deep .mat-form-field-infix {
+                padding: 0.77rem 0 !important;
+              }
+            }
+          }
+
+          mat-form-field {
+            flex: 1;
+            margin: 0.5rem;
+
+            ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+              margin: 0.25em 0 0 0 !important;
+            }
+
+            ::ng-deep .mat-form-field-subscript-wrapper {
+              margin: 0.2rem 0 !important;
+              padding: 0 0.5rem !important;
+            }
+
+            ::ng-deep .mat-form-field-ripple {
+              background: blue;
+            }
+
+            &.ng-invalid.ng-touched {
+              ::ng-deep .mat-form-field-ripple {
+                background: $attention;
+              }
+            }
+
+            mat-hint {
+              &:not(.mat-right) {
+                color: $attention;
+              }
+
+              &.counter {
+                display: none;
+
+                &.error {
+                  color: $attention;
+                }
+              }
+            }
+
+            &.mat-focused {
+              .counter {
+                flex: 0 0 auto;
+                display: inline-block;
+              }
+            }
+          }
+
+          .description-container {
+            flex: 4;
+            display: flex;
+            padding-top: 1rem;
+            flex-direction: column;
+
+            .description-label {
+              color: black;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 18px;
+              padding: 0 0 0.25rem 0.5rem;
+            }
+
+            .description-editor {
+              padding: 0.5rem 0.5rem 0;
+              border-radius: 5% !important;
+            }
+          }
+        }
+
+        .actions-container {
+          width: 100%;
+          display: flex;
+          flex: 0 0 auto;
+          justify-content: flex-end;
+          padding: 2rem 0;
+
+          .mat-raised-button {
+            margin: 0.5rem;
+          }
+        }
+
+        mat-form-field {
+          flex: 1;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="week-selector">
+
+    <mat-form-field class="filter-selector">
+        <mat-label>Select the Week Start Date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="weekStartDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="filter-selector">
+        <mat-label>Select the Week End Date</mat-label>
+        <input matInput [matDatepicker]="picker1" [(ngModel)]="weekEndDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+
+  <div class="apply-filter">
+    <button (click)="displayDates()" mat-raised-button class="filter-button">Apply Week</button>
+
+    <button mat-raised-button class="filter-button" (click)="clearAllFields()">Clear all Fields</button>
+
+    <button type="button" class="filter-button" class="btn btn-light position-relative filter-button">
+        Activities after Filtering
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{ activitiesNumber }}
+          <span class="visually-hidden">unread messages</span>
+        </span>
+    </button>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <span>Week Start Date selected</span>
+      <span class="badge">
+          {{ getDayName(weekDatesArray[0]) }} {{ weekDatesArray[0] }}
+      </span>
+    </li>
+    <li class="list-group-item">
+        <span>Week End Date selected</span>
+        <span class="badge">
+            {{ getDayName(weekDatesArray[weekDatesArray.length - 1]) }} {{ weekDatesArray[weekDatesArray.length - 1] }}
+        </span>
+    </li>
+  </ul>
+
+  <div class="date" *ngFor="let date of weekDatesArray">
+      <div *ngIf="initialState">
+        <div class="days-heading">{{ getDayName(date) }} - {{ date }}</div>
+        <div class="d-flex text-secondary">
+          <div class="flex-fill tabc">Description</div>
+          <div class="flex-fill tabc">Customer Name</div>
+          <div class="flex-fill tabc">Project Name</div>
+          <div class="flex-fill tabc">User Name</div>
+          <div class="flex-fill tabc">Start</div>
+          <div class="flex-fill tabc">End</div>
+          <div class="flex-fill tabc">Work Duration</div>
+        </div>
+        <!-- Check if there are activities for the current date -->
+        <ng-container *ngIf="hasActivitiesOnDate(date)">
+          <!-- Display activities if there are any -->
+          <div class="bg-light d-flex flex-column" *ngFor="let activity of x">
+            <ng-container *ngIf="isActivityOnDate(activity, date)">
+              <div class="d-flex">
+                <div class="flex-fill tabc"><button class="btn btn-light">{{ activity.description }}</button></div>
+                <div class="flex-fill tabc"><button class="btn btn-light">{{ activity.customerName }}</button></div>
+                <div class="flex-fill tabc"><button class="btn btn-light">{{ activity.projectName }}</button></div>
+                <div class="flex-fill tabc"><button class="btn btn-light">{{ activity.userName }}</button></div>
+                <div class="flex-fill tabc"><button class="btn btn-light">{{ activity.start }}</button></div>
+                <div class="flex-fill tabc"><button class="btn btn-light">{{ activity.end }}</button></div>
+                <div class="flex-fill tabc"><button class="btn btn-light">{{ activity.workDuration }}</button></div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+        
+        <!-- Display a message if there are no activities for the current date -->
+        <ng-container *ngIf="!hasActivitiesOnDate(date)">
+          <div class="bg-light d-flex">
+            <div class="flex-fill"><h5>No activities found for the selected Date</h5></div>
+          </div>
+        </ng-container>
+      </div>
+  </div>
+</div>

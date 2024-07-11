@@ -1,0 +1,50 @@
+<div class="activity-container" data-test="activities-page">
+  <div class="current mat-elevation-z1">
+    <app-activity-details
+      [userId]="userId"
+      [isCurrent]="true"
+      [projects]="projects"
+      [currentTime]="currentTime"
+      [activity]="currentActivity"
+      [currentSelectedProject]="currentSelectedProject"
+      (onStartActivity)="startActivity($event)"
+      (onUpdateActivity)="updateActivity($event)"
+      (onSelectCurProject)="onSelectCurrentProject($event, currentActivity?.id)"
+      (onDeleteActivity)="deleteActivity($event)"
+      (onStopCurActivity)="stopCurrentActivity($event)"
+    >
+    </app-activity-details>
+  </div>
+  <div *ngIf="daysOfActivities?.length" class="panel">
+    <mat-accordion class="panel-headers" fxLayout="column wrap" fxLayoutAlign="space-around" fxLayoutGap="15px" multi>
+      <mat-expansion-panel class="activities-panel" *ngFor="let day of daysOfActivities" [expanded]="true">
+        <mat-expansion-panel-header class="activities-panel-header">
+          <mat-panel-title> {{ day }} </mat-panel-title>
+          <mat-panel-description> {{ 'TIME_TRACKER_VIEW.TOTAL_LABEL' | translate }} : {{ activitiesByDay[day]?.totalWork }} </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-action-row
+          *ngFor="let activity of activitiesByDay[day]?.activities"
+          class="activities-panel-body"
+          fxLayout.gt-lg="row"
+          fxLayout.lt-sm="row wrap"
+          fxLayoutAlign="space-between center"
+        >
+          <app-activity-details
+            class="history-activity-details"
+            [activity]="activity"
+            [projects]="projects"
+            [currentSelectedProject]="currentSelectedProject"
+            (onRestartActivity)="restartActivity($event)"
+            (onUpdateActivity)="updateActivity($event)"
+            (onSelectProject)="onSelectProject($event, activity.id)"
+            (onDeleteActivity)="deleteActivity($event)"
+          >
+          </app-activity-details>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <app-no-items *ngIf="!daysOfActivities" [message]="'TIME_TRACKER_VIEW.NO_ACTIVITIES'"></app-no-items>
+  <!--  <app-no-items *ngIf="!daysOfActivities" [message]="!daysOfActivities ? 'TIME_TRACKER_VIEW.NO_ACTIVITIES' : ''"></app-no-items>-->
+</div>

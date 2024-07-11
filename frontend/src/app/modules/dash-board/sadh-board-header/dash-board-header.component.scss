@@ -1,0 +1,59 @@
+.mat-toolbar {
+  display: flex;
+  background-color: white;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.mat-form-field {
+  border: 1px solid rgba(181, 178, 178, 0.43);
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  display: flex;
+  height: 36px;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.date-picker {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  padding-bottom: 6px;
+}
+
+
+
+::ng-deep.mat-form-field-appearance-fill .mat-form-field-flex {
+  padding: 0 !important;
+
+}
+::ng-deep.mat-form-field-wrapper{
+  padding: 0 !important;
+
+}
+::ng-deep.mat-form-field-appearance-legacy .mat-form-field-infix{  padding: 0 !important;width: 100%;
+}
+::ng-deep.md-drppicker.double{
+  width: max-content !important;
+}
+::ng-deep.md-drppicker {
+
+  overflow: auto !important;
+
+
+}
+

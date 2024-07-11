@@ -1,0 +1,53 @@
+.flex-container {
+    display: flex;
+    background-color: lightgray;
+    width: 95%;
+    margin: 0 auto;
+    border: 2px solid silver;
+    border-radius: 8px;
+  }
+  
+  .flex-container > div {
+    background-color: #f1f1f1;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+  }
+  
+  .flex-container > #list {
+      width: 50%;
+  }
+  
+  .flex-container > #pie-chart {
+      width: 50%;
+  }
+  
+  #line {
+      border-bottom: 2px solid lightgray;
+      margin: 7px 0;
+  }
+  
+  .project-item {
+      font-size: 18px;
+      width: 50%;
+  }
+  
+  .project-item:first-child {
+      color: gray;
+  }
+  
+#chart {
+    width: 500px;
+    height: 100%;
+    margin: 35px auto;
+    padding: 0;
+}
+
+h3, h5 {
+    // font-family: "Madimi One", sans-serif;
+    color: #009688;
+}
+
+h5 {
+    margin: 15px 0;
+}

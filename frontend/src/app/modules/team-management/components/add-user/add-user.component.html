@@ -1,0 +1,192 @@
+<div class="container">
+  <div class="button-container" *ngIf="!formVisibility">
+    <button mat-raised-button (click)="formVisibility = true" data-test="create-user"><mat-icon>add</mat-icon>{{ 'CREATE' | translate }}</button>
+  </div>
+
+  <div *ngIf="formVisibility" class="add-user mat-elevation-z1">
+    <form [formGroup]="addUserForm" (submit)="onSubmit()">
+      <div class="form-container">
+        <div class="section-container">
+          <mat-form-field appearance="outline">
+            <mat-label data-test="first-name-label">{{ 'TEAM_VIEW.FIRST_NAME' | translate }}</mat-label>
+            <input matInput required placeholder="{{ 'TEAM_VIEW.FIRST_NAME' | translate }}" type="text" formControlName="firstName" />
+
+            <mat-hint
+              *ngIf="
+                addUserForm.controls['firstName'].touched &&
+                addUserForm.controls['firstName'].invalid &&
+                ErrorType.getErrorMessage(addUserForm.controls['firstName'].errors, 'First name')
+              "
+              data-test="first-name-errormsg"
+            >
+              {{ ErrorType.getErrorMessage(addUserForm.controls['firstName'].errors, 'First name') }}
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label data-test="last-name-label">{{ 'TEAM_VIEW.LAST_NAME' | translate }}</mat-label>
+            <input matInput required placeholder="{{ 'TEAM_VIEW.LAST_NAME' | translate }}" type="text" formControlName="lastName" />
+
+            <mat-hint
+              [id]="'add-user-last-name-input-error-message'"
+              *ngIf="
+                addUserForm.controls['lastName'].touched &&
+                addUserForm.controls['lastName'].invalid &&
+                ErrorType.getErrorMessage(addUserForm.controls['lastName'].errors, 'Last name')
+              "
+              data-test="last-name-errormsg"
+            >
+              {{ ErrorType.getErrorMessage(addUserForm.controls['lastName'].errors, 'Last name') }}
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label data-test="login-label">{{ 'TEAM_VIEW.LOGIN' | translate }}</mat-label>
+            <input matInput required placeholder="{{ 'TEAM_VIEW.LOGIN' | translate }}" type="text" formControlName="login" />
+
+            <mat-hint *ngIf="addUserForm.controls['login'].touched && addUserForm.controls['login'].invalid" data-test="login-errormsg">
+              {{ ErrorType.getErrorMessage(addUserForm.controls['login'].errors, 'Login') }}
+            </mat-hint>
+
+            <mat-hint align="end" [id]="'add-user-login-input-counter'" class="counter" [class.error]="addUserForm.controls['login'].hasError('maxlength')">
+              {{ addUserForm.controls['login'].value.length }} / 255
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label data-test="email-label">{{ 'TEAM_VIEW.EMAIL' | translate }}</mat-label>
+            <input matInput required placeholder="{{ 'TEAM_VIEW.EMAIL' | translate }}" type="text" formControlName="email" />
+
+            <mat-hint
+              [id]="'add-user-email-input-error-message'"
+              *ngIf="addUserForm.controls['email'].touched && addUserForm.controls['email'].invalid && ErrorType.getErrorMessage(addUserForm.controls['email'].errors, 'Email')"
+              data-test="email-errormsg"
+            >
+              {{ ErrorType.getErrorMessage(addUserForm.controls['email'].errors, 'Email') }}
+            </mat-hint>
+
+            <mat-hint align="end" [id]="'add-user-email-input-counter'" class="counter" [class.error]="addUserForm.controls['email'].hasError('maxlength')">
+              {{ addUserForm.controls['email'].value.length }} / 255
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="section-container">
+          <mat-form-field appearance="outline">
+            <mat-label data-test="password-label">{{ 'TEAM_VIEW.PASSWORD' | translate }}</mat-label>
+            <div class="password-input">
+              <input matInput required placeholder="{{ 'TEAM_VIEW.PASSWORD' | translate }}" type="{{ showPassword ? 'text' : 'password' }}" formControlName="password" />
+
+              <button
+                *ngIf="addUserForm.controls['password'].value.length"
+                type="button"
+                mat-button
+                title="{{ showPassword ? hideTextButton : showTextButton }}"
+                (click)="showPassword = !showPassword"
+              >
+                <mat-icon> {{ showPassword ? 'visibility_off' : 'visibility' }} </mat-icon>
+              </button>
+            </div>
+
+            <mat-hint
+              *ngIf="
+                addUserForm.controls['password'].touched &&
+                addUserForm.controls['password'].invalid &&
+                ErrorType.getErrorMessage(addUserForm.controls['password'].errors, 'Password')
+              "
+              data-test="password-errormsg"
+            >
+              {{ ErrorType.getErrorMessage(addUserForm.controls['password'].errors, 'Password') }}
+            </mat-hint>
+
+            <mat-hint align="end" class="counter" [class.error]="addUserForm.controls['password'].hasError('maxlength')">
+              {{ addUserForm.controls['password'].value.length }} / 255
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label data-test="confirm-password-label">{{ 'TEAM_VIEW.CONFIRM_PASSWORD' | translate }}</mat-label>
+            <div class="password-input">
+              <input
+                matInput
+                required
+                placeholder="{{ 'TEAM_VIEW.CONFIRM_PASSWORD' | translate }}"
+                type="{{ showConfirmPassword ? 'text' : 'password' }}"
+                formControlName="confirmPassword"
+              />
+
+              <button
+                *ngIf="addUserForm.controls['confirmPassword'].value.length"
+                type="button"
+                mat-button
+                class="visibility-button"
+                title="{{ showConfirmPassword ? hideTextButton : showTextButton }}"
+                (click)="showConfirmPassword = !showConfirmPassword"
+              >
+                <mat-icon>{{ showConfirmPassword ? 'visibility_off' : 'visibility' }} </mat-icon>
+              </button>
+            </div>
+
+            <mat-hint
+              *ngIf="
+                addUserForm.controls['confirmPassword'].touched &&
+                addUserForm.controls['confirmPassword'].invalid &&
+                ErrorType.getErrorMessage(addUserForm.controls['confirmPassword'].errors, 'Confirm password')
+              "
+              data-test="confirm-password-errormsg"
+            >
+              {{ ErrorType.getErrorMessage(addUserForm.controls['confirmPassword'].errors, 'Confirm password') }}
+            </mat-hint>
+
+            <mat-hint align="end" [id]="'add-user-password-confirmed-input-counter'" class="counter" [class.error]="addUserForm.controls['confirmPassword'].hasError('maxlength')">
+              {{ addUserForm.controls['confirmPassword'].value.length }} / 255
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label data-test="registration-number-label">{{ 'TEAM_VIEW.REGISTRATION_NUMBER' | translate }}</mat-label>
+            <input
+              matInput
+              required
+              formControlName="registrationNumber"
+              data-test="registration-number-input"
+              placeholder="{{ 'TEAM_VIEW.REGISTRATION_NUMBER' | translate }}"
+              type="number"
+            />
+            <mat-hint
+              [id]="'add-user-registration-number-input-error-message'"
+              *ngIf="
+                addUserForm.controls['registrationNumber'].touched &&
+                addUserForm.controls['registrationNumber'].invalid &&
+                ErrorType.getErrorMessage(addUserForm.controls['registrationNumber'].errors, 'Registration Number')
+              "
+            >
+              {{ ErrorType.getErrorMessage(addUserForm.controls['registrationNumber'].errors, 'Registration Number') }}
+
+              <!-- NOTE: translate of hint will be fixed after merging task-82 into default -->
+              <!-- {{
+                ErrorType.getErrorMessage(addUserForm.controls['registrationNumber'].errors)
+                  | translate
+                    : {
+                        elementName: 'ERROR_MESSAGES.REGISTRATION_NUMBER' | translate,
+                        suffix: ''
+                      }
+              }} -->
+            </mat-hint>
+          </mat-form-field>
+
+          <div class="is-active-section" data-test="active-button">
+            <mat-label data-test="is_active_label">{{ 'TEAM_VIEW.ACTIVE' | translate }}</mat-label>
+            <mat-slide-toggle color="primary" formControlName="isActive"></mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="buttons-container">
+      <button mat-raised-button [disabled]="addUserForm.invalid" data-test="add-button" color="primary" type="submit" (click)="onSubmit()">
+        {{ 'ADD' | translate }}
+      </button>
+      <button mat-raised-button data-test="cancel-button" color="warn" (click)="close()">{{ 'CANCEL' | translate }}</button>
+    </div>
+  </div>
+</div>

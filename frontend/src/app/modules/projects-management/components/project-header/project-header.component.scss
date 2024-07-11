@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  height: 3rem;
+
+  .project-header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    mat-tab-group {
+      width: 100%;
+
+      ::ng-deep .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+        display: none !important;
+      }
+
+      .tab_icon {
+        margin-right: 0.5rem;
+      }
+    }
+
+    .header-action {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

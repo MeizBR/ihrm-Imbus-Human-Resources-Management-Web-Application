@@ -1,0 +1,17 @@
+<div class="calendar-details-container">
+  <div class="cards" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="20px">
+    <div class="left-card">
+      <app-all-calendars class="all-calendars-card" [calendarsList]="allCalendars$ | async" [selectedCalendarId]="(calendarDetails$ | async)?.id"></app-all-calendars>
+    </div>
+    <div class="right-card">
+      <app-edit-calendar
+        [editCalendarDetails]="calendarDetails$ | async"
+        [projectsList]="projectsForCalender$ | async"
+        [isOwner]="(userSession$ | async)?.userId === (calendarDetails$ | async)?.userId"
+        [error]="error$ | async"
+        (updateCalendar)="updateCalendar($event)"
+        (onDeleteCalendar)="deleteCalendar($event)"
+      ></app-edit-calendar>
+    </div>
+  </div>
+</div>

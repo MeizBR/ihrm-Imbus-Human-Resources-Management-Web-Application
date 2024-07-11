@@ -1,0 +1,22 @@
+<app-filter-bar
+    (emittedSelectedProject)="receiveProject($event)"
+    (emittedSelectedCustomer)="receiveCustomer($event)"
+    (emittedSelectedUser)="receiveUser($event)"
+    (emittedSelectedStartDate)="receiveStartDate($event)"
+    (emittedSelectedEndDate)="receiveEndDate($event)"
+    (emittedSelectedDescription)="receiveDescription($event)"
+
+    [activitiesNumber]="receivedActivitiesNumber"
+></app-filter-bar>
+
+<app-reports-dashboard
+    [SProject]="receivedSelectedProject"
+    [SUser]="receivedSelectedUser"
+    [SStartDate]="receivedSelectedStartDate"
+    [SEndDate]="receivedSelectedEndDate"
+    [SCustomer]="receivedSelectedCustomer"
+    [SDescription]="receivedSelectedDescription"
+
+    (activitiesNumber)="receiveActivitiesNumber($event)"
+></app-reports-dashboard>
+<app-reports-stats></app-reports-stats>

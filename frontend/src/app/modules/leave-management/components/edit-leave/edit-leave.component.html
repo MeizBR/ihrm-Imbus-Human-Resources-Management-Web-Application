@@ -1,0 +1,151 @@
+<mat-card class="leave-card mat-elevation-z3">
+  <div class="card-header-text">
+    <div class="card-title">
+      {{ 'LEAVES_VIEW.EDIT_LEAVE.LEAVE_DETAILS' | translate }} :
+      <span class="state-span" [style.color]="LeaveState?.getIconColor(editLeaveDetails?.state)">{{ LeaveState.getTranslate(editLeaveDetails?.state) | translate }}</span>
+      <mat-icon class="state-icon" [style.color]="LeaveState?.getIconColor(editLeaveDetails?.state)" data-test="pending-status">{{
+        LeaveState.getIconName(editLeaveDetails?.state)
+      }}</mat-icon>
+    </div>
+    <div class="card-header-state">
+      <div *ngIf="!editLeaveDetails?.editPermission.canEditStatus" class="lock-icon">
+        <mat-icon class="header-lock-icon" *ngIf="!isAdministrator">lock</mat-icon>
+      </div>
+      <div *ngIf="editLeaveDetails?.editPermission.canEditStatus" class="state-button-row">
+        <button
+          *ngFor="let state of stateValues"
+          mat-icon-button
+          [matTooltip]="state === LeaveState.Pending ? (LeaveState.getTranslate(LeaveState.Pending) | translate) : (LeaveState.getTranslate(state) | translate)"
+          (click)="onUpdateState(state)"
+        >
+          <mat-icon class="leave-state-icon" [style.color]="state === editLeaveDetails?.state ? LeaveState.getIconColor(state) : 'inherit'" data-test="edit-leaves-status">{{
+            LeaveState.getIconName(state)
+          }}</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <mat-card-content class="card-content">
+    <div class="edit-leave-form">
+      <form class="edit-leave" [formGroup]="form" (submit)="onSubmit()">
+        <div class="leave-details" [class.section-disabled]="!isLeaveDescriptionEditable && !isLeaveDataEditable && (!isOwner || (isOwner && isAdministrator))">
+          <div *ngIf="!isLeaveDescriptionEditable && !isLeaveDataEditable && (!isOwner || (isOwner && isAdministrator))" class="lock-icon"><mat-icon>lock</mat-icon></div>
+          <div class="leave-data" [class.section-disabled]="isLeaveDescriptionEditable && !isLeaveDataEditable">
+            <div *ngIf="isLeaveDescriptionEditable && !isLeaveDataEditable" class="lock-icon"><mat-icon>lock</mat-icon></div>
+            <div class="section-container">
+              <mat-form-field appearance="outline" floatLabel="never" fxFlex class="user-field" [class.inactive-user]="!editLeaveDetails?.isActiveUser">
+                <input matInput readonly [value]="editLeaveDetails?.userName" />
+                <mat-icon *ngIf="!editLeaveDetails?.isActiveUser">clear</mat-icon>
+                <!-- NOTE: To be verified -->
+                <!-- <app-item-status [item]="selectedUser?.fullName" [isActiveItem]="selectedUser?.isActive"></app-item-status> -->
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="leave-type-field">
+                <mat-select disableOptionCentering [disabled]="!isLeaveDataEditable" formControlName="leaveType" [placeholder]="'LEAVES_VIEW.PLACEHOLDERS.LEAVE_TYPE' | translate">
+                  <mat-option [value]="LeaveType.Sick | translate">{{ LeaveType.Sick | translate }}</mat-option>
+                  <mat-option [value]="LeaveType.Holiday | translate">{{ LeaveType.Holiday | translate }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="section-container">
+              <div class="start-date-field">
+                <!-- FIXME: Is better to use the internal component `app-datetimepicker` -->
+                <mat-form-field appearance="outline" [class.start-field-container]="!isLeaveDataEditable" floatLabel="always">
+                  <mat-label>{{ 'LEAVES_VIEW.PLACEHOLDERS.START_DATE' | translate }}</mat-label>
+                  <div class="field-content start-date" fxLayoutAlign="space-between center">
+                    <mat-datetimepicker-toggle [for]="pickerStart" matSuffix></mat-datetimepicker-toggle>
+                    <mat-datetimepicker #pickerStart openOnFocus="true"> </mat-datetimepicker>
+                    <input
+                      readonly
+                      matInput
+                      id="start-date"
+                      formControlName="start"
+                      [matDatetimepicker]="pickerStart"
+                      [placeholder]="'LEAVES_VIEW.PLACEHOLDERS.START_DATE' | translate"
+                      (dateChange)="dateChange()"
+                    />
+                    <mat-checkbox id="half-day-start" class="half-day-start-field" [disabled]="!isLeaveDataEditable" formControlName="isHalfDayStart" [labelPosition]="'before'">{{
+                      'LEAVES_VIEW.ADD_LEAVE.HALF_DAY' | translate
+                    }}</mat-checkbox>
+                  </div>
+                </mat-form-field>
+                <mat-error *ngIf="form.controls['start'].touched && form.controls['start'].invalid && ErrorType.getErrorMessage(form.controls['start'].errors, 'Start date')">
+                  {{ ErrorType.getErrorMessage(form.controls['start'].errors, 'Start date') }}
+                </mat-error>
+              </div>
+
+              <div class="end-date-field">
+                <!-- FIXME: Is better to use the internal component `app-datepicker` -->
+                <mat-form-field appearance="outline" [class.end-field-container]="!isLeaveDataEditable" floatLabel="always">
+                  <mat-label>{{ 'LEAVES_VIEW.PLACEHOLDERS.END_DATE' | translate }}</mat-label>
+                  <div class="field-content end-date" fxLayoutAlign="space-between center">
+                    <mat-datetimepicker-toggle [for]="pickerEnd" matSuffix></mat-datetimepicker-toggle>
+                    <mat-datetimepicker #pickerEnd openOnFocus="true"> </mat-datetimepicker>
+                    <input
+                      readonly
+                      matInput
+                      id="end-date"
+                      [min]="form.controls['start'].value"
+                      [matDatetimepicker]="pickerEnd"
+                      formControlName="end"
+                      [placeholder]="'LEAVES_VIEW.PLACEHOLDERS.END_DATE' | translate"
+                      (dateChange)="dateChange()"
+                    />
+                    <mat-checkbox
+                      *ngIf="!isHalfDayEndHidden"
+                      id="half-day-end"
+                      class="half-day-end-field"
+                      [disabled]="!isLeaveDataEditable"
+                      formControlName="isHalfDayEnd"
+                      [labelPosition]="'before'"
+                      >{{ 'LEAVES_VIEW.ADD_LEAVE.HALF_DAY' | translate }}</mat-checkbox
+                    >
+                  </div>
+                </mat-form-field>
+                <mat-error *ngIf="form.controls['end'].touched && form.controls['end'].invalid && ErrorType.getErrorMessage(form.controls['end'].errors, 'End date')">
+                  {{ ErrorType.getErrorMessage(form.controls['end'].errors, 'End date') }}
+                </mat-error>
+              </div>
+            </div>
+          </div>
+
+          <div class="description-container">
+            <mat-label class="description-label">{{ 'LEAVES_VIEW.ADD_LEAVE.DESCRIPTION' | translate }} :</mat-label>
+            <quill-view-html *ngIf="!isLeaveDescriptionEditable" [content]="editLeaveDetails.description"></quill-view-html>
+            <quill-editor
+              *ngIf="isLeaveDescriptionEditable"
+              [placeholder]="isLeaveDescriptionEditable ? ('LEAVES_VIEW.EDIT_LEAVE.PLACEHOLDER' | translate) : ''"
+              class="description-richText-editor"
+              formControlName="description"
+              ngDefaultControl
+              data-test="leave-description"
+              (onContentChanged)="contentChanged($event, 'description')"
+            ></quill-editor>
+            <mat-error *ngIf="form.controls['description'].invalid && ErrorType.getErrorMessage(form.controls['description'].errors, 'Description')">
+              {{ ErrorType.getErrorMessage(form.controls['description'].errors, 'Description') }}
+            </mat-error>
+          </div>
+        </div>
+        <div *ngIf="isAdministrator" class="comment-container">
+          <mat-label class="comment-label">{{ 'LEAVES_VIEW.ADD_LEAVE.COMMENT' | translate }} :</mat-label>
+          <quill-editor
+            [placeholder]="'LEAVES_VIEW.EDIT_LEAVE.PLACEHOLDER' | translate"
+            class="comment-richText-editor"
+            formControlName="comment"
+            ngDefaultControl
+            data-test="leave-comment"
+            (onContentChanged)="contentChanged($event, 'comment')"
+          ></quill-editor>
+          <mat-error *ngIf="form.controls['comment'].errors && ErrorType.getErrorMessage(form.controls['comment'].errors, 'Comment')">
+            {{ ErrorType.getErrorMessage(form.controls['comment'].errors, 'Comment') }}
+          </mat-error>
+        </div>
+        <div *ngIf="editLeaveDetails?.editPermission.canEditStatus || isAdministrator" class="actions-container">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || !form.dirty" data-test="save-edit">{{ 'SAVE' | translate }}</button>
+          <button mat-raised-button color="warn" [disabled]="!form.dirty" class="cancel-button" (click)="onClear()">{{ 'CANCEL' | translate }}</button>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

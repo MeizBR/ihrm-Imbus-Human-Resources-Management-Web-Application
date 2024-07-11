@@ -1,0 +1,23 @@
+<div class="container">
+  <button *ngIf="!formVisibility" mat-raised-button [disabled]="!usersToSelect?.length" class="set-role-button" (click)="formVisibility = true">
+    <mat-icon>add</mat-icon>{{ 'PROJECTS_VIEW.ROLES.SET_ROLES' | translate }}
+  </button>
+
+  <div class="add-role-form-div" *ngIf="formVisibility">
+    <form class="add-role" fxLayout.xs="column" [formGroup]="form" (submit)="onSubmit()">
+      <mat-form-field appearance="none" class="user-field">
+        <mat-label data-test="user_label">{{ 'PROJECTS_VIEW.ROLES.SELECT_USER' | translate }}</mat-label>
+        <mat-select disableOptionCentering formControlName="user" placeholder="Select user ...">
+          <mat-option *ngFor="let user of usersToSelect" [value]="user">{{ user.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <app-roles-chip-list (selectedRoleChanged)="selectedRolesChanged($event)"></app-roles-chip-list>
+
+      <div class="buttons-container">
+        <button mat-raised-button class="submit-button" color="primary" type="submit" [disabled]="form.invalid">{{ 'ADD' | translate }}</button>
+        <button mat-raised-button class="cancel-button" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
+      </div>
+    </form>
+  </div>
+</div>

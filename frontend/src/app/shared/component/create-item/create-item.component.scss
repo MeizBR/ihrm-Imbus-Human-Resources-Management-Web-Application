@@ -1,0 +1,65 @@
+// NOTE: This is a generic part for all toolbar it should be added to style.scss
+:host {
+  display: block;
+
+  .create-item-container {
+    .create-toolbar {
+      margin-bottom: 10%;
+
+      .button-dialog-close {
+        background-color: rgb(241, 67, 67);
+        width: 25px;
+        height: 25px;
+      }
+      .clear-icon {
+        transform: translate(0, -35%);
+      }
+    }
+
+    .create-item-form {
+      .form-content {
+        display: flex;
+        flex-flow: column wrap;
+        height: 50%;
+
+        .field-line {
+          display: inline-block;
+          vertical-align: middle;
+          margin: 0 0 5% 10%;
+          border: 0.5px solid rgb(172, 172, 172);
+          padding: 5px 10px;
+          font-family: inherit;
+          font-size: 0.95em;
+          border-radius: 5px;
+          width: 80%;
+
+          ::ng-deep .mat-form-field-wrapper {
+            padding-bottom: 0px !important;
+            padding-top: 0px !important;
+          }
+
+          ::ng-deep .mat-form-field-infix {
+            border-top: none !important;
+          }
+        }
+
+        .checkbox-field {
+          margin-left: 10%;
+        }
+      }
+
+      .form-footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+
+        margin-right: 10%;
+        margin-top: 10%;
+
+        :not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

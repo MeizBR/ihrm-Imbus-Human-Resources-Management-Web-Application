@@ -1,0 +1,37 @@
+<mat-card class="all-users-card mat-elevation-z3">
+  <mat-card-header class="all-users-card-header-text">
+    <mat-card-title class="all-users-card-title" data-test="all-users-header">{{ 'TEAM_VIEW.USERS_LIST.ALL_USERS' | translate }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="all-users-card-content">
+    <div class="users-list">
+      <div
+        *ngFor="let user of splicedData; trackBy: usersTrackFn; let ind = index"
+        fxLayoutGap="10px"
+        class="user-details-content"
+        [class.not-active-status]="!user.isActive"
+        [class.selected]="user.id === selectedUserId"
+        [routerLink]="['../../profile', user.id]"
+      >
+        <div class="user-details" fxLayoutAlign="space-between">
+          <div class="user-information" [attr.data-test]="'user-info-' + ind">{{ user?.firstName }} {{ user?.lastName }}</div>
+          <div class="global-role-icons">
+            <mat-icon *ngIf="user?.globalRoles?.includes(roleModel.Administrator)" class="material-icons-outlined" [attr.data-test]="'admin-' + ind">admin_panel_settings</mat-icon>
+            <mat-icon *ngIf="user?.globalRoles?.includes(roleModel.AccountManager)" class="material-icons-outlined" [attr.data-test]="'acc-' + ind">manage_accounts</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      appPaginator
+      [itemsPerPage]="pageSize"
+      [selectedItemId]="selectedUserId"
+      [itemList]="users"
+      (onChangeSelectedPage)="getSelectedPage($event)"
+      [length]="pageLength"
+      [hidePageSize]="true"
+      [pageSize]="pageSize"
+      (page)="pageChangeEvent($event)"
+    >
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,24 @@
+<div class="reports-header-container" data-test="reports-header">
+    <mat-tab-group [selectedIndex]="selectedIndex" animationDuration="0ms" (selectedTabChange)="navigateFromTabs($event.index)">
+      <mat-tab label="Summary"
+        ><ng-template mat-tab-label>
+          <mat-icon class="tab_icon">today</mat-icon>
+          {{ 'REPORT_VIEW.SUMMARY' | translate }}
+        </ng-template>
+      </mat-tab>
+  
+      <mat-tab label="Detailed">
+        <ng-template mat-tab-label>
+          <mat-icon class="tab_icon">today</mat-icon>
+          {{ 'REPORT_VIEW.DETAILED' | translate }}
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab label="Weekly">
+        <ng-template mat-tab-label>
+          <mat-icon class="tab_icon">today</mat-icon>
+          {{ 'REPORT_VIEW.WEEKLY' | translate }}
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+</div>

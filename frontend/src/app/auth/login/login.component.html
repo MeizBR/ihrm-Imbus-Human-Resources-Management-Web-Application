@@ -1,0 +1,62 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-content>
+      <div class="background-title-container">
+        <div class="title-container">
+          <div class="company"><span data-test="company-title">@Diligate 2021</span></div>
+          <div class="title">
+            <span data-test="app-title">{{ 'LOG_VIEW.IHRM' | translate }}<br />{{ 'LOG_VIEW.HR_MANAGEMENT' | translate }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="company" fxHide fxShow.lt-sm><span>@Diligate 2021</span></div>
+        <div class="form-content">
+          <span class="signin" data-test="sign-in">{{ 'LOG_VIEW.LOG_IN' | translate }}</span>
+          <form [formGroup]="loginForm" style="align-content: center;" (ngSubmit)="login()">
+            <div class="form-fields">
+              <mat-form-field data-test="workspace">
+                <input matInput type="text" placeholder="{{ 'LOG_VIEW.WORKSPACE' | translate }}" autocomplete="on" formControlName="workspace" required />
+              </mat-form-field>
+
+              <mat-form-field data-test="login">
+                <input matInput type="text" placeholder="{{ 'LOG_VIEW.LOGIN' | translate }}" autocomplete="on" formControlName="login" required />
+              </mat-form-field>
+
+              <mat-form-field class="password" data-test="password">
+                <input
+                  matInput
+                  type="{{ showPassword ? 'text' : 'password' }}"
+                  placeholder="{{ 'LOG_VIEW.PASSWORD' | translate }}"
+                  formControlName="password"
+                  autocomplete="on"
+                  required
+                />
+
+                <mat-icon *ngIf="loginForm.controls['password'].value.length" matSuffix (click)="showPassword = !showPassword">{{
+                  showPassword ? 'visibility_off' : 'visibility'
+                }}</mat-icon>
+              </mat-form-field>
+            </div>
+            <div *ngIf="errorMessage" class="error-hint">
+              <mat-hint data-test="error-msg">
+                {{ errorMessage | translate }}
+                <mat-icon class="material-symbols-outlined" color="warn">
+                  warning
+                </mat-icon>
+              </mat-hint>
+            </div>
+            <div class="actions-container" id="login-button">
+              <button mat-raised-button color="warn" data-test="login-button" type="submit" color="primary" [disabled]="!loginForm.valid">
+                {{ 'LOG_VIEW.LOG_IN' | translate }}
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="title" fxHide fxShow.lt-sm>
+          <span>{{ 'LOG_VIEW.IHRM' | translate }}<br /></span><span>{{ 'LOG_VIEW.HR_MANAGEMENT' | translate }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

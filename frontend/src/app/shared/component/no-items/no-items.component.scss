@@ -1,0 +1,27 @@
+@import '../../../../theme/breakpoint-theme.scss';
+
+:host {
+  height: 100%;
+  display: block;
+
+  .no-items-card {
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    mat-card {
+      width: 95%;
+      height: 5rem;
+      color: gray;
+      display: flex;
+      font-size: 16px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: $breakpoint-sm-max-width) {
+      margin: 1rem 0;
+    }
+  }
+}

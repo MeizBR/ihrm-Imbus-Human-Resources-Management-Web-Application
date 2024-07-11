@@ -1,0 +1,14 @@
+<div class="customer-container">
+  <div>
+    <app-add-customer *ngIf="addPermitted" [error]="error$ | async" [isCustomersLoading]="isCustomersLoading$ | async" (onAdd)="onAddCustomer($event)"></app-add-customer>
+  </div>
+  <app-list-items
+    [pageSize]="(customersPageSize$ | async).size"
+    [columns]="columns"
+    [list]="customerList"
+    [displayedColumns]="displayedColumns"
+    (editAction)="onEditCustomer($event)"
+    (deleteAction)="onDeleteCustomer($event)"
+    (pageSizeChanged)="onChangePageSize($event)"
+  ></app-list-items>
+</div>

@@ -1,0 +1,65 @@
+@import '../../sass/mixins';
+@import '../../../theme/breakpoint-theme.scss';
+
+:host {
+  width: 100%;
+  display: block;
+
+  .activity-container {
+    margin: 2.5rem 0.5rem 0.5rem;
+    height: 100%;
+
+    .current {
+      border-radius: 3px;
+      background-color: white;
+      border: 0.5px solid lightgrey;
+    }
+
+    .panel {
+      margin-top: 3rem;
+      height: calc(100% - 9.5rem);
+      overflow-y: auto;
+      @extend %set-scrollbar;
+
+      .activities-panel {
+        margin-bottom: 0.5rem;
+        width: -webkit-fill-available;
+        border: 1px solid rgb(211, 209, 209);
+
+        .activities-panel-header {
+          background: #e1e7eb;
+          height: 3.5rem !important;
+
+          .mat-expanded {
+            background: #e1e7eb;
+          }
+
+          .mat-expansion-panel-header-description {
+            flex-grow: 0;
+          }
+        }
+
+        ::ng-deep .mat-expansion-panel-body {
+          padding: 0 !important;
+        }
+
+        .activities-panel-body {
+          padding: 0rem !important;
+
+          .history-activity-details {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  /** 599px */
+  @media (max-width: $breakpoint-xs-max-width) {
+    .activity-container .current .data-container .project-field {
+      a span {
+        max-width: 6rem !important;
+      }
+    }
+  }
+}

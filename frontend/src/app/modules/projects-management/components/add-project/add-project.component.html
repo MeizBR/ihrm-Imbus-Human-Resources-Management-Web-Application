@@ -1,0 +1,53 @@
+<div class="container">
+  <div *ngIf="!formVisibility" class="button-container">
+    <button mat-raised-button (click)="openForm()" data-test="create-project"><mat-icon>add</mat-icon>Create</button>
+  </div>
+
+  <div *ngIf="formVisibility" class="add-project mat-elevation-z1">
+    <form [formGroup]="addProjectForm" (submit)="onSubmit()">
+      <div class="section-container">
+        <div class="section-container">
+          <mat-form-field appearance="outline" data-test="customer">
+            <mat-label data-test="customer-label">{{ 'PROJECTS_VIEW.CUSTOMER_NAME' | translate }}</mat-label>
+            <mat-select required disableOptionCentering formControlName="customerId">
+              <mat-option *ngFor="let customer of customersList; trackBy: customerTrackFn" [value]="customer.id" data-test="customer-name">{{ customer.name }}</mat-option>
+            </mat-select>
+            <mat-hint *ngIf="addProjectForm.controls['customerId'].touched && addProjectForm.controls['customerId'].invalid">
+              {{ ErrorType.getErrorMessage(addProjectForm.controls['customerId'].errors, 'customer') }}
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label data-test="name_label">{{ 'PROJECTS_VIEW.PROJECT_NAME' | translate }}</mat-label>
+            <input matInput required placeholder="{{ 'PROJECTS_VIEW.PROJECT_NAME' | translate }}" type="text" formControlName="name" data-test="project-name" />
+
+            <mat-hint [id]="'add-project-name-input-error-message'" *ngIf="addProjectForm.controls['name'].touched && addProjectForm.controls['name'].invalid">
+              {{ ErrorType.getErrorMessage(addProjectForm.controls['name'].errors, 'Project Name') }}
+            </mat-hint>
+
+            <mat-hint align="end" [id]="'add-project-name-input-counter'" class="counter" [class.error]="addProjectForm.controls['name'].hasError('maxlength')">
+              {{ addProjectForm.controls['name'].value.length }} / 255
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="is-active-section">
+          <mat-label data-test="is_active_label">{{ 'PROJECTS_VIEW.ACTIVE' | translate }}</mat-label>
+          <mat-slide-toggle color="primary" formControlName="isActive" data-test="active-button"></mat-slide-toggle>
+        </div>
+      </div>
+      <div class="description-section" fxLayout="column">
+        <mat-label class="description-label" data-test="description-label">{{ 'PROJECTS_VIEW.DESCRIPTION' | translate }}:</mat-label>
+        <quill-editor class="description-editor" formControlName="description" (onContentChanged)="contentChanged($event)" data-test="description-text"></quill-editor>
+        <mat-error *ngIf="addProjectForm.controls['description'].invalid && ErrorType.getErrorMessage(addProjectForm.controls['description'].errors, 'Description')">
+          {{ ErrorType.getErrorMessage(addProjectForm.controls['description'].errors, 'Description') }}
+        </mat-error>
+      </div>
+    </form>
+    <div class="buttons-container">
+      <button mat-raised-button class="submit-button" [disabled]="addProjectForm.invalid" color="primary" type="submit" (click)="onSubmit()" data-test="add-project-button">
+        {{ 'ADD' | translate }}
+      </button>
+      <button mat-raised-button class="cancel-button" color="warn" (click)="close()" data-test="cancel-project-button">{{ 'CANCEL' | translate }}</button>
+    </div>
+  </div>
+</div>

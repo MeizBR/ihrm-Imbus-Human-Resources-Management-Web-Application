@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  // height: 100%;  // DEBUG: PROB
+
+  .customer-details-container {
+    // height: 100%;  // DEBUG: PROB
+
+    .cards {
+      height: 100%;
+      display: flex;
+      flex: 1 1 auto;
+      padding: 0 1rem 0.5rem;
+      box-sizing: border-box;
+
+      .left-card {
+        flex: 1;
+        box-sizing: border-box;
+      }
+
+      .right-card {
+        flex: 3;
+        box-sizing: border-box;
+      }
+    }
+  }
+}

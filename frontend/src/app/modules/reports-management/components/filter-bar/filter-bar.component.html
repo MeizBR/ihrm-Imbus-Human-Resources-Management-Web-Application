@@ -1,0 +1,68 @@
+<div class="filter-bar-container">
+    
+    <div class="inputs-group">
+
+        <mat-form-field class="filter-selector">
+            <mat-label>Choose the Project</mat-label>
+            <mat-select [(ngModel)]="selectedProject">
+                <mat-option *ngFor="let project of projects" [value]="project.name">
+                    {{ project.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="filter-selector">
+            <mat-label>Choose the Customer</mat-label>
+            <mat-select [(ngModel)]="selectedCustomer">
+                <mat-option  *ngFor="let customer of customers" [value]="customer.name">
+                    {{ customer.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="filter-selector">
+            <mat-label>Choose the User</mat-label>
+            <mat-select [(ngModel)]="selectedUser">
+                <mat-option  *ngFor="let user of users" [value]="user.firstName + ' ' + user.lastName">
+                    {{ user.firstName }} {{ user.lastName }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="filter-selector">
+            <mat-label>Select the Start Date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="selectedStartDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="filter-selector">
+            <mat-label>Select the End Date</mat-label>
+            <input matInput [matDatepicker]="picker1" [(ngModel)]="selectedEndDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="filter-selector">
+            <mat-label>Specify the Description</mat-label>
+            <input matInput [(ngModel)]="selectedDescription" placeholder="Specify the Description">
+        </mat-form-field>
+    </div>
+
+    <div class="apply-filter">
+
+        <button mat-raised-button class="filter-button" (click)="emitSelectedValue()">Apply Filter</button>
+
+        <button mat-raised-button class="filter-button" (click)="clearAllFields()">Clear all Fields</button>
+
+        <button type="button" class="filter-button" class="btn btn-light position-relative filter-button">
+            Activities after Filtering
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ activitiesNumber }}
+            <span class="visually-hidden">unread messages</span>
+            </span>
+        </button>
+        
+    </div>
+
+</div>

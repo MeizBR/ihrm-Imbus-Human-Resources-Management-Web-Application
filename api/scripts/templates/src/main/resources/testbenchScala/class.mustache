@@ -1,0 +1,21 @@
+case class {{classname}}(
+{{#vars}}
+  {{> field}}{{#hasMore}},{{/hasMore}}{{#description}} // {{{description}}}{{/description}}
+  {{/vars}}
+){{#parent}} extends {{{parent}}}{{/parent}}
+
+object {{classname}} {
+  implicit val decoder: io.circe.Decoder[{{classname}}] = io.circe.generic.semiauto.deriveDecoder
+  implicit val encoder: io.circe.Encoder[{{classname}}] = io.circe.generic.semiauto.deriveEncoder
+
+  import enum.Enum
+
+  sealed trait Field
+  case object Field extends EnumSet[Field] {
+  {{#vars}}
+    case object {{name}} extends Field
+  {{/vars}}
+
+    protected val enum: Enum[Field] = Enum.derived[Field]
+  }
+}

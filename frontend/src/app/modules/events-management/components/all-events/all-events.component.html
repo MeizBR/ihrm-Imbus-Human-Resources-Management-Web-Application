@@ -1,0 +1,40 @@
+<mat-card class="all-events-card mat-elevation-z3">
+  <mat-card-header class="all-events-card-header-text" data-test="aall-events-title">
+    <mat-card-title class="all-events-card-title">{{ 'EVENTS_VIEW.EDIT_EVENT.ALL_EVENTS' | translate }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="all-events-card-content">
+    <div class="events-list">
+      <div
+        *ngFor="let event of splicedData; trackBy: dataTrackFn"
+        class="event-details-content"
+        [class.selected]="event.id === selectedEventId"
+        [routerLink]="['../../event', event.id]"
+        fxLayoutGap="10px"
+      >
+        <div class="event-details column" fxLayoutAlign="space-between">
+          <div class="event-title" fxFlex="35" fxLayoutAlign="start center">
+            <span>{{ event.title }}</span>
+          </div>
+          <div class="event-type" fxFlex="30" fxLayoutAlign="center center">
+            <span>{{ event.eventType }}</span>
+          </div>
+          <div class="event-period" fxFlex="35" fxLayoutAlign="end center">
+            <span>{{ event.start | datesDiff: event.end }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      appPaginator
+      [itemsPerPage]="pageSize"
+      [selectedItemId]="selectedEventId"
+      [itemList]="eventList"
+      (onChangeSelectedPage)="getSelectedPage($event)"
+      [length]="pageLength"
+      [hidePageSize]="true"
+      [pageSize]="pageSize"
+      (page)="pageChangeEvent($event)"
+    >
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

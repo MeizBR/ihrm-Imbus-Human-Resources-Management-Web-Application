@@ -1,0 +1,8 @@
+[repositories]
+  maven-central: https://repo1.maven.org/maven2/
+  bintray-enterprise-releases: https://dl.bintray.com/outworkers/enterprise-releases/
+  bintray-sbt: https://dl.bintray.com/sbt/
+  bintray-lightshed: https://dl.bintray.com/lightshed/
+  jcenter: https://jcenter.bintray.com/
+  sonatype-releases: https://oss.sonatype.org/content/repositories/releases/
+  typesafe-releases: https://repo.typesafe.com/typesafe/releases/

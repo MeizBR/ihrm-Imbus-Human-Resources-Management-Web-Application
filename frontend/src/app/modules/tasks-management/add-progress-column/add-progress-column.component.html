@@ -1,0 +1,45 @@
+<!-- <div class="add-progress-column-container">
+  <mat-toolbar class="create-toolbar">
+    <span>{{ dialogModelData.title | translate }}</span>
+    <button mat-button class="button-close" (click)="onClose()">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="create-form-container">
+    <form *ngIf="form" [formGroup]="form" fxLayout="column" (submit)="onSubmit()">
+      <div class="form-content">
+        <div class="field-line">
+          <mat-label>{{ 'TASKS_VIEW.COLUMN_DIALOG.COLUMN_NAME' | translate }}</mat-label>
+          <mat-form-field appearance="none" class="field-line-content"> -->
+<!-- NOTE: using formControlName and ngModel is not recommended ngModel and the mat-option value should have the same type  try to use selectionChange an emitter of mat-select -->
+<!--  <mat-select formControlName="columnName" [(ngModel)]="selectedName" class="column-name-select">
+              <mat-option *ngFor="let name of columnHeaderText" [value]="name" class="column-name-option">
+                {{ name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="field-line">
+          <mat-label>{{ 'TASKS_VIEW.COLUMN_DIALOG.COLUMN_INDEX' | translate }}</mat-label>
+          <mat-form-field appearance="none" class="field-line-content">
+            <input
+              matInput
+              type="number"
+              min="0"
+              [max]="allTextHeader?.length - 1"
+              placeholder="{{ 'TASKS_VIEW.COLUMN_DIALOG.PLACEHOLDERS.COLUMN_INDEX_PLACEHOLDER' | translate }}"
+              formControlName="index"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-footer">
+        <button mat-raised-button [disabled]="form.invalid" class="add-button" type="submit" color="primary">{{ 'ADD' | translate }}</button>
+        <button mat-raised-button type="button" color="warn" (click)="onClear()" class="reset-button">{{ 'RESET' | translate }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+ -->

@@ -1,0 +1,48 @@
+.kanban-overview.e-kanban .e-kanban-table .e-header-cells {
+  background-color: rgb(221, 221, 221);
+}
+
+.kanban-overview.e-kanban .e-kanban-table.e-content-table .e-content-row:not(.e-swimlane-row) td {
+  background-color:/*  rgb(226, 226, 226) */ rgb(221, 221, 221);
+}
+
+.e-card .e-card-header-caption .e-card-header-title {
+  color: rgb(137, 4, 163) !important;
+}
+
+#_dialog_wrapper.e-popup.e-popup-open.e-dialog {
+  width: 500px !important;
+
+  height: 50%;
+}
+#_dialog_wrapper.e-dialog .e-dlg-header-content {
+  background-color: rgb(30, 144, 255) !important;
+  margin-bottom: 3% !important;
+}
+
+#_dialog_wrapper.e-dialog .e-dlg-header {
+  color: #fff !important;
+}
+
+.e-kanban-dialog .e-kanban-form-wrapper table td:not(.e-label) .e-field {
+  border: 0.5px solid rgb(172, 172, 172);
+  padding: 0 10px 0 10px;
+  font-family: inherit;
+  font-size: 0.95em;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.e-float-input:not(.e-input-group) input,
+.e-float-input.e-control-wrapper:not(.e-input-group) input {
+  width: 94.5% !important;
+  padding-top: 1.5% !important;
+  padding-bottom: 1.5% !important;
+}
+
+.e-float-input textarea,
+.e-float-input.e-control-wrapper textarea {
+  width: 94.5% !important;
+  padding-top: 5% !important;
+  padding-bottom: 5% !important;
+}

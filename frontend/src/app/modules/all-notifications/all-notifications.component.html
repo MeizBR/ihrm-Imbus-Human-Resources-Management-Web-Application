@@ -1,0 +1,53 @@
+<div class="notifications-container">
+  <mat-toolbar class="tool-bar">
+    <span class="toolbar-title">All Notifications</span>
+    <span class="spacer"></span>
+    <mat-badge class="notification-badge" [matBadge]="unreadNotificationsCount" [matBadgeHidden]="unreadNotificationsCount==0"matBadgeColor="warn"></mat-badge>
+  </mat-toolbar>
+  <div class="buttons">
+    <button mat-stroked-button (click)="markAllAsRead()">
+      <mat-icon>done_all</mat-icon>
+      Mark all as read
+    </button>
+    <button mat-stroked-button style="height: 36px;min-width: 50px;" color="warn" matTooltip="Delete all"
+            (click)="deleteAll()">
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+
+  </div>
+  <div *ngIf="notificationsList?.length" class="panel">
+
+    <mat-accordion class="panel-headers" multi>
+      <mat-expansion-panel class="activities-panel" *ngFor="let day of daysOfNotifications" [expanded]="true">
+        <mat-expansion-panel-header class="activities-panel-header">
+          <mat-panel-title style="color: rgba(131,127,127,0.94);"> {{ day }}</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-action-row
+          *ngFor="let notification of notificationsByDay[day]?.notifications; let i = index"
+          class="panel-body"
+        >
+          <mat-card class="notification-card"
+                    [ngClass]="{ 'unread': !notification.isRead }"
+          >
+            <mat-card-content>
+              <mat-icon style="color: rgba(131,127,127,0.94); margin-right: 5px"
+                        *ngIf="notification.notificationType === 'Leave'">person_alert
+              </mat-icon>
+              <mat-icon style="color: rgba(131,127,127,0.94);  margin-right: 5px"
+                        *ngIf="notification.notificationType === 'Activity'">timer_8_alt_1
+              </mat-icon>
+              <span class="description" (click)="markAsRead(notification)">   <p>{{ notification.userName }}  {{ notification.description }}   </p></span>
+              <span class="timer">{{ notification?.createdAt | date: 'shortTime' }}
+                <mat-icon style="margin-left: 8px;color: rgba(189,35,35,0.89);" matTooltip="Delete  this notification" (click)="delete(notification.id)">close</mat-icon>
+</span>
+            </mat-card-content>
+          </mat-card>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div style="width: 100%">
+    <app-no-items *ngIf="!daysOfNotifications" [message]="'No new notifications'"></app-no-items>
+  </div>
+</div>

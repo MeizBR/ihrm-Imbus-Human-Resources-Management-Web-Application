@@ -1,0 +1,356 @@
+@import '../../../../../theme/breakpoint-theme.scss';
+
+:host {
+  display: block;
+  height: 100%;
+
+  @keyframes shake {
+    10%,
+    90%,
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-1px, -1px, 0);
+    }
+
+    20%,
+    80%,
+    40%,
+    60% {
+      transform: translate3d(2px, -2px, 0);
+    }
+  }
+
+  .leave-card {
+    padding: 0;
+    height: 100%;
+    align-content: space-between;
+
+    .card-header-text {
+      height: 4rem;
+      display: flex;
+      padding-left: 1rem;
+      border-radius: 5px 5px 0 0;
+      background-color: #d3dddf;
+      justify-content: space-between;
+
+      .card-title {
+        display: flex;
+        color: #3a7575;
+        align-self: center;
+        font: 20px sans-serif;
+
+        .state-span {
+          margin: 0 0.5rem;
+          align-self: center;
+          font: 16px sans-serif;
+        }
+      }
+
+      .card-header-state {
+        display: flex;
+        align-self: center;
+        margin-right: 0.7rem;
+
+        .header-lock-icon {
+          margin-left: 1rem;
+        }
+      }
+    }
+
+    .card-content {
+      height: calc(100% - 4rem);
+
+      .edit-leave-form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        padding: 1rem;
+        font-size: 1rem;
+        border-radius: 5px;
+        flex-direction: column;
+
+        form {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .leave-details {
+            .leave-data {
+              .section-container {
+                display: flex;
+                flex: 1 1 auto;
+                flex-wrap: wrap;
+
+                .start-date-field,
+                .end-date-field {
+                  display: flex;
+                  flex: 1;
+
+                  .start-field-container,
+                  .end-field-container {
+                    pointer-events: none;
+                  }
+
+                  ::ng-deep.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+                    padding: 0.4em 0 0.4em 0 !important;
+                  }
+
+                  ::ng-deep .mat-datetimepicker-toggle {
+                    .mat-icon-button {
+                      color: black !important;
+                    }
+                  }
+
+                  ::ng-deep .mat-checkbox {
+                    &.mat-checkbox-disabled {
+                      ::ng-deep .mat-checkbox-frame {
+                        border-color: #b0b0b0 !important;
+                      }
+                    }
+
+                    ::ng-deep .mat-checkbox-frame {
+                      border-color: black !important;
+                    }
+                    ::ng-deep .mat-checkbox-label {
+                      color: black !important;
+                    }
+                  }
+                }
+
+                mat-form-field {
+                  flex: 1;
+                  margin: 0.5rem;
+
+                  input[disabled] {
+                    color: black;
+                  }
+
+                  .mat-select-disabled {
+                    ::ng-deep .mat-select-value {
+                      color: black !important;
+                    }
+                    ::ng-deep .mat-select-arrow {
+                      border: none !important;
+                    }
+                  }
+                }
+              }
+            }
+
+            .description-container {
+              flex: 4;
+              display: flex;
+              padding-top: 1rem;
+              flex-direction: column;
+
+              .description-label {
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 18px;
+                color: black !important;
+                padding: 0 0 0.25rem 0.5rem;
+              }
+
+              .description-richText-editor {
+                padding: 0.5rem 0.5rem 0;
+                color: black !important;
+                border-radius: 5% !important;
+              }
+            }
+          }
+
+          .section-disabled {
+            border: 1px solid transparent;
+
+            .user-field {
+              ::ng-deep .mat-form-field-outline-thick {
+                border-style: none;
+                border-width: 1px !important;
+                color: rgba(0, 0, 0, 0.12);
+
+                .mat-form-field-outline-start,
+                .mat-form-field-outline-gap,
+                .mat-form-field-outline-end {
+                  border-width: 1px !important;
+                }
+              }
+            }
+
+            .lock-icon {
+              visibility: hidden;
+              height: 0;
+            }
+
+            &:hover {
+              border-radius: 5px;
+              border: 1px solid #f7f7f7;
+              background-color: #f7f7f7;
+              transform: translate3d(0, 0, 0);
+              animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+
+              .lock-icon {
+                height: 0;
+                display: flex;
+                visibility: visible;
+                flex-direction: row-reverse;
+
+                mat-icon {
+                  top: -32px;
+                  left: 30px;
+                  width: 36px;
+                  height: 36px;
+                  z-index: 1001;
+                  font-size: 36px;
+                  color: #8b0000;
+                  position: relative;
+                }
+              }
+            }
+          }
+
+          .comment-container {
+            flex: 4;
+            display: flex;
+            padding-top: 1rem;
+            flex-direction: column;
+
+            .comment-label {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 18px;
+              color: black !important;
+              padding: 1rem 0 0.25rem 0.5rem;
+            }
+
+            .comment-richText-editor {
+              padding: 0.5rem 0.5rem 0;
+              color: black !important;
+              border-radius: 5% !important;
+            }
+
+            .comment-disabled {
+              ::ng-deep .ql-toolbar {
+                visibility: hidden;
+                padding: 0 !important;
+                height: 0rem !important;
+              }
+
+              ::ng-deep .ql-container {
+                color: black;
+                border-radius: 4px;
+                border-top: 1px solid #ccc !important;
+              }
+            }
+          }
+
+          .actions-container {
+            width: 100%;
+            display: flex;
+            flex: 0 0 auto;
+            padding: 2rem 0;
+            justify-content: flex-end;
+
+            .mat-raised-button {
+              margin: 0.5rem;
+            }
+          }
+
+          .inactive-user {
+            pointer-events: none;
+
+            ::ng-deep .mat-form-field-infix {
+              display: flex;
+
+              input {
+                width: auto !important;
+              }
+            }
+
+            span {
+              color: gray;
+              align-self: center !important;
+              margin-right: 0.5rem !important;
+            }
+
+            mat-icon {
+              color: #ff8282;
+              line-height: 0.9;
+              width: 20px !important;
+              height: 20px !important;
+              font-size: 20px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-xs-max-width) {
+    .card-header-text {
+      padding-left: 0.3rem !important;
+
+      .card-title {
+        font: 16px sans-serif !important;
+        align-items: center;
+
+        @media (max-width: 500px) {
+          .state-span {
+            display: none;
+          }
+        }
+
+        .state-icon {
+          margin-left: 0.5rem;
+
+          @media (max-width: 400px) {
+            width: 25px !important;
+            height: 20px !important;
+            font-size: 20px !important;
+          }
+        }
+      }
+
+      .card-header-state {
+        margin-right: 0.3rem !important;
+
+        .mat-icon-button {
+          width: 2rem !important;
+
+          @media (max-width: 400px) {
+            width: 25px !important;
+
+            mat-icon {
+              font-size: 20px !important;
+            }
+          }
+        }
+      }
+    }
+
+    .card-content .edit-leave-form {
+      padding: 0.2rem !important;
+
+      form .section-disabled {
+        &:hover .lock-icon mat-icon {
+          top: -25px !important;
+          left: 18px !important;
+          width: 30px !important;
+          height: 30px !important;
+          font-size: 30px !important;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep quill-view-html {
+  cursor: default;
+  border-radius: 4px;
+  margin: 0.5rem 0.5rem 0;
+  border: solid 1px rgb(black, 0.12);
+}
+
+::ng-deep mat-label {
+  cursor: default;
+}

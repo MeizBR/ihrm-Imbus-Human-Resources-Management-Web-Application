@@ -1,0 +1,31 @@
+<mat-card class="container">
+  <mat-card-header class="card-header">
+    <div class="header">
+      <div class="header-items" style="border-right:1px solid rgb(159 157 157 / 27%); width: 70%">
+        <p style="font-size: 86% ; color: rgba(61,63,65,0.8)">Most tracked activities</p>
+      </div>
+      <div class="header-items" style="width: 30%; justify-content: center;">
+        <mat-form-field class="select-list">
+          <mat-select [(value)]="selectedChoice">
+            <mat-option [value]="true" (click)=" onChoiceChange()">Top 10</mat-option>
+            <mat-option [value]="false" (click)=" onChoiceChange()">All </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="content">
+    <mat-list class="mat-list">
+      <mat-list-item *ngIf="emptyList"><p> No new notifications </p></mat-list-item>
+      <mat-list-item  class ="list-item" *ngFor="let activity of activitiesList" >
+        <div class="line-content">
+          <div><span mat-line>{{ activity.description }}</span>
+            <span mat-line>{{ activity.projectName }} - {{ activity.customerName }}</span>
+          </div>
+          <span style="margin-left: auto ;">{{ activity.workDuration }}</span>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

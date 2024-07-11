@@ -1,0 +1,70 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+
+  .container {
+    height: 100%;
+    width: 100%;
+    padding: 0 !important;
+
+    .card-header {
+      width: 100%;
+      height: 10%;
+      border-bottom: 1px solid rgb(159 157 157 / 27%);
+      background-color: rgba(190, 201, 202, 0.27);
+
+      .header {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        .header-items {
+          height: 100%;
+          display: flex;
+          align-items: center;
+
+          .select-list{
+            width: 70%;
+            height:auto; /* Adjust this value as needed */
+            ::ng-deep.mat-form-field {
+              height: 100%; /* This will make the form field take the full height of its container */
+            }
+          }
+        }
+      }
+    }
+
+    .content {
+      height: 90%;
+      width: 100%;
+      overflow: auto;
+      .mat-list {
+        height: 70%;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        .list-item{
+          width: 100%;
+          height: 58px;
+
+        }
+
+        .line-content {
+          width: 100%;
+          display: flex;
+          align-items: center;
+
+        }
+      }
+    }
+  }
+}
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+::ng-deep .mat-select-trigger {
+  font-size: 86% ;
+fill: #6b6b6b !important;}
+
+

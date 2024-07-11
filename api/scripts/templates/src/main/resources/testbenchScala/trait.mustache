@@ -1,0 +1,10 @@
+sealed trait {{classname}} {
+{{#vars}}
+  def {{> field}}{{#description}} // {{{description}}}{{/description}}
+{{/vars}}
+}
+
+object {{classname}} {
+  implicit val decoder: io.circe.Decoder[{{classname}}] = io.circe.generic.semiauto.deriveDecoder
+  implicit val encoder: io.circe.Encoder[{{classname}}] = io.circe.generic.semiauto.deriveEncoder
+}

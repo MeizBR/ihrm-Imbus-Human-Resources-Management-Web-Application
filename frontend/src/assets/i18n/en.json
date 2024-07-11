@@ -1,0 +1,433 @@
+{
+  "LOG_VIEW": {
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "LOG_IN": "Sign In",
+    "PASSWORD": "Password",
+    "WORKSPACE": "Workspace",
+    "PROFILE": "Profile",
+    "IHRM": "iHRM",
+    "INVALID_CREDENTIALS": "Invalid credentials. Please try again.",
+    "INACTIVE_USER": "Login failed. This user is inactive.",
+    "HR_MANAGEMENT": "imbus Human Resource Management"
+  },
+  "DASHBOARD_VIEW": {
+    "DASHBOARD": "Dashboard"
+  },
+  "TIME_TRACKER_VIEW": {
+    "STOP": "Stop",
+    "START": "Start",
+    "PROJECT": "Project",
+    "TOTAL_LABEL": "Total",
+    "TIME_TRACKER": "Time Tracker",
+    "NO_ACTIVITIES": "No activity created for the moment ... You should create one",
+    "ADD_DESCRIPTION": "Add description",
+    "ADD_WORKING": "What are you working on ?",
+    "PROJECT_TOOLTIP": "Please select a project",
+    "REPLAY_ACTIVITY_TOOLTIP": "Replay this activity",
+    "PROJECT_LIST": {
+      "NO_DATA": "No data",
+      "FILTER": "Filter the items"
+    }
+  },
+  "LEAVES_VIEW": {
+    "USER": "User",
+    "CALENDAR": "Calendar",
+    "LEAVES": "Leaves",
+    "START_DATE": "Start date",
+    "END_DATE": "End date",
+    "NEW_LEAVE": "New Leave",
+    "MODIFY_LEAVE": "Update Leave",
+    "LEAVE_TYPE": {
+      "LEAVE_TYPE": "Leave Type",
+      "LEAVE_TYPE_ENUM": {
+        "SICK": "Sick",
+        "HOLIDAY": "Holiday"
+      }
+    },
+    "STATE": {
+      "STATE": "State",
+      "REFUSED": "Refused",
+      "WAITING": "Waiting",
+      "PENDING": "Pending",
+      "APPROVED": "Approved",
+      "CANCELED": "Canceled",
+      "IN_PROGRESS": "In Progress"
+    },
+    "LEAVES_TOOLBAR": {
+      "ADD_LEAVE": "Add leave",
+      "LEAVES_LIST": "Leaves list",
+      "LEAVES_TAB": "Leaves",
+      "LEAVES_DETAILS_TAB": "Leave Details"
+    },
+    "PLACEHOLDERS": {
+      "USER": "user",
+      "CALENDAR": "calendar",
+      "STATUS": "status",
+      "LEAVE_TYPE": "leave type",
+      "START_DATE": "start date",
+      "END_DATE": "end date"
+    },
+    "ADD_LEAVE": {
+      "HALF_DAY": "Half Day",
+      "FULL_START_DAY": "Full start day",
+      "FULL_END_DAY": "Full end day",
+      "DESCRIPTION": "Description",
+      "COMMENT": "Comment"
+    },
+    "EDIT_LEAVE": {
+      "LEAVE_DETAILS": "Leave details",
+      "UPDATE_LEAVE": "Update",
+      "PLACEHOLDER": "Insert text here",
+      "LEAVES_LIST": {
+        "ALL_LEAVES": "All Leaves"
+      }
+    }
+  },
+  "EVENTS_VIEW": {
+    "EVENTS": "Events",
+    "CALENDAR_NAME": "Calendar Name",
+    "EVENT_TYPE": "Event Type",
+    "STARTS_AT": "Starts at",
+    "ENDS_AT": "Ends at",
+    "TITLE": "Title",
+    "DESCRIPTION": "Description",
+    "REPETITIVE": "Repetitive",
+    "ALL_DAY": "All day",
+    "EVENTS_TABLE_HEADER": {
+      "TITLE": "Title",
+      "CALENDAR_NAME": "Calendar Name",
+      "EVENT_TYPE": "Event Type",
+      "PUBLIC_CALENDAR": "Public Calendar",
+      "START_DATE": "Start Date",
+      "END_DATE": "End Date"
+    },
+    "EVENT_TYPE_ENUM": {
+      "MEETING": "Meeting",
+      "DAILY_MEETING": "Daily Meeting",
+      "WORKSHOP": "Workshop",
+      "TRAINING": "Training",
+      "LEAVE": "Leave"
+    },
+    "REPETITIVE_ENUM": {
+      "DAILY": "Daily",
+      "WEEKLY": "Weekly",
+      "MONTHLY": "Monthly",
+      "YEARLY": "Yearly",
+      "UNREPEATABLE": "Unrepeatable"
+    },
+    "EVENTS_TOOLBAR": {
+      "EVENTS_TAB": "Events",
+      "EVENTS_DETAILS_TAB": "Event Details"
+    },
+    "EDIT_EVENT": {
+      "ALL_EVENTS": "All Events",
+      "EVENT_DETAILS": "Event Details",
+      "CALENDAR_NAME": "Calendar Name",
+      "TITLE": "Title",
+      "EVENT_TYPE": "Event Type",
+      "REPETITION": "Repetition",
+      "STARTS_AT": "Start at",
+      "ENDS_AT": "Ends at",
+      "ALL_DAY": "All day",
+      "DESCRIPTION": "Description",
+      "PUBLIC_TO_PRIVATE_CAL": "Are you sure to assign this event to a private calendar? \nOther users can no longer see it"
+    }
+  },
+  "TASKS_VIEW": {
+    "TASKS": "Tasks",
+    "ADD_NEW_CARD": "Add new card",
+    "ADD_NEW_LIST": "Add new list",
+    "CARD_DIALOG": {
+      "ID": "ID",
+      "SAVE": "Save",
+      "TAGS": "Tags",
+      "TITLE": "Title",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete",
+      "STATUS": "Status",
+      "PROJECT": "Project",
+      "SUMMARY": "Summary",
+      "ASSIGNEE": "Assignee",
+      "PRIORITY": "Priority",
+      "ADD_CARD": "Add card",
+      "EDIT_CARD": "Edit card",
+      "CARD_TYPE": "Card Type",
+      "STORY_POINTS": "Story Points"
+    },
+    "COLUMN_DIALOG": {
+      "COLUMN_KEY": "Column Key",
+      "COLUMN_NAME": "Column Name",
+      "COLUMN_INDEX": "Column Index",
+      "DIALOG_TITLE": "Add new list",
+      "PLACEHOLDERS": {
+        "COLUMN_KEY_PLACEHOLDER": "Set the key field",
+        "COLUMN_NAME_PLACEHOLDER": "Set the column name",
+        "COLUMN_INDEX_PLACEHOLDER": "Set the column index"
+      },
+      "COLUMN_HEADER": {
+        "DONE": "Done",
+        "OPEN": "Open",
+        "CLOSE": "Close",
+        "TO_DO": "To Do",
+        "REVIEW": "Review",
+        "IN_REVIEW": "In Review",
+        "IN_PROGRESS": "In Progress"
+      }
+    }
+  },
+  "CALENDAR_VIEW": {
+    "DAY": "Day",
+    "WEEK": "Week",
+    "NEXT": "Next",
+    "MONTH": "Month",
+    "TODAY": "Today",
+    "ENDS_AT": "Ends at",
+    "PREVIOUS": "Previous",
+    "CALENDARS": "Calendars",
+    "ADD_CALENDAR": "Add calendar",
+    "DELETE_CALENDAR": "Delete calendar",
+    "CREATE_CALENDAR_TITLE": "Create calendar",
+    "ADD_EXISTING_CALENDAR": "Add an existing calendar",
+    "NO_AVAILABLE_PROJECTS": "No project available",
+    "EVENT": {
+      "TITLE": "Title",
+      "ALL_DAY": "All day",
+      "STARTS_AT": "Start at",
+      "CALENDAR_NAME": "Calendar",
+      "DESCRIPTION": "Description",
+      "EVENT_TITLE": "Create event",
+      "EVENT_TYPE": {
+        "EVENTS": "Events",
+        "LEAVES": "Leaves",
+        "EVENT_TYPE": "Event type"
+      },
+      "REPETITIVITY": {
+        "DAILY": "Daily",
+        "YEARLY": "Yearly",
+        "WEEKLY": "Weekly",
+        "MONTHLY": "Monthly",
+        "REPETITIVE": "Repetitive",
+        "DOES_NOT_REPEAT": "Doesn't repeat"
+      },
+      "LEAVE": {
+        "USER": "User",
+        "LEAVE_TYPE": "Leave type",
+        "LEAVE_TITLE": "Create leave"
+      }
+    },
+    "PLACEHOLDERS": {
+      "NAME": "name",
+      "PROJECT": "Project",
+      "TIMEZONE": "timeZone",
+      "DESCRIPTION": "Description"
+    },
+    "ADD_CALENDAR_FORM": {
+      "IS_PUBLIC": "public",
+      "PROJECT_NAME": "project",
+      "NAME": "name",
+      "TIME_ZONE": "time zone",
+      "DESCRIPTION": "description"
+    },
+    "EDIT_CALENDAR": {
+      "CALENDAR_DETAILS": "Calendar details",
+      "PROJECT_NAME": "Project",
+      "CALENDAR_NAME": "Name",
+      "TIME_ZONE": "Time Zone",
+      "IS_PUBLIC": "Public",
+      "DESCRIPTION": "Description",
+      "ALL_CALENDARS": "All Calendars"
+    },
+    "RIGHT_BAR": {
+      "CALENDARS_LIST": "Calendars list",
+      "EVENTS_LIST": "Events list",
+      "LEAVES_LIST": "Leaves list",
+      "FILTER_BY_CALENDAR": "Filter by calendar",
+      "FILTER_BY_USER": "Filter by user",
+      "NO_AVAILABLE_CALENDARS": "You have no available calendars",
+      "NO_AVAILABLE_LEAVES": "There are no available leaves",
+      "NO_AVAILABLE_LEAVES_OR_CALENDARS": "There are no available leaves and calendars",
+      "CHECK_UNCHECK_ALL": "Check/Uncheck All"
+    },
+    "CALENDAR_TOOLBAR": {
+      "CALENDARS_TAB": "Calendars",
+      "CALENDAR_MANAGEMENT_TAB": "Calendars Management",
+      "CALENDAR_DETAILS_TAB": "Calendar details"
+    },
+    "CALENDAR_TABLE_HEADER": {
+      "CALENDAR_NAME": "Calendar name",
+      "PROJECT": "Project name",
+      "TIMEZONE": "Time zone",
+      "PUBLIC": "Public"
+    }
+  },
+  "TEAM_VIEW": {
+    "ID": "id",
+    "TEAM": "Team",
+    "FIRST_NAME": "first name",
+    "LAST_NAME": "last name",
+    "LOGIN": "login",
+    "EMAIL": "email",
+    "ACTIVE": "Active",
+    "REGISTRATION_NUMBER": "registration number",
+    "PASSWORD": "password",
+    "CONFIRM_PASSWORD": "Confirm password",
+    "NEW_USER": "New user",
+    "TEAM_TITLE": "Users list",
+    "MODIFY_USER": "Modify user",
+    "USERS_TOOLBAR": {
+      "USERS_TAB": "Users",
+      "USERS_DETAILS_TAB": "Users Details"
+    },
+    "PROFILE": {
+      "USER_PROFILE": "User Profile"
+    },
+    "USERS_LIST": {
+      "ALL_USERS": "All Users",
+      "USER": "User",
+      "LOGIN": "Login",
+      "EMAIL": "Email",
+      "ACTIVE": "Active",
+      "REGISTRATION_NUMBER": "Registration number"
+    },
+    "EDIT_PROFILE": {
+      "FIRST_NAME": "First name",
+      "LAST_NAME": "Last name",
+      "LOGIN": "Login",
+      "EMAIL": "Email",
+      "REGISTRATION_NUMBER": "Registration number",
+      "PASSWORD": "Password",
+      "CONNECTED_PASSWORD": "Enter your password",
+      "NEW_PASSWORD": "Enter new password",
+      "CONFIRM_PASSWORD": "Confirm password",
+      "ACTIVE": "Active",
+      "NOTE": "Note",
+      "DESCRIPTION": "Description",
+      "COMMENT": "Comment",
+      "UPDATE_PROFILE": "Update Profile",
+      "PLACEHOLDER": "Insert text here",
+      "CANCEL": "Cancel",
+      "EDIT_PASSWORD": "Edit password",
+      "DELETE_USER": "Delete User",
+      "RESET": "Reset",
+      "ADMINISTRATOR": "Administrator",
+      "ACCOUNT_MANAGER": "Account Manager"
+    },
+    "DELETE_USER_MESSAGE": "Are you sure you want to delete the details of <b>{{value}}<b/>?",
+    "DELETE_ADMIN_MESSAGE": "This user, <b>{{value}}</b>,has the <b>Administrator</b> role, are you sure you want to delete it?",
+    "DELETE_ACCOUNT_MANAGER_MESSAGE": "This user, <b>{{value}}</b>, has the <b>Account Manager</b> role, are you sure you want to delete it?",
+    "DELETE_ADMIN_ACCOUNT_MANAGER_MESSAGE": "This user, <b>{{value}}</b>, has the <b>Administrator</b> and <b>Account Manager</b> role, are you sure you want to delete it?",
+    "SET_AS_ADMINISTRATOR_MESSAGE": "Are you sure you want to assign the <b>Administrator</b> role to <b>{{value}}</b>?",
+    "SET_AS_ACCOUNT_MANAGER_MESSAGE": "Are you sure you want to assign the <b>Account Manager</b> role to <b>{{value}}</b>?",
+    "REMOVE_ADMINISTRATOR_ROLE_MESSAGE": "Are you sure you want to remove the <b>Administrator</b> role from <b>{{value}}</b>?",
+    "REMOVE_ACCOUNT_MANAGER_ROLE_MESSAGE": "Are you sure you want to remove the <b>Account Manager</b> role from <b>{{value}}</b>?"
+  },
+  "CUSTOMERS_VIEW": {
+    "NAME": "Name",
+    "IS_ACTIVE": "Active",
+    "DESCRIPTION": "Description",
+    "ACTIVE": "Active",
+    "CUSTOMERS": "Customers",
+    "CUSTOMER_ID": "customerId",
+    "CUSTOMER_NAME": "customerName",
+    "NEW_CUSTOMERS": "New Customers",
+    "CUSTOMER_TITLE": "Customers list",
+    "MODIFY_CUSTOMERS": "Modify Customers",
+    "CUSTOMERS_TOOLBAR": {
+      "CUSTOMERS_TAB": "Customers",
+      "CUSTOMER_DETAILS_TAB": "Customer Details"
+    },
+    "EDIT_CUSTOMER": {
+      "CUSTOMER_DETAILS": "Customer Details",
+      "PLACEHOLDER": "Insert text here",
+      "Customers_LIST": {
+        "ALL_Customers": "All Customers"
+      }
+    },
+    "CUSTOMER_LIST": {
+      "NAME": "Name",
+      "ACTIVE": "Active"
+    }
+  },
+  "REPORT_VIEW": {
+    "REPORT": "Reports",
+    "SUMMARY": "Summary",
+    "DETAILED": "Detailed",
+    "SHARED": "Shared",
+    "WEEKLY": "Weekly"
+  },
+  "DOCUMENTS_VIEW": {
+    "DOCUMENTS": "Documents"
+  },
+  "PROJECTS_VIEW": {
+    "ACTIVE": "Active",
+    "PROJECTS": "Projects",
+    "CUSTOMER_NAME": "Customer",
+    "NEW_PROJECT": "New Project",
+    "DESCRIPTION": "Description",
+    "PROJECT_NAME": "Project Name",
+    "PROJECT_TITLE": "Projects list",
+    "MODIFY_PROJECT": "Modify Project",
+    "PROJECTS_TOOLBAR": {
+      "PROJECTS_TAB": "Projects",
+      "PROJECT_DETAILS_TAB": "Project Details"
+    },
+    "EDIT_PROJECT": {
+      "PROJECT_DETAILS": "Project Details",
+      "UPDATE_PROJECT": "Update",
+      "PLACEHOLDER": "Insert text here"
+    },
+    "PROJECT_LIST": {
+      "NAME": "Name",
+      "CUSTOMER": "Customer",
+      "ACTIVE": "Active"
+    },
+    "ROLES": {
+      "USER": "user",
+      "SELECT_USER": "Select user",
+      "SELECT_ROLE_PLACEHOLDER": "Select role ...",
+      "ROLE": "role",
+      "PROJECT": "project",
+      "PROJECT_TAB": "Projects",
+      "SET_ROLES": "Set Roles",
+      "NEW_ROLES": "New Roles",
+      "PROJECT_ROLES": "Project Roles",
+      "PROJECT_ROLES_TAB": "Project Roles",
+      "NO_ROLES": "No users with assigned role for this project"
+    }
+  },
+  "PAGINATION": {
+    "PAGE_LABEL": "Items per page"
+  },
+  "ERROR_MESSAGES": {
+    "REQUIRED": "{{elementName}} is required",
+    "REGISTRATION_NUMBER": "Registration Number"
+  },
+  "OK": "Ok",
+  "NO": "No",
+  "YES": "Yes",
+  "ADD": "Add",
+  "EDIT": "Edit",
+  "SAVE": "Save",
+  "RESET": "Reset",
+  "CANCEL": "Cancel",
+  "CREATE": "Create",
+  "SEARCH": "Search",
+  "DELETE": "Delete",
+  "NO_DATA": "No data ...",
+  "INACTIVE": "Inactive",
+  "UNDER_CONSTRUCTION": "Under Construction",
+  "CUSTOMER_DELETE_WARNING_MESSAGE": "Customer still has project",
+  "DELETE_TITLE": "Confirm Delete Action",
+  "SET_GLOBAL_ROLE_TITLE": "Confirm Role Setting Action",
+  "REMOVE_GLOBAL_ROLE_TITLE": "Confirm Role Deletion",
+  "MANDATORY_FIELD": "This field is mandatory",
+  "WARNING_MESSAGE": "You should create a calendar before",
+  "DELETE_MESSAGE": "Are you sure you want to delete this item?",
+  "DELETE_ADMIN_MESSAGE": "Are you sure you want to delete this <b>Administrator</b>?",
+  "SET_AS_ADMINISTRATOR_MESSAGE": "Are you sure you want to assign the <b>Administrator</b> role?",
+  "SET_AS_ACCOUNT_MANAGER_MESSAGE": "Are you sure you want to assign the <b>Account Manager</b> role?",
+  "REMOVE_ADMINISTRATOR_ROLE_MESSAGE": "Are you sure you want to remove the <b>Administrator</b> role?",
+  "REMOVE_ACCOUNT_MANAGER_ROLE_MESSAGE": "Are you sure you want to remove the <b>Account Manager</b> role?",
+  "DELETE_CALENDAR_MESSAGE": "Are you sure you want to delete this calendar? \nAll attached events will be deleted too"
+}

@@ -1,0 +1,23 @@
+<div class="calendar-header-container">
+  <mat-tab-group [selectedIndex]="selectedIndex" animationDuration="0ms" (selectedTabChange)="navigateFromTabs($event.index)">
+    <mat-tab label="Calendars">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab_icon">date_range</mat-icon>
+        {{ 'CALENDAR_VIEW.CALENDAR_TOOLBAR.CALENDARS_TAB' | translate }}
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Calendar Management">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab_icon">calendar_today</mat-icon>
+        {{ 'CALENDAR_VIEW.CALENDAR_TOOLBAR.CALENDAR_MANAGEMENT_TAB' | translate }}
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab disabled label="Calendar Details">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab_icon">list_alt</mat-icon>
+        {{ 'CALENDAR_VIEW.CALENDAR_TOOLBAR.CALENDAR_DETAILS_TAB' | translate }}
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

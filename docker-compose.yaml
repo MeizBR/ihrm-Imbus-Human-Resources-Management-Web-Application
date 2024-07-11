@@ -1,0 +1,104 @@
+version: '3.9'
+services:
+
+  # postgres service
+  ihrmDB:
+    image: postgres
+    container_name: ihrmDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - ihrm_db_data:/var/lib/postgresql/data
+    secrets:
+      - postgres_user
+      - postgres_password
+      - postgres_db
+    environment:
+      POSTGRES_USER: /run/secrets/postgres_user
+      POSTGRES_PASSWORD: /run/secrets/postgres_password
+      POSTGRES_DB: /run/secrets/postgres_db
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+    networks:
+      ihrm-net:
+        ipv4_address: 172.31.0.2
+
+  # backend service
+  backend:
+    container_name: backend
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+      # target: ${TARGET}
+      args:
+        UID: ${HOST_UID}
+        GID: ${HOST_GID}
+    ports:
+      - "9000:9000"
+    depends_on:
+      - ihrmDB
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+    networks:
+      ihrm-net:
+        ipv4_address: 172.31.0.3
+
+  # frontend service
+  frontend:
+    container_name: frontend
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+      # target: ${TARGET}
+      args:
+        UID: ${HOST_UID}
+        GID: ${HOST_GID}
+    ports:
+      - "80:80"
+    depends_on:
+      - ihrmDB
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+    volumes:
+      - ./frontend/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend/nginx/cors.conf:/etc/nginx/conf.d/cors.conf
+      - ./frontend/nginx/global.conf:/etc/nginx/global.conf
+    networks:
+      ihrm-net:
+        ipv4_address: 172.31.0.4
+
+# volumes
+volumes:
+  ihrm_db_data:
+
+# networks
+networks:
+  ihrm-net:
+    name: ihrm-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
+          gateway: 172.31.0.1
+
+# secrets
+secrets:
+  postgres_user:
+    file: ./secrets/postgres_user.txt
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+  postgres_db:
+    file: ./secrets/postgres_db.txt

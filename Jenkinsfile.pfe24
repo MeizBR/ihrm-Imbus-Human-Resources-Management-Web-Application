@@ -1,0 +1,137 @@
+echo " CI/CD iHRM PROJECT "
+
+pipeline {
+    agent any
+
+    // Define the environment variables
+    environment {
+        TARGET = 'build'
+        HOST_UID = '1001'
+        HOST_GID = '1001'
+        DOCKER_HUB_PWD = credentials('dockerhub')
+    }
+
+    stages {
+        // Print env variables
+        stage('Print env variables') {
+            steps {
+                echo "Target : ${TARGET}"
+                echo "Host user id: ${HOST_UID}"
+                echo "Host group id: ${HOST_GID}"
+            }
+        }
+
+        // Checkout the Git repository
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        // Prepare containers
+        stage('prepare containers') {
+            steps {
+                sh 'docker compose up -d --build'
+            }
+        }
+
+        // Angular Tests
+        stage('Frontend Format code') {
+            steps {
+                sh 'docker compose exec frontend npm run format'
+            }
+        }
+
+        stage('Frontend Lint Tests') {
+            steps {
+                sh 'docker compose exec frontend npm run test-lint'
+            }
+        }
+
+        stage('Frontend Format Tests') {
+            steps {
+                sh 'docker compose exec frontend npm run test-format'
+            }
+        }
+
+        stage('Frontend Headless Unit Tests and generate test results') {
+            steps {
+                sh 'docker compose exec frontend npm run test-headless'
+                sh 'docker cp frontend:/app/allure-results .'
+            }
+            post {
+                always {
+                    script {
+                        allure([
+                                includeProperties: false,
+                                jdk: '',
+                                properties: [],
+                                reportBuildPolicy: 'ALWAYS',
+                                results: [[path: 'allure-results']]
+                            ])
+                    }
+                }
+            }
+        }
+
+        stage('Frontend End-to-End Tests') {
+            steps {
+                sh 'docker compose exec frontend npm run e2e'
+            }
+        }
+
+        // Scala Tests
+        stage('Backend tests') {
+            steps {
+                sh 'docker compose exec backend sbt test'
+            }
+        }
+
+        // Tag images
+        stage('Tag images') {
+            steps {
+                sh 'docker tag ihrmpipeline-backend maiezbrm/ihrm_backend:Jenkins-CICD'
+                sh 'docker tag ihrmpipeline-frontend maiezbrm/ihrm_frontend:Jenkins-CICD'
+            }
+        }
+
+        // Push images to DockerHub
+        stage('Push images to DockerHub') {
+            steps {
+                withCredentials([string(credentialsId: 'dockerhub', variable: 'DOCKER_HUB_PWD')]) {
+                    sh 'docker login -u maiezbrm -p $DOCKER_HUB_PWD'
+                    sh 'docker push maiezbrm/ihrm_frontend:Jenkins-CICD'
+                    sh 'docker push maiezbrm/ihrm_backend:Jenkins-CICD'
+                }
+            }
+        }
+
+        // Deploy the webapp with Ansible on a dedicated vm provisionned with Vagrant
+        stage('Deploy the app using Ansible and Vagrant') {
+            steps {
+                dir('ansible') {
+                    sh "vagrant up"
+                }
+            }
+        }
+
+        // Clean the workspace
+        stage('Clean up') {
+            steps {
+                sh 'docker compose down'
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
