@@ -65,6 +65,7 @@ swagger-ui/*
 scripts/*
 secrets/*
 terraform/*.tfvars
+terraform/.terraform/
 Jenkinsfile
 *.Jenkinsfile
 *.bak
