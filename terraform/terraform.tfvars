@@ -5,4 +5,4 @@ ihrm_subnet_avail_zone = "eu-north-1a"
 ihrm_env_prefix = "dev"
 ip_addresses_range = ["196.235.236.20/32"]
 instance_type = "t3.micro"
-image_name = "al2023-ami-*-x86_64"
+image_name = "al2023-ami-2023.5.20240708.0-kernel-6.1-x86_64"

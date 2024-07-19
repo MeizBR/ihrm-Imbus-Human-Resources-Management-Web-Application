@@ -30,7 +30,6 @@ resource "aws_security_group" "ihrm_sg" {
 }
 
 data "aws_ami" "latest_amazon_linux_image" {
-    most_recent = true
     owners = ["amazon"]
     filter {
         name = "name"
