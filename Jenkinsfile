@@ -23,12 +23,12 @@ pipeline {
         //     }
         // }
 
-        // Checkout the Git repository
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+        // // Checkout the Git repository
+        // stage('Checkout') {
+        //     steps {
+        //         checkout scm
+        //     }
+        // }
 
         // // Export environment variables and prepare containers
         // stage('prepare containers') {
