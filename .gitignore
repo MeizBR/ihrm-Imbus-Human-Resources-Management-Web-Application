@@ -64,8 +64,9 @@ project/*
 swagger-ui/*
 scripts/*
 secrets/*
-terraform/*.tfvars
+# terraform/*.tfvars
 terraform/.terraform/
 Jenkinsfile
 *.Jenkinsfile
 *.bak
+vagrant_ansbile/.vagrant

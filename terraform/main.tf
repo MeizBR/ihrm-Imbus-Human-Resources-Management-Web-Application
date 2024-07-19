@@ -1,5 +1,5 @@
 provider "aws" {
-    region = "eu-north-1"
+    region = var.ihrm_region
 }
 
 resource "aws_vpc" "ihrm_vpc" {
@@ -28,5 +28,4 @@ module "ihrm_webserver" {
     ihrm_subnet_avail_zone = var.ihrm_subnet_avail_zone
     ihrm_env_prefix = var.ihrm_env_prefix
     vpc_id = aws_vpc.ihrm_vpc.id
-    public_key_location = var.public_key_location
 }

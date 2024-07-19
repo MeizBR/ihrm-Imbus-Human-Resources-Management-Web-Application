@@ -42,11 +42,6 @@ data "aws_ami" "latest_amazon_linux_image" {
     }
 }
 
-resource "aws_key_pair" "ssh_key" {
-    key_name = "server_key"
-    public_key = file(var.public_key_location)
-}
-
 resource "aws_instance" "ihrm_server" {
     ami = data.aws_ami.latest_amazon_linux_image.id
     instance_type = var.instance_type

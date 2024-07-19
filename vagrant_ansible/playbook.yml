@@ -1,0 +1,11 @@
+---
+- name: Execute the main playbook
+  hosts: all
+  tasks:
+    - ansible.builtin.debug:
+        msg: Play the main playbook "playbook.yml"
+- name: Execute playbook to install Docker
+  ansible.builtin.import_playbook: install_docker.yml
+
+- name: Execute playbook to manage Docker environment.
+  ansible.builtin.import_playbook: manage_docker.yml

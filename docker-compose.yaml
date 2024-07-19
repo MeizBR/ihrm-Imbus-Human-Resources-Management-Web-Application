@@ -23,8 +23,7 @@ services:
           cpus: "0.5"
           memory: "512M"
     networks:
-      ihrm-net:
-        ipv4_address: 172.31.0.2
+      - ihrm-net
 
   # backend service
   backend:
@@ -32,7 +31,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./backend
-      # target: ${TARGET}
+      target: ${TARGET}
       args:
         UID: ${HOST_UID}
         GID: ${HOST_GID}
@@ -46,8 +45,7 @@ services:
           cpus: "0.5"
           memory: "512M"
     networks:
-      ihrm-net:
-        ipv4_address: 172.31.0.3
+      - ihrm-net
 
   # frontend service
   frontend:
@@ -58,7 +56,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./frontend
-      # target: ${TARGET}
+      target: ${TARGET}
       args:
         UID: ${HOST_UID}
         GID: ${HOST_GID}
@@ -77,8 +75,7 @@ services:
       - ./frontend/nginx/cors.conf:/etc/nginx/conf.d/cors.conf
       - ./frontend/nginx/global.conf:/etc/nginx/global.conf
     networks:
-      ihrm-net:
-        ipv4_address: 172.31.0.4
+      - ihrm-net
 
 # volumes
 volumes:
@@ -89,10 +86,6 @@ networks:
   ihrm-net:
     name: ihrm-net
     driver: bridge
-    ipam:
-      config:
-        - subnet: 172.31.0.0/16
-          gateway: 172.31.0.1
 
 # secrets
 secrets:
