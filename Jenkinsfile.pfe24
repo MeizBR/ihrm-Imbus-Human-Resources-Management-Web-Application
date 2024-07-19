@@ -160,12 +160,12 @@ pipeline {
             }
         }
 
-        // Clean the workspace
-        stage('Clean up') {
-            steps {
-                sh 'docker compose down'
-            }
-        }
+        // // Clean the workspace
+        // stage('Clean up') {
+        //     steps {
+        //         sh 'docker compose down'
+        //     }
+        // }
     }
 
     post {
