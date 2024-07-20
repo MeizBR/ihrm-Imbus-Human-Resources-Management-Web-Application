@@ -66,4 +66,7 @@ scripts/*
 secrets/*
 # terraform/*.tfvars
 terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
 vagrant_ansbile/.vagrant
+terraform_ansible/hosts.ini
