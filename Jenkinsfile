@@ -14,14 +14,14 @@ pipeline {
     }
 
     stages {
-        // // Print env variables
-        // stage('Print env variables') {
-        //     steps {
-        //         echo "Target : ${TARGET}"
-        //         echo "Host user id: ${HOST_UID}"
-        //         echo "Host group id: ${HOST_GID}"
-        //     }
-        // }
+        // Print env variables
+        stage('Print env variables') {
+            steps {
+                echo "Target : ${TARGET}"
+                echo "Host user id: ${HOST_UID}"
+                echo "Host group id: ${HOST_GID}"
+            }
+        }
 
         // Checkout the Git repository
         stage('Checkout') {
@@ -30,99 +30,99 @@ pipeline {
             }
         }
 
-        // // Export environment variables and prepare containers
-        // stage('prepare containers') {
-        //     steps {
-        //         script {
-        //             sh """
-        //                 export TARGET=${env.TARGET}
-        //                 export HOST_UID=${env.HOST_UID}
-        //                 export HOST_GID=${env.HOST_GID}
-        //                 docker-compose up -d --build
-        //             """
-        //         }
-        //     }
-        // }
+        // Export environment variables and prepare containers
+        stage('prepare containers') {
+            steps {
+                script {
+                    sh """
+                        export TARGET=${env.TARGET}
+                        export HOST_UID=${env.HOST_UID}
+                        export HOST_GID=${env.HOST_GID}
+                        docker-compose up -d --build
+                    """
+                }
+            }
+        }
 
-        // // Angular Tests
-        // stage('Frontend Format code') {
-        //     steps {
-        //         sh 'docker compose exec frontend npm run format'
-        //     }
-        // }
+        // Angular Tests
+        stage('Frontend Format code') {
+            steps {
+                sh 'docker compose exec frontend npm run format'
+            }
+        }
 
-        // stage('Frontend Lint Tests') {
-        //     steps {
-        //         sh 'docker compose exec frontend npm run test-lint'
-        //     }
-        // }
+        stage('Frontend Lint Tests') {
+            steps {
+                sh 'docker compose exec frontend npm run test-lint'
+            }
+        }
 
-        // stage('Frontend Format Tests') {
-        //     steps {
-        //         sh 'docker compose exec frontend npm run test-format'
-        //     }
-        // }
+        stage('Frontend Format Tests') {
+            steps {
+                sh 'docker compose exec frontend npm run test-format'
+            }
+        }
 
-        // stage('Frontend Headless Unit Tests and generate test results') {
-        //     steps {
-        //         sh 'docker compose exec frontend npm run test-headless'
-        //         sh 'docker cp frontend:/app/allure-results .'
-        //     }
-        //     post {
-        //         always {
-        //             script {
-        //                 allure([
-        //                         includeProperties: false,
-        //                         jdk: '',
-        //                         properties: [],
-        //                         reportBuildPolicy: 'ALWAYS',
-        //                         results: [[path: 'allure-results']]
-        //                     ])
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Frontend Headless Unit Tests and generate test results') {
+            steps {
+                sh 'docker compose exec frontend npm run test-headless'
+                sh 'docker cp frontend:/app/allure-results .'
+            }
+            post {
+                always {
+                    script {
+                        allure([
+                                includeProperties: false,
+                                jdk: '',
+                                properties: [],
+                                reportBuildPolicy: 'ALWAYS',
+                                results: [[path: 'allure-results']]
+                            ])
+                    }
+                }
+            }
+        }
 
-        // stage('Frontend End-to-End Tests') {
-        //     steps {
-        //         sh 'docker compose exec frontend npm run e2e'
-        //     }
-        // }
+        stage('Frontend End-to-End Tests') {
+            steps {
+                sh 'docker compose exec frontend npm run e2e'
+            }
+        }
 
-        // // Scala Tests
-        // stage('Backend tests') {
-        //     steps {
-        //         sh 'docker compose exec backend sbt test'
-        //     }
-        // }
+        // Scala Tests
+        stage('Backend tests') {
+            steps {
+                sh 'docker compose exec backend sbt test'
+            }
+        }
 
-        // // Tag images
-        // stage('Tag images') {
-        //     steps {
-        //         sh 'docker tag ihrmpipeline-backend $IHRM_BACKEND_IMAGE_NAME'
-        //         sh 'docker tag ihrmpipeline-frontend $IHRM_FRONTEND_IMAGE_NAME'
-        //     }
-        // }
+        // Tag images
+        stage('Tag images') {
+            steps {
+                sh 'docker tag ihrmpipeline-backend $IHRM_BACKEND_IMAGE_NAME'
+                sh 'docker tag ihrmpipeline-frontend $IHRM_FRONTEND_IMAGE_NAME'
+            }
+        }
 
-        // // Push images to DockerHub
-        // stage('Push images to DockerHub') {
-        //     steps {
-        //         withCredentials([string(credentialsId: 'dockerhub', variable: 'DOCKER_HUB_PWD')]) {
-        //             sh 'docker login -u maiezbrm -p $DOCKER_HUB_PWD'
-        //             sh 'docker push $IHRM_BACKEND_IMAGE_NAME'
-        //             sh 'docker push $IHRM_FRONTEND_IMAGE_NAME'
-        //         }
-        //     }
-        // }
+        // Push images to DockerHub
+        stage('Push images to DockerHub') {
+            steps {
+                withCredentials([string(credentialsId: 'dockerhub', variable: 'DOCKER_HUB_PWD')]) {
+                    sh 'docker login -u maiezbrm -p $DOCKER_HUB_PWD'
+                    sh 'docker push $IHRM_BACKEND_IMAGE_NAME'
+                    sh 'docker push $IHRM_FRONTEND_IMAGE_NAME'
+                }
+            }
+        }
 
-        // // Deploy the webapp with Ansible on a dedicated vm provisionned with Vagrant
-        // stage('Deploy the app using Vagrant and Ansible') {
-        //     steps {
-        //         dir('vagrant and ansible') {
-        //             sh "vagrant up"
-        //         }
-        //     }
-        // }
+        // Deploy the webapp with Ansible on a dedicated vm provisionned with Vagrant
+        stage('Deploy the app using Vagrant and Ansible') {
+            steps {
+                dir('vagrant and ansible') {
+                    sh "vagrant up"
+                }
+            }
+        }
 
         // Deploy the app on EC2 instance using Terraform and Ansible
         stage('Provision server') {
@@ -130,6 +130,9 @@ pipeline {
                 AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
                 AWS_SECRET_ACCESS_KEY = credentials('jenkins_aws_secret_access_key')
                 TF_VAR_env_prefix = 'test'
+
+                VM_USER = "ubuntu"
+                PRIVATE_KEY_LOCATION = "/home/.ssh/aws-aws.pem"
             }
             steps {
                 script {
@@ -140,7 +143,11 @@ pipeline {
                             script: "terraform output ec2_public_ip",
                             returnStdout: true
                         ).trim()
-                        sh "chmod +x ec2_ip.sh && ./ec2_ip.sh"
+
+                        sh """
+                        chmod +x ec2_ip.sh
+                        ./ec2_ip.sh $VM_USER $PRIVATE_KEY_LOCATION
+                        """
                     }
                 }
             }
@@ -160,12 +167,12 @@ pipeline {
             }
         }
 
-        // // Clean the workspace
-        // stage('Clean up') {
-        //     steps {
-        //         sh 'docker compose down'
-        //     }
-        // }
+        // Clean the workspace
+        stage('Clean up') {
+            steps {
+                sh 'docker compose down'
+            }
+        }
     }
 
     post {
