@@ -1,6 +1,6 @@
 ---
 - name: Pull Docker images and start containers
-  hosts: all
+  hosts: ec2
   become: true
   tasks:
     # Create Docker Volume

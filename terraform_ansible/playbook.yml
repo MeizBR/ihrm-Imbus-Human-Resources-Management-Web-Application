@@ -1,6 +1,6 @@
 ---
 - name: Execute the main playbook
-  hosts: all
+  hosts: ec2
   tasks:
     - ansible.builtin.debug:
         msg: Play the main playbook "playbook.yml"

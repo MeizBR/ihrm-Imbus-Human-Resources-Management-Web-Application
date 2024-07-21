@@ -146,7 +146,7 @@ pipeline {
 
                         sh """
                         chmod +x ec2_ip.sh
-                        ./ec2_ip.sh $VM_USER $PRIVATE_KEY_LOCATION
+                        ./ec2_ip.sh $VM_USER
                         """
                     }
                 }
@@ -160,8 +160,11 @@ pipeline {
 
                     echo "Deploying the app Docker containers to EC2 instance on AWS ..."
 
-                    dir('terraform_ansible') {
-                        sh "ansible-playbook -i hosts.ini playbook.yml"
+                    withCredentials([file(credentialsId: 'server_ssh_key', variable: 'PEM_FILE')]) {
+                        dir('terraform_ansible') {
+                            export ANSIBLE_HOST_KEY_CHECKING=False
+                            sh "ansible-playbook -i hosts.ini playbook.yml --key-file $PEM_FILE"
+                        }
                     }
                 }
             }
